@@ -5,6 +5,9 @@
   text-align: center;
 }
 
+
+
+
 .logo {
   height: 6em;
   padding: 1.5em;
@@ -32,6 +35,8 @@
     animation: logo-spin infinite 20s linear;
   }
 }
+
+
 
 .card {
   padding: 2em;
