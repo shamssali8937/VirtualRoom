@@ -15,13 +15,32 @@ function Login()
         email:"",
         password:""
     });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setData({
+            ...data,
+            [name]: value
+        });
+    };
+
+    
+    const handleSubmit = () => {
+        if (action === "Signup") {
+            alert("Signed up with data: " + JSON.stringify(data));
+        } else {
+            alert("Logged in with email: " + data.email);
+        }
+    };
+
     return(<>
-    <div className="container">
+    <div className="container">        
         <div className="header">
             <div className="text">{action}</div>
             <div className="underline"></div>
         </div>
         <div className="inputs">
+            
         {action==="Login"?<div></div>:
         <>
             <div className="input">              
@@ -47,7 +66,12 @@ function Login()
         <div className="submit-container">
             <button className={action==="Login"?"submit gray":"submit"} onClick={()=>{
                 setaction("Signup");
-                alert("hi");
+                if(action==="signup")
+                {
+                    onclick=()=>{
+                        alert("signedin");
+                    }
+                }
             }}>Sign up</button>
             <button type="submit" formMethod="post" className={action==="Signup"?"submit gray":"submit"} onClick={()=>{
                 setaction("Login");
