@@ -17,13 +17,24 @@ function Login()
             <div className="input">
                 <img src={user} alt="" />
                 <input type="text" name="" id="" />
+              </div>  
+              <dvi className="input">
                 <img src={user} alt="" />
                 <input type="text" name="" id="" />
+              </dvi>
+              <div className="input">
                 <img src={emailicon} alt="" />
                 <input type="email" name="" id="" />
+              </div>
+              <div className="input">
                 <img src={passicon} alt="" />
                 <input type="password" name="" id="" />
+              
             </div>
+        </div>
+        <div className="submit-container">
+            <div className="submit">Sign up</div>
+            <div className="submit">Login</div>
         </div>
     </div>
     </>);
