@@ -4,6 +4,7 @@
     flex-direction: column;
     margin: auto;
     margin-top: 50px;
+    width: 600px;
     background: #fff;
     padding-bottom: 30px;
 }
@@ -59,4 +60,27 @@
     outline: none;
     color: #797979;
     font-size: 19px;
+}
+.submit-container{
+    display: flex;
+    gap: 30px;
+    margin: 60px auto;
+}
+.submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 220px;
+    height: 60px;
+    color: #fff;
+    background:  blueviolet;
+    border-radius: 50px;
+    font-size: 19px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.gray{
+    background: #eaeaea;
+    color: #676767;
 }
