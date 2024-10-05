@@ -6,9 +6,14 @@ import Tag from './tag.jsx'
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
-    <App />
-    <Tag />
+  <>
+      <App />
+      <Tag />
+  </>
+    
+    
   </StrictMode>,
+ 
 )
 
 
