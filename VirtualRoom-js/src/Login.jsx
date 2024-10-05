@@ -15,6 +15,22 @@ function Login()
         email:"",
         password:""
     });
+
+    const handlesubmit=(event)=>{
+          event.preventDefault();
+          if(action==="Signup")
+          {
+            if(!data.email||!data.name||!data.username||!data.password)
+            {
+                alert("Please enter the credential");
+            }
+            else
+            {
+                alert("Registered");
+            }
+          }
+    }
+
     return(<>
     <div className="container">        
         <div className="header">
@@ -22,7 +38,6 @@ function Login()
             <div className="underline"></div>
         </div>
         <div className="inputs">
-            
         {action==="Login"?<div></div>:
         <>
             <div className="input">              
@@ -43,7 +58,7 @@ function Login()
                 <img src={passicon} alt="" />
                 <input type="password" name="" id="" placeholder="Password" required/>
               
-            </div>
+            </div>           
         </div>
         <div className="submit-container">
             <button className={action==="Login"?"submit gray":"submit"} onClick={()=>{
