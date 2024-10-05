@@ -15,24 +15,6 @@ function Login()
         email:"",
         password:""
     });
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setData({
-            ...data,
-            [name]: value
-        });
-    };
-
-    
-    const handleSubmit = () => {
-        if (action === "Signup") {
-            alert("Signed up with data: " + JSON.stringify(data));
-        } else {
-            alert("Logged in with email: " + data.email);
-        }
-    };
-
     return(<>
     <div className="container">        
         <div className="header">
@@ -66,10 +48,14 @@ function Login()
         <div className="submit-container">
             <button className={action==="Login"?"submit gray":"submit"} onClick={()=>{
                 setaction("Signup");
-                if(action==="signup")
+                if(action==="Signup")
                 {
                     onclick=()=>{
-                        alert("signedin");
+                        if(data.email&&data.name&&data.username&&data.password===null)
+                        {
+                            alert("enter credntial");
+                        }
+                        
                     }
                 }
             }}>Sign up</button>
