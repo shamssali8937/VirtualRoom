@@ -16,19 +16,19 @@ function Login()
         <div className="inputs">
             <div className="input">
                 <img src={user} alt="" />
-                <input type="text" name="" id="" />
+                <input type="text" name="" id="" placeholder="Name" />
               </div>  
               <dvi className="input">
                 <img src={user} alt="" />
-                <input type="text" name="" id="" />
+                <input type="text" name="" id="" placeholder="Username"/>
               </dvi>
               <div className="input">
                 <img src={emailicon} alt="" />
-                <input type="email" name="" id="" />
+                <input type="email" name="" id="" placeholder="Email"/>
               </div>
               <div className="input">
                 <img src={passicon} alt="" />
-                <input type="password" name="" id="" />
+                <input type="password" name="" id="" placeholder="Password"/>
               
             </div>
         </div>
