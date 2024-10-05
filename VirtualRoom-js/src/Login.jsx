@@ -9,6 +9,12 @@ import passicon from './assets/Images/password.png'
 function Login()
 {
     const [action,setaction]=useState("Signup");
+    const [data,setdata]=useState({
+        name:" ",
+        username:"",
+        email:"",
+        password:""
+    });
     return(<>
     <div className="container">
         <div className="header">
@@ -17,32 +23,36 @@ function Login()
         </div>
         <div className="inputs">
         {action==="Login"?<div></div>:
+        <>
             <div className="input">              
                 <img src={user} alt="" />
-                <input type="text" name="" id="" placeholder="Name" />
+                <input type="text" name="" id="" placeholder="Name" required/>
               </div> 
-        }
               <div className="input">
                 <img src={user} alt="" />
-                <input type="text" name="" id="" placeholder="Username"/>
-              </div>
+                <input type="text" name="" id="" placeholder="Username" required/>
+              </div>       
+        </>
+        }
               <div className="input">
                 <img src={emailicon} alt="" />
-                <input type="email" name="" id="" placeholder="Email"/>
+                <input type="email" name="" id="" placeholder="Email" required/>
               </div>
               <div className="input">
                 <img src={passicon} alt="" />
-                <input type="password" name="" id="" placeholder="Password"/>
+                <input type="password" name="" id="" placeholder="Password" required/>
               
             </div>
         </div>
         <div className="submit-container">
-            <div className={action==="Login"?"submit gray":"submit"} onClick={()=>{
+            <button className={action==="Login"?"submit gray":"submit"} onClick={()=>{
                 setaction("Signup");
-            }}>Sign up</div>
-            <div className={action==="Signup"?"submit gray":"submit"} onClick={()=>{
+                alert("hi");
+            }}>Sign up</button>
+            <button type="submit" formMethod="post" className={action==="Signup"?"submit gray":"submit"} onClick={()=>{
                 setaction("Login");
-            }}>Login</div>
+                
+            }}>Login</button>
         </div>
     </div>
     </>);
