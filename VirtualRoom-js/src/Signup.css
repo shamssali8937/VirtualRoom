@@ -11,6 +11,8 @@
     padding-bottom: 2rem;  
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
     border-radius: 3rem;
+    max-width: 100%;
+    box-sizing: border-box;
 }
 .header{
     display: flex;
@@ -97,4 +99,62 @@
     font-size: 1.5rem;
     font-weight: 700;
     cursor: pointer;
+}
+
+@media only screen and (max-width:768px){
+    .container{
+        width: 100%;
+        margin: 2rem;
+        padding: 1rem;
+        max-width: 90%;
+    }
+    .text{
+        font-size: 3rem;
+    }
+    .inputs{
+        margin-top: 4rem;
+        gap: 1rem;
+    }
+    .input{
+        height: 4rem;
+    }
+    .input input{
+        font-size: 1.4rem;
+    }
+    .submit{
+        width: 15rem;
+        height: 3rem;
+        font-size: 1.3rem;
+    }
+}
+@media only screen and (max-width: 480px) {
+    .container {
+        width: 100%;
+        margin: 1rem;
+        padding: 0.5rem;
+        max-width: 100%;
+    }
+
+    .text {
+        font-size: 2.5rem;
+    }
+
+    .inputs {
+        margin-top: 3rem;
+        gap: 0.8rem;
+    }
+
+    .input {
+        height: 3.5rem;
+    }
+
+    .input input {
+        font-size: 1.2rem;
+    }
+
+    .submit {
+        width: 13rem;
+        height: 2.5rem;
+        font-size: 1.2rem;
+    }
 }
