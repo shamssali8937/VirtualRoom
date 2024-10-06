@@ -21,7 +21,7 @@ function Signup()
         event.preventDefault();
         if(data.email&&data.password&&data.name&&data.username)
         {
-            navigate("/landpage");
+            navigate("/Landpage");
         }
     };
     const handlechange = (event) => {
@@ -62,7 +62,7 @@ function Signup()
                     <Link to="/login">Already Have Account?</Link>
                 </div>
                 <div className="submit-container">
-                    <button href="" className="submit" type="submit">Signup</button>
+                    <button  className="submit" type="submit">Signup</button>
                 </div>
             </form>
     </div>
