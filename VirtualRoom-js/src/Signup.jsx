@@ -14,8 +14,8 @@ function Signup()
             <div className="text">Signup</div>
              <div className="underline"></div>
         </div>
-        <div className="inputs">
-            <form action="Post">
+     
+            <form action="Post" className="inputs">
                 <div className="input">
                 <img src={user} alt="user" />
                 <input type="text" placeholder="Name" />
@@ -39,7 +39,6 @@ function Signup()
                     <a href="" className="submit" type="submit">Signup</a>
                 </div>
             </form>
-        </div>
     </div>
     </>);
 }
