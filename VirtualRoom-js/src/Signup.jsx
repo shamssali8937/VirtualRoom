@@ -18,22 +18,22 @@ function Signup()
             <form action="Post" className="inputs">
                 <div className="input">
                 <img src={user} alt="user" />
-                <input type="text" placeholder="Name" />
+                <input type="text" placeholder="Name" required/>
                 </div>
                 <div className="input">
                 <img src={user} alt="user" />
-                <input type="text" placeholder="Username" />
+                <input type="text" placeholder="Username" required/>
                 </div>
                 <div className="input">
                 <img src={emailicon} alt="email" />
-                <input type="email" placeholder="Email" />
+                <input type="email" placeholder="Email" required/>
                 </div>
                 <div className="input">
                 <img src={passicon} alt="passwd" />
-                <input type="password" placeholder="Password" />
+                <input type="password" placeholder="Password" required/>
                 </div>
                 <div className="login">
-                    <a href="">Already Have Account?</a>
+                    <a href="https://www.w3schools.com/react/react_forms.asp" target="blank">Already Have Account?</a>
                 </div>
                 <div className="submit-container">
                     <a href="" className="submit" type="submit">Signup</a>
