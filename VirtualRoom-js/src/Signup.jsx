@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from 'react'
-import { Link } from 'react-router-dom';
+import { Link ,useNavigate} from 'react-router-dom';
 import './Signup.css';
 import user from "./assets/Images/person.png"
 import emailicon from './assets/Images/email.png'
@@ -8,7 +8,29 @@ import passicon from './assets/Images/password.png'
 
 function Signup()
 {
+    const [data,setData]=useState({
+        email:"",
+        password:"",
+        name:"",
+        username:""
+    });
     
+    const navigate=useNavigate(); 
+
+    const handlesubmit=(event)=>{
+        event.preventDefault();
+        if(data.email&&data.password&&data.name&&data.username)
+        {
+            navigate("/landpage");
+        }
+    };
+    const handlechange = (event) => {
+        const { name, value } = event.target;
+        setData(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
     return(
     <>
 
@@ -18,22 +40,22 @@ function Signup()
              <div className="underline"></div>
         </div>
      
-            <form action="Post" className="inputs">
+            <form onSubmit={handlesubmit} className="inputs">
                 <div className="input">
                 <img src={user} alt="user" />
-                <input type="text" placeholder="Name" required/>
+                <input type="text" placeholder="Name" name="name" value={data.name} onChange={handlechange} required/>
                 </div>
                 <div className="input">
                 <img src={user} alt="user" />
-                <input type="text" placeholder="Username" required/>
+                <input type="text" placeholder="Username" name="username" value={data.username} onChange={handlechange} required/>
                 </div>
                 <div className="input">
                 <img src={emailicon} alt="email" />
-                <input type="email" placeholder="Email" required/>
+                <input type="email" placeholder="Email" name="email" value={data.email} onChange={handlechange} required/>
                 </div>
                 <div className="input">
                 <img src={passicon} alt="passwd" />
-                <input type="password" placeholder="Password" required/>
+                <input type="password" placeholder="Password" name="password" value={data.password} onChange={handlechange} required/>
                 </div>
                 <div className="login">
                     {/* <a href="https://www.w3schools.com/react/react_forms.asp" target="blank">Already Have Account?</a> */}
