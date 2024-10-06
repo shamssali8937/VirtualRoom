@@ -23,13 +23,6 @@ function Login()
 
     };
 
-    // const handlechange=(event)=>{
-    //     const [name,value]=event.target;
-    //     setdata(prevdata=>({
-    //         ...prevdata,
-    //         [name]:value
-    //        }));
-    // };
     const handlechange = (event) => {
         const { name, value } = event.target;
         setData(prevdata => ({
