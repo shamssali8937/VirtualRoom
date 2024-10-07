@@ -21,7 +21,8 @@ function Signup()
         event.preventDefault();
         if(data.email&&data.password&&data.name&&data.username)
         {
-            navigate("/Landpage");
+            alert("Congragulation You Just Signed up Now Please Login");
+            navigate("/Login");
         }
     };
     const handlechange = (event) => {

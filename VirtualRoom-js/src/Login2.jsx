@@ -13,18 +13,29 @@ function Login()
         email:"",
         password:""
      });
-    
+    const clear=()=>{
+        setData({
+        email:"",
+        password:""
+        })
+    };
     const handlesubmit=(event)=>{
         event.preventDefault();
-        if(data.email&&data.password)
+        if(data.email=="shams@gmail.com"&&data.password=="shams")
         {
             navigate("/Landpage");
+        }
+        else
+        {
+            alert("invalid credentials");
+            clear();
         }
 
     };
 
     const handlechange = (event) => {
-        const { name, value } = event.target;
+        const name = event.target.name;
+        const value=event.target.value;
         setData(prevdata => ({
             ...prevdata,
             [name]: value
