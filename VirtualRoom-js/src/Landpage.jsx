@@ -8,7 +8,7 @@ function Landpage()
    
     <div className="navbar"> 
             <div className="header">
-                <div className="text"><a>Virtual Room</a></div>
+                <div className="text-header"><a>Virtual Room</a></div>
             </div>
             <div className="nav-items">
             <ul>

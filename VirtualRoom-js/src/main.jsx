@@ -9,7 +9,7 @@ import Signup from './Signup.jsx'
 import Login from './Login2.jsx'
 
 createRoot(document.getElementById('root')).render(
-  <StrictMode>
+  // <StrictMode>
   <>
          <Router>
              <App />
@@ -19,10 +19,8 @@ createRoot(document.getElementById('root')).render(
       {/* <Login /> */}
       {/* <Signup /> */}
       {/* <Login /> */}
-  </>
-    
-    
-  </StrictMode>,
+  </>    
+  //</StrictMode>,
  
 )
 
