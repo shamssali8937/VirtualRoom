@@ -6,18 +6,16 @@ function Landpage()
     return(
     <>
    
-    <div className="navbar"> 
-            <div className="header">
-                <div className="text-header"><a>Virtual Room</a></div>
-            </div>
-            <div className="nav-items">
+    <nav className="navbar"> 
+        <div className="navdiv">
+            <div className="logo"><a href="">Virtual Room</a></div>
             <ul>
                 <li><a href="">Home</a></li>
                 <li><a href="">About Us</a></li>
                 <li><a href="">Contact Us</a></li>
             </ul>
         </div>
-    </div>
+    </nav>
 
     </>);
 }
