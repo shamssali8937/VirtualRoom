@@ -1,0 +1,48 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body {
+    font-family: Arial, sans-serif;
+}
+.navbar {
+    background-color: #D8BFD8; /* Light purple background */
+    padding: 20px; /* Padding for better spacing */
+    display: flex;
+    justify-content: space-between; /* Space between brand and nav items */
+    align-items: center; /* Vertically align items */
+    font-size: 16px; /* Set a base font size */
+}
+.navbar .header .text a {
+    text-decoration: none;
+    font-size: 24px;
+    color: #4B0082; /* Darker purple color for the brand */
+    font-weight: bold;
+}
+.nav-items ul {
+    list-style-type: none; /* Remove default bullets */
+    display: flex; /* Flex layout for horizontal menu */
+    gap: 20px; /* Space between list items */
+}
+.nav-items ul li a {
+    text-decoration: none;
+    color: #4B0082; /* Same dark purple color */
+    font-weight: 500;
+    transition: color 0.3s ease; /* Smooth hover effect */
+}
+.nav-items ul li a:hover {
+    color: #fff; /* White color on hover */
+}
+
+/* Responsive Design for smaller screens */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+    }
+    .nav-items ul {
+        flex-direction: column;
+        gap: 10px;
+        margin-top: 10px;
+    }
+}

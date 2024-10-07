@@ -1,11 +1,24 @@
 import React from "react";
-
+import './Landpage.css'
 
 function Landpage()
 {
     return(
     <>
-    <h1>Loged in and also the account is created</h1>
+   
+    <div className="navbar"> 
+            <div className="header">
+                <div className="text"><a>Virtual Room</a></div>
+            </div>
+            <div className="nav-items">
+            <ul className="nav-items">
+                <li><a href="">Home</a></li>
+                <li><a href="">About Us</a></li>
+                <li><a href="">Contact Us</a></li>
+            </ul>
+        </div>
+    </div>
+
     </>);
 }
 
