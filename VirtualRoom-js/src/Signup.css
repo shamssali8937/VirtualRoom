@@ -4,7 +4,7 @@
 .container{
     display:flex;
     flex-direction: column;
-    margin:auto;
+    /* margin:auto; */
     margin-top: 5rem;
     width:40rem;
     background: #fff;
@@ -13,6 +13,9 @@
     border-radius: 3rem;
     max-width: 100%;
     box-sizing: border-box;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
 }
 .header{
     display: flex;

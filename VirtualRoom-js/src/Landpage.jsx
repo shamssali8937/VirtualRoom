@@ -11,7 +11,7 @@ function Landpage()
                 <div className="text"><a>Virtual Room</a></div>
             </div>
             <div className="nav-items">
-            <ul className="nav-items">
+            <ul>
                 <li><a href="">Home</a></li>
                 <li><a href="">About Us</a></li>
                 <li><a href="">Contact Us</a></li>
