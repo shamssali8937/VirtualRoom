@@ -58,9 +58,9 @@ function Signup()
                 <img src={passicon} alt="passwd" />
                 <input type="password" placeholder="Password" name="password" value={data.password} onChange={handlechange} required/>
                 </div>
-                <div className="login">
+                <div className="link">
                     {/* <a href="https://www.w3schools.com/react/react_forms.asp" target="blank">Already Have Account?</a> */}
-                    <Link to="/login">Already Have Account?</Link>
+                    <Link to="/login" id="link">Already Have Account?</Link>
                 </div>
                 <div className="submit-container">
                     <button  className="submit" type="submit">Signup</button>

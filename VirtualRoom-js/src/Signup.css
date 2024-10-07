@@ -81,6 +81,11 @@
     font-size: 1.5rem;
 }
 
+.link #link{
+    text-decoration: none;
+    color: blueviolet;
+}
+
 .submit-container{
     display: flex;
     margin: 2rem auto;

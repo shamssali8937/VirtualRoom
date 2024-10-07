@@ -60,11 +60,11 @@ function Login()
                 <img src={passicon} alt="passwd" />
                 <input type="password" placeholder="Password" name="password" value={data.password} onChange={handlechange} required/>
                 </div>
-                <div className="login">
-                    <a href="" target="blank">Forgot Password</a>
+                <div className="link">
+                    <a href="" target="blank" id="link">Forgot Password</a>
                 </div>
-                <div className="login">
-                    <Link to="/signup">Register?</Link>
+                <div className="link">
+                    <Link to="/signup" id="link">Register?</Link>
                 </div>
                 <div className="submit-container">
                     <button  className="submit" type="submit">Login</button>
