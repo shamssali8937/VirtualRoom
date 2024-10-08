@@ -46,8 +46,8 @@ function Landpage()
         </div>
         <div className={`main-content ${click ? 'red-background' : ''}`}>
               <div className="data">
-                <label htmlFor="name">Name:</label><input type="text" value={data.name} readOnly />
-                <label htmlFor="username">Username:</label><input type="text" value={data.username} readOnly />
+                <label htmlFor="name">Name</label><input type="text" value={data.name} readOnly />
+                <label htmlFor="username">Username</label><input type="text" value={data.username} readOnly />
                 <label htmlFor="email">Email:</label><input type="email" value={data.email} readOnly />
               </div>
         </div>
