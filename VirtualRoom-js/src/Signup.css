@@ -98,12 +98,15 @@
 }
 
 @media only screen and (max-width:768px){
-    .container{
-        width: 100%;
-        margin: 2rem;
-        padding: 1rem;
-        max-width: 90%;
+    *{
+        font-size: 8px;
     }
+     .container{
+        
+        margin: 20rem auto;
+        padding: 1rem;        
+    }
+
     .text{
         font-size: 3rem;
     }
@@ -121,14 +124,17 @@
         width: 15rem;
         height: 3rem;
         font-size: 1.3rem;
-    }
+    } 
 }
 @media only screen and (max-width: 480px) {
+    *{
+        font-size: 5px;
+    }
     .container {
-        width: 100%;
-        margin: 0.3rem;
+        width: 40%;
+        margin: 40rem auto;
         padding: 0.5rem;
-        max-width: 100%;
+        /* max-width: 100%; */
     }
 
     .text {
@@ -152,6 +158,6 @@
         width: 8rem;
         height: 1.5rem;
         font-size: 1rem;
-    }
+    } 
 }
  
