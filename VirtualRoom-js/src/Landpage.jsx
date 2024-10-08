@@ -17,16 +17,25 @@ function Landpage()
             </ul>
         </div>
     </nav>
+    <h1>User Account</h1>
     <div className="body-container">
+    
         <div className="side-bar">
-            <h1>User Account</h1>
-            <div className="box">
-                <div className="imgae">
-                    <img src="" alt="" />
-                </div>
+            <div className="image">
+                    <img src={usericon} alt="user" /> 
+            </div>
+            <div className="account-information">
+                Account
+            </div>
+            <div className="account-information">
+                Password
             </div>
         </div>
+        <div className="main-content">
+            
+        </div>
     </div>
+
 
     </>);
 }
