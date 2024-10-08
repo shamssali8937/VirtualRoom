@@ -3,7 +3,8 @@
   /* margin: 0 auto; */
   /* padding: 2rem; */
   font-size: 10px;
-  display: flex;
+  /* display: flex; */
+  overflow: hidden;
   /* text-align: center; */
 } 
 

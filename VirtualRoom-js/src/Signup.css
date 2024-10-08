@@ -100,7 +100,7 @@
 
 @media only screen and (max-width:768px){
     *{
-        font-size: 8px;
+        font-size: 10px;
     }
      .container{
         
@@ -117,6 +117,9 @@
     }
     .input{
         height: 4rem;
+    }
+    .inputs .input #link{
+        font-size: 30rem;
     }
     .input input{
         font-size: 1.4rem;
@@ -157,14 +160,14 @@
         font-size: 1.2rem;
     }
 
-    .inputs .input .link{
-        font-size: 3rem;
+    .inputs .input #link{
+        font-size: 30rem;
     }
 
     .submit-container .submit {
-        width: 8rem;
-        height: 1.5rem;
-        font-size: 1rem;
+        width: 10rem;
+        height: 4rem;
+        font-size: 2rem;
     } 
 }
  

@@ -1,5 +1,6 @@
 import React from "react";
 import './Landpage.css'
+import usericon from './assets/Images/person.png'
 
 function Landpage()
 {
@@ -16,6 +17,16 @@ function Landpage()
             </ul>
         </div>
     </nav>
+    <div className="body-container">
+        <div className="side-bar">
+            <h1>User Account</h1>
+            <div className="box">
+                <div className="imgae">
+                    <img src="" alt="" />
+                </div>
+            </div>
+        </div>
+    </div>
 
     </>);
 }
