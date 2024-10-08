@@ -1,5 +1,5 @@
-
 .container{
+    
     width: 40%;
     /* border: 2px solid black; */
     background: #fff;
@@ -12,7 +12,8 @@
     text-align: center;
     margin-bottom: 2rem;
 }
-.header .text{   
+.header .text
+{   
     color: blueviolet;
     font-size: 3.8rem;
     font-weight: 700;
@@ -127,18 +128,20 @@
     } 
 }
 @media only screen and (max-width: 480px) {
-    *{
-        font-size: 5px;
-    }
+    /* *{
+        font-size: 10px;
+    }  */
     .container {
-        width: 40%;
-        margin: 40rem auto;
+        width: 80%;
+        margin: 20rem auto;
         padding: 0.5rem;
+        overflow: hidden;
+        /* height: 40%; */
         /* max-width: 100%; */
     }
 
     .text {
-        font-size: 2.5rem;
+        font-size: 1.5rem;
     }
 
     .inputs {
@@ -147,17 +150,22 @@
     }
 
     .input {
-        height: 3.5rem;
+        height: 3rem;
     }
 
     .input input {
         font-size: 1.2rem;
     }
 
-    .submit {
+    .inputs .input .link{
+        font-size: 3rem;
+    }
+
+    .submit-container .submit {
         width: 8rem;
         height: 1.5rem;
         font-size: 1rem;
     } 
 }
+ 
  
