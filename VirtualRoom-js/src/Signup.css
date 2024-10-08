@@ -1,38 +1,28 @@
-.html{
-    font-size: 10px;
-}
+
 .container{
-    display:flex;
-    flex-direction: column;
-    margin:auto;
-    height: 500%;
-    width:40rem;
+    width: 40%;
+    /* border: 2px solid black; */
     background: #fff;
-    padding-bottom: 2rem;  
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.5);
-    border-radius: 3rem;
-    max-width: 100%;
-    box-sizing: border-box;
-    text-align: center;
+    margin: 5rem auto;
+    padding: 2rem;
+    border-radius: 4rem;
+    box-shadow: 0 0.4rem 0.8rem rgba(0,0,0, 0.1);
 }
 .header{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 0.9rem;
-    width: 100%;
-    margin-top: 3rem;
+    text-align: center;
+    margin-bottom: 2rem;
 }
-.text{
+.header .text{   
     color: blueviolet;
     font-size: 3.8rem;
     font-weight: 700;
 }
-.underline{
-    width: 50%;
-    height: 6px;
+.header .underline{
+    width: 6rem;
+    height: 0.5rem;
+    border-radius: 1rem;
+    margin: 1rem auto 0;
     background: blueviolet;
-    border-radius: 9px;
     transition: all 2s ease-in-out;
 }
 @keyframes expand {
@@ -48,31 +38,24 @@
     animation: expand 2s ease-in-out forwards; 
 }
 
-.inputs{
+.inputs .input{
     display: flex;
-    flex-direction: column;
-    margin-top: 5.5rem;
-    gap: 1rem;
-    margin-right: 1rem;
-    margin-left: 1rem;
-}
-
-.input{
-    display: flex;    
     align-items: center;
-    margin: auto;
-    height: 5rem;
-    width: 100%;
-    background: #eaeaea;
-    border-radius: rem;
+    margin-bottom: 1.5rem;
+    background-color: #eaeaea;
+    border-radius: 1rem;
+    padding: 1rem;
 }
 
-.input img{
-    margin: 0 3rem;
+
+.inputs .input img{
+    width: 1.6rem;
+    height: 1.6rem;
+    margin-right:1rem;
 }
 
-.input input{
-    height: 50%;
+.inputs .input input{
+    height: 30%;
     width: 80%;
     margin-right: 2rem;
     background: transparent;
@@ -82,22 +65,29 @@
     font-size: 1.5rem;
 }
 
-.link #link{
+.link {
+    text-align: center;
     text-decoration: none;
     color: blueviolet;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
+}
+.link a:hover{
+    text-decoration: underline;
 }
 
 .submit-container{
+    text-align: center;   
     display: flex;
-    margin: 2rem auto;
-    box-sizing: border-box;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
-.submit{
+.submit-container .submit{
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 18rem;
+    width: 12rem;
     height: 3rem;
     color: #fff;
     background:  blueviolet;
@@ -164,3 +154,4 @@
         font-size: 1rem;
     }
 }
+ 
