@@ -13,9 +13,12 @@ function Landpage()
         email:"shams@gmail.com"
     });
 
-    const hanleclick=()=>{
-         setclick(!click);
+    const handleclickaccount=()=>{
+         setclick(true);
     };
+    const handleclickpasswd=()=>{
+        setclick(false);
+   };
 
     return(
     <>
@@ -37,22 +40,27 @@ function Landpage()
             <div className="image">
                     <img src={usericon} alt="user" /> 
             </div>
-            <div className="account-information" onClick={hanleclick}>
+            <div className="account-information" onClick={handleclickaccount}>
                 Account
             </div>
-            <div className="account-information">
+            <div className="account-information" onClick={handleclickpasswd}>
                 Password
             </div>
         </div>
         <div className="main-content red-background">
-              <div className={`data ${click?"display":""}`}>
+            {
+                click?(
+              <div className="data display">
                 <label htmlFor="name">Name</label><input type="text" value={data.name} name="name" readOnly />
                 <label htmlFor="username">Username</label><input type="text" value={data.username} name="username" readOnly />
                 <label htmlFor="email">Email</label><input type="email" value={data.email} name="email" readOnly />
               </div>
-              <div className="password">
+
+                ):(
+              <div className="password opacity">
               <label htmlFor="password">Password</label><input type="text" value={data.email} name="password" readOnly />
               </div>
+                )}
         </div>
     </div>
 
