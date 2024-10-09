@@ -101,9 +101,13 @@ h1 {
 }
 
 .main-content.red-background{
-    background: #f28b82; 
+    /* background: #f28b82;  */
+     background: #E6E6FA;
 }
-
+.name{
+    margin-top: 1rem;
+    font-size: 1.6rem;
+}
 .data {
     margin: 4rem auto;
     text-align: center;
@@ -166,12 +170,11 @@ body, .data, .account-information, input {
     border-radius: 10px;
     width: 30%; 
     position: absolute;   
-    top: 30%;
+    top: 40%;
     left: 25%;
     z-index: 1;
     opacity: 0;   
-    transform: translate(50%,-50%);
-    transition: all 2s ease-in-out;
+    transform: translate(50%,-50%); 
 }
 
 .password.opacity{

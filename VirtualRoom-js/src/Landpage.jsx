@@ -5,7 +5,7 @@ import usericon from './assets/Images/person.png'
 
 function Landpage()
 {
-    const [click,setclick]=useState(false);
+    const [click,setclick]=useState(true);
 
     const [data,setData]=useState({
         name:"shams",
@@ -27,18 +27,21 @@ function Landpage()
         <div className="navdiv">
             <div className="logo"><a href="">Virtual Room</a></div>
             <ul>
-                <li><a href="">Home</a></li>
+                <li><a href="#con-body">Home</a></li>
                 <li><a href="">About Us</a></li>
                 <li><a href="">Contact Us</a></li>
             </ul>
         </div>
     </nav>
     <h1>User Account</h1>
-    <div className="body-container">
+    <div className="body-container" id="con-body">
     
         <div className="side-bar">
             <div className="image">
-                    <img src={usericon} alt="user" /> 
+                    <img src={usericon} alt="user" />                    
+            </div>
+            <div className="name">
+            {data.username}
             </div>
             <div className="account-information" onClick={handleclickaccount}>
                 Account
