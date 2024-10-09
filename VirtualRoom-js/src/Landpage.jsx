@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from "react";
 import './Landpage.css'
 import usericon from './assets/Images/person.png'

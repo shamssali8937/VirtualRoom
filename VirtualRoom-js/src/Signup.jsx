@@ -1,4 +1,3 @@
-import React from "react";
 import { useState } from 'react'
 import { Link ,useNavigate} from 'react-router-dom';
 import './Signup.css';
@@ -39,8 +38,7 @@ function Signup()
         <div className="header">
             <div className="text">Signup</div>
              <div className="underline"></div>
-        </div>
-     
+        </div>     
             <form onSubmit={handlesubmit} className="inputs">
                 <div className="input">
                 <img src={user} alt="user" />
