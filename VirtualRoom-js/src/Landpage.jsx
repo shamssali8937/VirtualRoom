@@ -9,8 +9,8 @@ function Landpage()
 
     const [data,setData]=useState({
         name:"shams",
-        email:"aliveshams",
-        username:"shams@gmail.com"
+        username:"aliveshams",
+        email:"shams@gmail.com"
     });
 
     const hanleclick=()=>{
@@ -44,11 +44,14 @@ function Landpage()
                 Password
             </div>
         </div>
-        <div className={`main-content ${click ? 'red-background' : ''}`}>
-              <div className="data">
-                <label htmlFor="name">Name</label><input type="text" value={data.name} readOnly />
-                <label htmlFor="username">Username</label><input type="text" value={data.username} readOnly />
-                <label htmlFor="email">Email:</label><input type="email" value={data.email} readOnly />
+        <div className="main-content red-background">
+              <div className={`data ${click?"display":""}`}>
+                <label htmlFor="name">Name</label><input type="text" value={data.name} name="name" readOnly />
+                <label htmlFor="username">Username</label><input type="text" value={data.username} name="username" readOnly />
+                <label htmlFor="email">Email</label><input type="email" value={data.email} name="email" readOnly />
+              </div>
+              <div className="password">
+              <label htmlFor="password">Password</label><input type="text" value={data.email} name="password" readOnly />
               </div>
         </div>
     </div>

@@ -7,18 +7,13 @@ import Signup from './Signup.jsx'
 import Login from './Login2.jsx'
 
 createRoot(document.getElementById('root')).render(
-  // <StrictMode>
+   <StrictMode>
   <>
          <Router>
              <App />
          </Router>
-    
-      {/* <Tag /> */}
-      {/* <Login /> */}
-      {/* <Signup /> */}
-      {/* <Login /> */}
   </>    
-  //</StrictMode>,
+  </StrictMode>,
  
 )
 
