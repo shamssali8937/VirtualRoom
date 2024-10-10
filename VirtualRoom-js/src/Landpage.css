@@ -9,7 +9,8 @@
     opacity: 0.9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
-    background: #E6E6FA;
+    /* background: #E6E6FA; */
+    background: white;
     
 }
 
@@ -89,7 +90,8 @@ h1 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #E6E6FA;
+    /* background-color: #E6E6FA; */
+    background: white;
     padding: 1rem;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.5);
     
@@ -106,32 +108,35 @@ h1 {
 }
 .account-information {
     width: 100%;
-    margin: 2rem 0;
+    margin: 1rem 0;
     text-align: center;
     font-size: 1.8rem;
     cursor: pointer;
     padding: 1rem;
     background: #FFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 10px;
     transition: all 0.3s ease-in-out;    
 }
 
 .account-information:hover{
-    background-color: #E6E6FA;
+    /* background-color: #E6E6FA; */
+    background: lightblue;
     transform: translateY(-4px);
 }
 
 .body-container .main-content{
     flex: 3;
     padding: 2rem;
-    background-color: #FFF;
+    background-color: #fffafa;
     box-shadow:0 4px 8px rgba(0, 0, 0, 0.05);
 }
 
 .main-content.red-background{
     /* background: #f28b82;  */
-     background: #E6E6FA;
+     /* background: #E6E6FA; */
+     background: #f9f9f9;
 }
 .name{
     margin-top: 1rem;
@@ -177,7 +182,7 @@ h1 {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: #555;
-    text-align: left;
+    text-align: center;
     width: 50%; 
 }
 
@@ -204,6 +209,7 @@ body, .data, .account-information, input {
     z-index: 1;
     opacity: 0;   
     transform: translate(50%,-50%); 
+    transition: all 0.3s ease-in-out;
 }
 
 .password.opacity{
