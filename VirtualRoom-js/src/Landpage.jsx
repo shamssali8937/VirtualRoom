@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './Landpage.css'
 import usericon from './assets/Images/person.png'
+import Navbar from "./components/Navbar";
 
 function Landpage()
 {
@@ -22,7 +23,7 @@ function Landpage()
     return(
     <>
    
-     <nav className="navbar"> 
+     {/* <nav className="navbar"> 
         <div className="navdiv">
             <div className="logo"><a href="">Virtual Room</a></div>
             <ul>
@@ -31,7 +32,8 @@ function Landpage()
                 <li><a href="">Contact Us</a></li>
             </ul>
         </div>
-    </nav> 
+    </nav>  */}
+    <Navbar/>
     <h1>User Account</h1>
     <div className="body-container" id="con-body">
     
