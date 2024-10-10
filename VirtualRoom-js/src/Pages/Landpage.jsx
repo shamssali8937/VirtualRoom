@@ -1,7 +1,7 @@
 import { useState } from "react";
-import './Landpage.css'
-import usericon from './assets/Images/person.png'
-import Navbar from "./components/Navbar";
+import '../Css/Landpage.css'
+import usericon from '../assets/Images/person.png'
+import Navbar from "../components/Navbar";
 
 function Landpage()
 {

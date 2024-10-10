@@ -1,4 +1,4 @@
-import '../Landpage.css'
+import '../Css/Landpage.css'
 
 function Navbar(){
     return(

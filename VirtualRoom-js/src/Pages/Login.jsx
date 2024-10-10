@@ -1,8 +1,8 @@
 import { Link, useNavigate } from 'react-router-dom';
 import { useState } from 'react'
-import './Signup.css';
-import emailicon from './assets/Images/email.png'
-import passicon from './assets/Images/password.png'
+import '../Css/signup.css';
+import emailicon from '../assets/Images/email.png'
+import passicon from '../assets/Images/password.png'
 
 
 function Login()

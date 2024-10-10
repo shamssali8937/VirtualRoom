@@ -1,7 +1,7 @@
 import { Routes, Route ,Navigate} from "react-router-dom";
-import Signup from './Signup.jsx';
-import Login from './Login2.jsx';
-import Landpage from './Landpage.jsx'
+import Signup from './Pages/Signup.jsx';
+import Login from './Pages/Login.jsx';
+import Landpage from './Pages/Landpage.jsx'
 
 function App() {
  
