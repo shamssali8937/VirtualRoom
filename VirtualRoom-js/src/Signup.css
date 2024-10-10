@@ -75,6 +75,7 @@
 }
 .link a:hover{
     text-decoration: underline;
+    color: blueviolet;
 }
 
 .submit-container{

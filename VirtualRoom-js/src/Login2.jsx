@@ -59,7 +59,7 @@ function Login()
                 <input type="password" placeholder="Password" name="password" value={data.password} onChange={handlechange} required/>
                 </div>
                 <div className="link">
-                    <a href="" target="blank" id="link">Forgot Password</a>
+                    <a href="mailto:shamssali729@example.com?subject=Reset Password%20Here&body=Message%20Here" target="blank" id="link" className='link'>Forgot Password</a>
                 </div>
                 <div className="link">
                     <Link to="/signup" id="link">Register?</Link>
