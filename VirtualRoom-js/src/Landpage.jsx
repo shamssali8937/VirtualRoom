@@ -42,7 +42,7 @@ function Landpage()
                     <img src={usericon} alt="user" />                    
             </div>
             <div className="name">
-            {data.username}
+            <b>{data.username}</b>
             </div>
             <div className="account-information" onClick={handleclickaccount}>
                 Account

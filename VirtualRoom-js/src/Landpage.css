@@ -3,6 +3,7 @@
     list-style: none;
     margin: 0;
     padding: 0;
+    
 }
 .navbar {
     padding: 0 1.2rem;
@@ -94,7 +95,7 @@ h1 {
     background: white;
     padding: 1rem;
     box-shadow:5px 0 8px rgba(0, 0, 0, 0.8);
-    
+    border-right: 1px solid rgba(0, 0, 0, 0.3);
 }
 
 .image {
@@ -108,15 +109,15 @@ h1 {
 }
 .account-information {
     width: 100%;
-    margin: 1rem 0;
+    margin: 1rem 3rem;
     text-align: center;
     font-size: 1.8rem;
     cursor: pointer;
     padding: 1rem;
     background: #FFF;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border: 1px solid rgba(0, 0, 0, 0.05);
-    border-radius: 10px;
+    /* border: 1px solid rgba(0, 0, 0, 0.05); */
+    /* border-radius: 10px; */
     transition: all 0.3s ease-in-out;    
 }
 
