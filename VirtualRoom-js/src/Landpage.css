@@ -6,7 +6,7 @@
     
 }
 .navbar {
-    padding: 0 1.2rem;
+    padding: -1 1.2rem;
     opacity: 0.9;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
@@ -55,7 +55,7 @@ ul li a:hover {
 
      .navdiv ul li {
         display: block;
-        margin: 1rem 0;
+        margin-top:1rem;
         transition: all 1s ease-in-out;
     }
 
