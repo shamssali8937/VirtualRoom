@@ -7,7 +7,7 @@ function Navbar(){
         <div className="navdiv">
             <div className="logo"><a href="">Virtual Room</a></div>
             <ul>
-                <li><a href="">Home</a></li>
+                <li><a href="#con-body">Home</a></li>
                 <li><a href="">About Us</a></li>
                 <li><a href="">Contact Us</a></li>
             </ul>
