@@ -4,15 +4,13 @@ import Login from './Pages/Login.jsx';
 import Landpage from './Pages/Landpage.jsx'
 
 function App() {
- 
-
   return (
     <>
       <Routes>
       <Route path="/" element={<Navigate to="/signup" />} />
-        <Route path='/Signup' element={<Signup/>}/>
-        <Route path='/Login' element={<Login />}/>
-        <Route path='/Landpage' element={<Landpage />}/>
+        <Route path='/signup' element={<Signup/>}/>
+        <Route path='/login' element={<Login />}/>
+        <Route path='/landpage' element={<Landpage />}/>
       </Routes>
     </>
   )
