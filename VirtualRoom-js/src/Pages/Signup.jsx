@@ -21,7 +21,7 @@ function Signup()
         if(data.email&&data.password&&data.name&&data.username)
         {
             alert("Congragulation You Just Signed up Now Please Login");
-            navigate("/Login");
+            navigate("/login");
         }
     };
     const handlechange = (event) => {

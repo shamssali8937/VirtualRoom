@@ -22,7 +22,7 @@ function Login()
         event.preventDefault();
         if(data.email=="shams@gmail.com"&&data.password=="shams")
         {
-            navigate("/Landpage");
+            navigate("/landpage");
         }
         else
         {
