@@ -13,6 +13,8 @@ function Signup()
         name:"",
         username:""
     });
+
+    const apiurl='';
     
     const navigate=useNavigate(); 
 
@@ -21,6 +23,13 @@ function Signup()
         if(data.email&&data.password&&data.name&&data.username)
         {
             alert("Congragulation You Just Signed up Now Please Login");
+            const dt={
+                name:data.name,
+                username:data.username,
+                email:data.email,
+                password:data.password
+            }
+            
             navigate("/login");
         }
     };
