@@ -4,6 +4,7 @@ import '../Css/Signup.css';
 import user from "../assets/Images/person.png"
 import emailicon from '../assets/Images/email.png'
 import passicon from '../assets/Images/password.png'
+import axios from 'axios';
 
 function Signup()
 {
@@ -14,7 +15,7 @@ function Signup()
         username:""
     });
 
-    const apiurl='';
+    const apiurl='https://localhost:7040/api/StudentPortal/Register';
     
     const navigate=useNavigate(); 
 
@@ -29,8 +30,11 @@ function Signup()
                 email:data.email,
                 password:data.password
             }
-            
+           axios.post(apiurl,dt).then(()=>{
             navigate("/login");
+           }).catch((error)=>{
+            console.error("There was an error signing up!", error);
+           })          
         }
     };
     const handlechange = (event) => {

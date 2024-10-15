@@ -1,17 +1,21 @@
-import { useState } from "react";
+import { useEffect, useState} from "react";
+import { Link ,useNavigate} from 'react-router-dom';
 import '../Css/Landpage.css'
 import usericon from '../assets/Images/person.png'
 import Navbar from "../components/Navbar";
+import axios from "axios";
 
 function Landpage()
 {
     const [click,setclick]=useState(true);
 
     const [data,setData]=useState({
-        name:"shams",
-        username:"aliveshams",
-        email:"shams@gmail.com"
+        name:"",
+        username:"",
+        email:""
     });
+
+    let navigate=useNavigate();
 
     const handleclickaccount=()=>{
          setclick(true);
@@ -19,6 +23,39 @@ function Landpage()
     const handleclickpasswd=()=>{
         setclick(false);
    };
+
+   useEffect(()=>{
+     const token=localStorage.getItem('token');
+     if(!token){
+        alert("please login first");
+        navigate('/login');
+     }
+     else{
+        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
+
+        axios.get("https://localhost:7040/api/StudentPortal/Student").then((response)=>{
+            if(response.data.statuscode==200)
+            {
+                const user=response.data.user;
+                setData({
+                    name:user.name,
+                    username:user.username,
+                    email:user.email
+                });
+            }
+            else
+            {
+                alert("please login with correct credentials");                
+            }
+        })
+        .catch((err) => {
+            console.error(err);
+            alert("Error fetching user data.");
+            localStorage.removeItem('token');
+            navigate("/login");
+        });
+     }
+   },[navigate]);
 
     return(
     <>
@@ -55,14 +92,14 @@ function Landpage()
             {
                 click?(
               <div className="data display">
-                <label htmlFor="name">Name</label><input type="text" value={data.name} name="name" readOnly />
-                <label htmlFor="username">Username</label><input type="text" value={data.username} name="username" readOnly />
-                <label htmlFor="email">Email</label><input type="email" value={data.email} name="email" readOnly />
+                <label htmlFor="Name">Name</label><input id="Name" type="text" value={data.name} name="name" readOnly />
+                <label htmlFor="Username">Username</label><input id="Username" type="text" value={data.username} name="username" readOnly />
+                <label htmlFor="Email">Email</label><input id="Email" type="email" value={data.email} name="email" readOnly />
               </div>
 
                 ):(
               <div className="password opacity">
-              <label htmlFor="password">Password</label><input type="text" value={data.email} name="password" readOnly />
+              <label htmlFor="Password">Password</label><input id="Password" type="text" value={data.email} name="password" readOnly />
               </div>
                 )}
         </div>
