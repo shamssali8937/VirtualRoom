@@ -23,15 +23,23 @@ function Signup()
         event.preventDefault();
         if(data.email&&data.password&&data.name&&data.username)
         {
-            alert("Congragulation You Just Signed up Now Please Login");
             const dt={
                 name:data.name,
                 username:data.username,
                 email:data.email,
                 password:data.password
             }
-           axios.post(apiurl,dt).then(()=>{
-            navigate("/login");
+           axios.post(apiurl,dt).then((respone)=>{
+            if(respone.data.statuscode==400)
+            {
+                alert(respone.data.statusmessage);
+            }
+            else
+            {
+                alert("Congragulation You Just Signed up Now Please Login");
+                navigate("/login");
+            }
+            
            }).catch((error)=>{
             console.error("There was an error signing up!", error);
            })          

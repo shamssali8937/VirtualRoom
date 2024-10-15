@@ -27,7 +27,7 @@ function Landpage()
    useEffect(()=>{
      const token=localStorage.getItem('token');
      if(!token){
-        alert("please login first");
+        console.log("please login first");
         navigate('/login');
      }
      else{
