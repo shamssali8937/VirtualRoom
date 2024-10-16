@@ -1,9 +1,10 @@
 import { useEffect, useState} from "react";
-import { Link ,useNavigate} from 'react-router-dom';
+import { Link ,Router,useNavigate} from 'react-router-dom';
 import '../Css/Landpage.css'
 import usericon from '../assets/Images/person.png'
 import Navbar from "../components/Navbar";
 import axios from "axios";
+import { jwtDecode } from 'jwt-decode'
 
 function Landpage()
 {
@@ -24,6 +25,22 @@ function Landpage()
         setclick(false);
    };
 
+   const tokenexpiry=(token)=>{
+    if(!token)
+    {
+        return true;
+    }
+    try{
+        let decodetoken=jwtDecode(token);
+        let time=Date.now()/1000;
+        return decodetoken.exp<time;
+    }
+    catch(error){
+      console.log("error in decoding token");
+      return true;
+    }
+   };
+
    useEffect(()=>{
      const token=localStorage.getItem('token');
      if(!token){
@@ -32,6 +49,13 @@ function Landpage()
      }
      else{
         axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
+        if(tokenexpiry(token))
+        {
+            localStorage.removeItem('token');
+            
+            navigate('/login');
+            alert("please login again");
+        }
 
         axios.get("https://localhost:7040/api/StudentPortal/Student").then((response)=>{
             if(response.data.statuscode==200)

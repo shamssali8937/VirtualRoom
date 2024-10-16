@@ -30,14 +30,15 @@ function Login()
                 email:data.email,
                 password:data.password
             }
-            axios.post("https://localhost:7040/api/StudentPortal/Login",credentials).then((response)=>{
+            axios.post("https://localhost:7040/api/StudentPortal/Login",credentials)
+            .then((response)=>{
                 if(response.data.statuscode==200)
                 {
                     const token=response.data.statusmessage;
                     localStorage.setItem('token',token);
                     if(token)
                     {
-                        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
+                       axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
                         navigate("/landpage");
                     }
                     else{
