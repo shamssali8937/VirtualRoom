@@ -1,6 +1,8 @@
 .container{
     
     width: 30%;
+    min-width: 300px;
+    max-width: 500px;
     /* border: 2px solid black; */
     background: #fff;
     /* background: rgba(255, 255, 255, 0.7) ; */
@@ -10,7 +12,7 @@
     background-size: cover; */
     margin: 5rem auto;
     padding: 2rem;
-    border-radius: 4rem;
+    border-radius: 2rem;
     box-shadow: 0 0.4rem 0.8rem rgba(0,0,0, 0.1);
 }
 .header{
@@ -118,8 +120,9 @@
         font-size: 10px;
     }
      .container{
-        
-        margin: 20rem auto;
+        max-width: 360px;
+        min-width: 300px;
+        margin: 15rem auto;
         padding: 1rem;        
     }
     .text{
@@ -150,7 +153,9 @@
     }  */
     .container {
         width: 80%;
-        margin: 20rem auto;
+        max-width: 230px;
+        min-width: 200px;
+        margin: 15rem auto;
         padding: 0.5rem;
         overflow: hidden;
         /* height: 40%; */
@@ -179,9 +184,9 @@
     }
 
     .submit-container .submit {
-        width: 10rem;
-        height: 4rem;
-        font-size: 2rem;
+        width: 9rem;
+        height: 3rem;
+        font-size: 1.6rem;
     } 
 }
  
