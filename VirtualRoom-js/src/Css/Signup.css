@@ -3,6 +3,11 @@
     width: 40%;
     /* border: 2px solid black; */
     background: #fff;
+    /* background: rgba(255, 255, 255, 0.7) ; */
+    /* background-image: url("../src/assets/Images/login.avif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
     margin: 5rem auto;
     padding: 2rem;
     border-radius: 4rem;
@@ -15,7 +20,8 @@
 .header .text
 {   
     color: blueviolet;
-    font-size: 3.8rem;
+    /* color: black; */
+    font-size: 3rem;
     font-weight: 700;
 }
 .header .underline{
@@ -24,6 +30,7 @@
     border-radius: 1rem;
     margin: 1rem auto 0;
     background: blueviolet;
+    /* background: black; */
     transition: all 2s ease-in-out;
 }
 @keyframes expand {
@@ -42,10 +49,10 @@
 .inputs .input{
     display: flex;
     align-items: center;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     background-color: #eaeaea;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0.8rem;
 }
 
 
@@ -56,7 +63,7 @@
 }
 
 .inputs .input input{
-    height: 30%;
+    height: 25%;
     width: 80%;
     margin-right: 2rem;
     background: transparent;
@@ -70,12 +77,17 @@
     text-align: center;
     text-decoration: none;
     color: blueviolet;
+    /* color: black; */
     font-size: 1.6rem;
     margin-bottom: 0.5rem;
+}
+.link a{
+    color: black;
 }
 .link a:hover{
     text-decoration: underline;
     color: blueviolet;
+    /* color: black; */
 }
 
 .submit-container{
@@ -93,6 +105,7 @@
     height: 3rem;
     color: #fff;
     background:  blueviolet;
+    /* background: rgba(0,0,0, 0.9); */
     border-radius: 5rem;
     font-size: 1.5rem;
     font-weight: 700;

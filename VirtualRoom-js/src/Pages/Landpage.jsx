@@ -48,7 +48,7 @@ function Landpage()
         navigate('/login');
      }
      else{
-        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
+        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;   
         if(tokenexpiry(token))
         {
             localStorage.removeItem('token');

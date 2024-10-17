@@ -1,6 +1,13 @@
 body {
   margin: 0;
   padding: 0;
-  background: #D8BFD8;
+  background: #D8BFD8;   
+  /* background-image: url("../src/assets/Images/login.avif"); */
+  /* background: white; */
+  /* background-image: url("../src/assets/Images/login.avif");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover; */
+  overflow:auto;
 }
 
