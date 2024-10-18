@@ -8,12 +8,12 @@ import axios from 'axios';
 
 function Login()
 {
-    const navigate=useNavigate();
-     const [data,setData]=useState({
+    let navigate=useNavigate();
+    let [data,setData]=useState({
         email:"",
         password:""
      });
-    const clear=()=>{
+    let clear=()=>{
         setData({
         email:"",
         password:""
@@ -22,7 +22,7 @@ function Login()
 
    
 
-    const handlesubmit=(event)=>{
+    let handlesubmit=(event)=>{
         event.preventDefault();
         if(data.email!=null&&data.password!=null)
         {

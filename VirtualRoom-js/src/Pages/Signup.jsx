@@ -8,7 +8,7 @@ import axios from 'axios';
 
 function Signup()
 {
-    const [data,setData]=useState({
+    let [data,setData]=useState({
         email:"",
         password:"",
         name:"",
@@ -17,9 +17,9 @@ function Signup()
 
     const apiurl='https://localhost:7040/api/StudentPortal/Register';
     
-    const navigate=useNavigate(); 
+    let navigate=useNavigate(); 
 
-    const handlesubmit=(event)=>{
+    let handlesubmit=(event)=>{
         event.preventDefault();
         if(data.email&&data.password&&data.name&&data.username)
         {

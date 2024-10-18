@@ -8,9 +8,9 @@ import { jwtDecode } from 'jwt-decode'
 
 function Landpage()
 {
-    const [click,setclick]=useState(true);
+    let [click,setclick]=useState(true);
 
-    const [data,setData]=useState({
+    let [data,setData]=useState({
         name:"",
         username:"",
         email:""
@@ -18,10 +18,10 @@ function Landpage()
 
     let navigate=useNavigate();
 
-    const handleclickaccount=()=>{
+    let handleclickaccount=()=>{
          setclick(true);
     };
-    const handleclickpasswd=()=>{
+    let handleclickpasswd=()=>{
         setclick(false);
    };
 
