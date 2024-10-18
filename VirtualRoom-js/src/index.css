@@ -2,13 +2,14 @@ body {
   margin: 0;
   padding: 0;
   /* background: #D8BFD8;    */
-  background: linear-gradient(135deg, #f8b7d4, #d8a0f2);
-  /* background-image: url("../src/assets/Images/login.avif"); */
+  /* background: linear-gradient(135deg, #f8b7d4, #d8a0f2); */
+  background-image: url("../src/assets/Images/login.avif");
   /* background: white; */
-  /* background-image: url("../src/assets/Images/login.avif");
+  /* background-image: url("../src/assets/Images/login.avif");*/
   background-position: center;
   background-repeat: no-repeat;
-  background-size: cover; */
+  background-size: cover; 
   overflow:auto;
+  height: 100vh;
 }
 

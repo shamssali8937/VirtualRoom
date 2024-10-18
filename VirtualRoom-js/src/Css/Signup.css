@@ -4,8 +4,8 @@
     min-width: 300px;
     max-width: 500px;
     /* border: 2px solid black; */
-    background: #fff;
-    /* background: rgba(255, 255, 255, 0.7) ; */
+    /* background: #fff; */
+    background: rgba(255, 255, 255, 0.7) ;
     /* background-image: url("../src/assets/Images/login.avif");
     background-position: center;
     background-repeat: no-repeat;

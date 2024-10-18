@@ -95,7 +95,7 @@ function Landpage()
         </div>
     </nav>  */}
     <Navbar/>
-    <h1>User Account</h1>
+    {/* <h1>User Account</h1> */}
     <div className="body-container" id="con-body">
     
         <div className="side-bar">

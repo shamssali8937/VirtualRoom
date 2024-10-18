@@ -11,8 +11,9 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 100%;
     /* background: #E6E6FA; */
-    background: white;   
-    /* background: rgba(255, 255, 255, 0.7); */
+    /* background: white;    */
+    /* background: linear-gradient(135deg, #f8b7d4, #d8a0f2); */
+    background: rgba(255, 255, 255, 0.7);
 }
 
 .navdiv {
@@ -25,7 +26,9 @@
 .logo a {
     font-size: 2rem;
     font-weight: 700;
+    margin-left: 1rem;
     color: #333;
+    /* color: blueviolet; */
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -36,6 +39,7 @@
 
 ul li a {
     color: #555;
+    /* color: blueviolet; */
     font-size: 1.3rem;
     font-weight: 600;
     margin-right: 2rem;
@@ -44,6 +48,7 @@ ul li a {
 
 ul li a:hover {
     color: #000;
+    /* color: blueviolet; */
 }
 
 @media screen and (max-width:500px) {
@@ -70,13 +75,12 @@ ul li a:hover {
     
 }
 
-
 h1 {
     margin-top: 4rem;
     font-size: 2.5rem;
     text-align: center;
-    color: #333;
-    /* color: #e0e0e0; */
+    /* color: #333; */
+    color: #e0e0e0;
 }
 .body-container {
     width: 90%;
