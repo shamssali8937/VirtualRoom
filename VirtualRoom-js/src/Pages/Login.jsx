@@ -40,7 +40,7 @@ function Login()
                         navigate("/landpage");
                     }
                     else{
-                        alert("Invalid credentials");
+                        alert("Token is not valid");
                         clear();
                       }
                 }
