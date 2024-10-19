@@ -56,6 +56,7 @@ function Landpage()
             localStorage.removeItem('token');     
             navigate('/login');
             alert("please login again");
+            return;
         }
 
         axios.get("https://localhost:7040/api/StudentPortal/Student").then((response)=>{
@@ -73,12 +74,6 @@ function Landpage()
                 alert("please login with correct credentials");                
             }
         })
-        // .catch((err) => {
-        //     console.error(err);
-        //   //  alert("Error fetching user data.");
-        //     localStorage.removeItem('token');
-        //     navigate("/login");
-        // });
      }
    },[navigate]);
 

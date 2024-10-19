@@ -52,11 +52,11 @@ function Login()
                     clear();
                 }
             })
-            .catch((err) => {
-                console.error(err);
-                alert("Login failed. Please try again.");
-                clear();
-              });        
+            // .catch((err) => {
+            //     console.error(err);
+            //     alert("Login failed. Please try again.");
+            //     clear();
+            //   });        
         }
         else
         {
