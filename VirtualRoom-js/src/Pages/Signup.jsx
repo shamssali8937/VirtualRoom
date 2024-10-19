@@ -23,13 +23,13 @@ function Signup()
         event.preventDefault();
         if(data.email&&data.password&&data.name&&data.username)
         {
-            const dt={
+            const credentials={
                 name:data.name,
                 username:data.username,
                 email:data.email,
                 password:data.password
             }
-           axios.post(apiurl,dt).then((respone)=>{
+           axios.post(apiurl,credentials).then((respone)=>{
             if(respone.data.statuscode==400)
             {
                 alert(respone.data.statusmessage);
