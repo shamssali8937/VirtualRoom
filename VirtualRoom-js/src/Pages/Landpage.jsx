@@ -1,5 +1,5 @@
 import { useEffect, useState} from "react";
-import { Link ,Router,useNavigate} from 'react-router-dom';
+import { useNavigate} from 'react-router-dom';
 import '../Css/Landpage.css'
 import usericon from '../assets/Images/person.png'
 import Navbar from "../components/Navbar";
@@ -30,14 +30,16 @@ function Landpage()
     {
         return true;
     }
-    try{
-        let decodetoken=jwtDecode(token);
+    let decodetoken=jwtDecode(token);
+    if(!decodetoken||!decodetoken.exp)
+        {
+        console.log("error in decoding token");
+        return true;
+      }
+    else{
+      
         let time=Date.now()/1000;
         return decodetoken.exp<time;
-    }
-    catch(error){
-      console.log("error in decoding token");
-      return true;
     }
    };
 
@@ -51,8 +53,7 @@ function Landpage()
         axios.defaults.headers.common['Authorization']=`Bearer ${token}`;   
         if(tokenexpiry(token))
         {
-            localStorage.removeItem('token');
-            
+            localStorage.removeItem('token');     
             navigate('/login');
             alert("please login again");
         }
@@ -72,12 +73,12 @@ function Landpage()
                 alert("please login with correct credentials");                
             }
         })
-        .catch((err) => {
-            console.error(err);
-            alert("Error fetching user data.");
-            localStorage.removeItem('token');
-            navigate("/login");
-        });
+        // .catch((err) => {
+        //     console.error(err);
+        //   //  alert("Error fetching user data.");
+        //     localStorage.removeItem('token');
+        //     navigate("/login");
+        // });
      }
    },[navigate]);
 
