@@ -71,7 +71,8 @@ function Landpage()
             }
             else
             {
-                alert("please login with correct credentials");                
+                alert("please login with correct credentials");
+                localStorage.removeItem('token');
             }
         })
      }

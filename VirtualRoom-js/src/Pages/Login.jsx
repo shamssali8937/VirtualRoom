@@ -37,7 +37,7 @@ function Login()
                     if(token)
                     {
                        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
-                        navigate("/landpage");
+                       navigate("/landpage");
                     }
                     else{
                         alert("Token is not valid");
