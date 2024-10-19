@@ -20,8 +20,6 @@ function Login()
         })
     };
 
-   
-
     let handlesubmit=(event)=>{
         event.preventDefault();
         if(data.email!=null&&data.password!=null)
@@ -51,12 +49,8 @@ function Login()
                     alert("invalid credentials");
                     clear();
                 }
-            })
-            // .catch((err) => {
-            //     console.error(err);
-            //     alert("Login failed. Please try again.");
-            //     clear();
-            //   });        
+            });
+            
         }
         else
         {

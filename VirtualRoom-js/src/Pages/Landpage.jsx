@@ -32,7 +32,7 @@ function Landpage()
     }
     let decodetoken=jwtDecode(token);
     if(!decodetoken||!decodetoken.exp)
-        {
+      {
         console.log("error in decoding token");
         return true;
       }
@@ -75,6 +75,7 @@ function Landpage()
             }
         })
      }
+
    },[navigate]);
 
     return(
