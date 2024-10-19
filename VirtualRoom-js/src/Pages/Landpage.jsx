@@ -46,11 +46,11 @@ function Landpage()
    useEffect(()=>{
      const token=localStorage.getItem('token');
      if(!token){
-        console.log("please login first");
-        navigate('/login');
+        console.log("Not authourized");
+        navigate('/login');  
      }
      else{
-        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;   
+        
         if(tokenexpiry(token))
         {
             localStorage.removeItem('token');     
@@ -58,7 +58,7 @@ function Landpage()
             alert("please login again");
             return;
         }
-
+        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
         axios.get("https://localhost:7040/api/StudentPortal/Student").then((response)=>{
             if(response.data.statuscode==200)
             {
