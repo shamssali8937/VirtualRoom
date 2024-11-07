@@ -38,7 +38,7 @@
 .input-box .icon{
     position: absolute;
     right: 20px;
-    top: 50%;
+    top: 45%;
     transform: translateY(-50%);
     height: 100%;
     width: 2rem;
@@ -57,12 +57,12 @@
     margin-right: 0.4rem;
 }
 
-.rember-forget a{
+.rember-forget #link{
     color:#fff;
     text-decoration: none;
 }
 
-.rember-forget a:hover{
+.rember-forget #link:hover{
     text-decoration: underline;
 }
 
