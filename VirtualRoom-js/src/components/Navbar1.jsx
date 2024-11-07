@@ -12,7 +12,7 @@ function Navbar1()
             <div className="right">
                 <button className="nav-btn">Join Class</button>
                 <button className="nav-btn">Create Class</button>
-                <FaRegCircleUser className='icon'/>
+                <FaRegCircleUser className='icons'/>
             </div>
         </div>
         </>

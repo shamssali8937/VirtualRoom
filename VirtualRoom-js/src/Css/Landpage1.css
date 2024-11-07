@@ -1,0 +1,61 @@
+.sidebar{
+    position: fixed;
+    top: 65px;
+    left: 0;
+    width: 12.5rem;
+    height: calc(100vh - 60px);
+    background-color: white;
+    color: #fff;
+    padding-top: 1.2rem;
+    box-shadow:0 2px 4px rgba(0, 0, 0, 0.3) ;
+}
+nav ul{
+    list-style: none;
+    padding: 0;
+    margin-left: 1.2rem;
+}
+
+nav ul li{
+    margin: 0.8rem 0;
+}
+
+nav ul li a{
+    text-decoration: none;
+    color: black;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    transition: all 2s ease-in-out;
+}
+nav ul li a .side-icons{
+   font-size: 1.1rem;
+   margin-right: 0.8rem;
+   margin-left: 0.8rem;
+}
+
+#setting{
+    margin-top: 2rem;
+}
+.section{
+    margin-top: 1.1rem;
+}
+
+.section p{
+    font-weight: 700;
+    color: #000000;
+   margin: 1rem 0 0.3rem;
+}
+
+nav ul li a:hover{
+    background: lightblue;
+    transform: translateX(4px);
+    border-radius: 10px;
+}
+.underline{
+    background: #000000;
+    height: 0.2rem;
+    width: 65%;
+    margin: 0 1.5rem;
+    border-radius: 1.5rem;
+    margin-top: 1rem;
+}
