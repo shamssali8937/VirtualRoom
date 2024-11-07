@@ -16,7 +16,7 @@ function Login1()
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
-                    <input type="text" placeholder='Password' required/>
+                    <input type="password" placeholder='Password' required/>
                     <RiLockPasswordFill className='icon'/>
                     </div> 
                     <div className="rember-forget">
