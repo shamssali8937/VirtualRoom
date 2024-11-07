@@ -76,7 +76,7 @@ function Login1()
             <form onSubmit={handlesubmit}>
                 <h1 className='head'>Login</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='Email' value={data.email} onChange={handlechange} required/>
+                    <input type="text" placeholder='Email' name='email' value={data.email} onChange={handlechange} required/>
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
