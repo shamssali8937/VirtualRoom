@@ -1,15 +1,26 @@
-body {
+*{
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: url('./assets/Images/background.jpg');
+  /* margin: 0;
+  padding: 0; */
+
   /* background: #D8BFD8;    */
   /* background: linear-gradient(135deg, #f8b7d4, #d8a0f2); */
-  background-image: url("../src/assets/Images/login.avif");
+  /* background-image: url("../src/assets/Images/login.avif"); */
   /* background: white; */
   /* background-image: url("../src/assets/Images/login.avif");*/
-  background-position: center;
+ background-position: center;
   background-repeat: no-repeat;
   background-size: cover; 
   overflow:hidden;
-  height: 110vh;
+  height: 110vh; 
 }
 

@@ -1,0 +1,98 @@
+.wraper{
+    width: 420px;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .7);
+    color: aliceblue;
+    padding:  30px 40px;
+}
+
+.wraper h1{
+    font-size: 36px;
+    text-align: center;
+}
+
+.wraper .input-box{
+    position: relative;
+    width: 100%;
+    height: 50px;
+    margin: 1.8rem 0;
+}
+
+.input-box input{
+    width: 100%;
+    height: 90%;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .7);
+    outline: none;
+    border-radius: 2.5rem;
+    font-size: 1rem;
+    color: #fff;
+    padding: 20px 45px 20px 20px;
+}
+
+.input-box input::placeholder{
+    color: #fff;
+
+}
+
+.input-box .icon{
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 100%;
+    width: 2rem;
+}
+
+
+.wraper .rember-forget{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    margin: -15px 0 15px;
+}
+
+.rember-forget label input{
+    accent-color: #fff;
+    margin-right: 0.4rem;
+}
+
+.rember-forget a{
+    color:#fff;
+    text-decoration: none;
+}
+
+.rember-forget a:hover{
+    text-decoration: underline;
+}
+
+.wraper button{
+    width: 100%;
+    height: 2.6rem;
+    background: #fff;
+    border: none;
+    outline: none;
+    border-radius: 3rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, .3);
+    cursor: pointer;
+    font-size: 1.5rem;
+    color: #333;
+    font-weight: 700;
+}
+.wraper .register-link{
+    font-size: 1rem;
+    text-align: center;
+    margin: 20px 0 15px;
+    cursor: pointer;
+}
+
+.register-link p a{
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.register-link p a:hover {
+    text-decoration: underline;
+}
