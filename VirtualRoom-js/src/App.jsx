@@ -6,12 +6,13 @@ import { useLocation } from "react-router-dom";
 import Landpage from './Pages/Landpage.jsx'
 import Login1 from "./Pages/Login1.jsx";
 import Signup1 from "./Pages/Signup1.jsx";
+import Landpage1 from "./Pages/Landpage1.jsx";
 
 function App() {
 
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname !== '/landpage') {
+    if (location.pathname !== '/landpage'&&location.pathname !== '/landpage1') {
       document.body.classList.add('background-image');
   } else {
       document.body.classList.remove('background-image');
@@ -26,7 +27,8 @@ function App() {
         <Route path='/signup1' element={<Signup1 />}/>
         <Route path='/login1' element={<Login1 />}/>
         {/* <Route path='/login' element={<Login />}/> */}
-        <Route path='/landpage' element={<Landpage />}/>
+        <Route path='/landpage1' element={<Landpage1 />}/>
+        {/* <Route path='/landpage' element={<Landpage />}/> */}
       </Routes>
     </>
   )
