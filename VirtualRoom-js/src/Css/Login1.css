@@ -1,5 +1,5 @@
 .wraper{
-    width: 420px;
+    width: 27rem;
     background: transparent;
     border: 2px solid rgba(255, 255, 255, .7);
     color: aliceblue;
@@ -95,4 +95,16 @@
 
 .register-link p a:hover {
     text-decoration: underline;
+}
+
+@media only screen and (min-width: 340px) and (max-width:560px) {
+    *{
+        font-size: 10px;
+    }
+}
+
+@media only screen and (max-width:340px) {
+    *{
+        font-size: 8px;
+    }
 }

@@ -9,6 +9,7 @@ import { RiLockPasswordFill } from "react-icons/ri"
 function Login1()
 {
     let navigate=useNavigate();
+    const [showpassword, setshowpassword] = useState(false);
     let [data,setData]=useState({
         email:"",
         password:""
@@ -69,6 +70,9 @@ function Login1()
         }));
     };
 
+    const toggleshowpassword = () => {
+        setshowpassword(!showpassword);
+    };
 
     return (
         <>
@@ -80,11 +84,11 @@ function Login1()
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
-                    <input type="password" placeholder='Password' name="password" value={data.password} onChange={handlechange} required/>
+                    <input type={showpassword ? "text" : "password"} placeholder='Password' name="password" value={data.password} onChange={handlechange} required/>
                     <RiLockPasswordFill className='icon'/>
                     </div> 
                     <div className="rember-forget">
-                    <label htmlFor=""><input type="checkbox" />Show Password</label>
+                    <label htmlFor='showpass'><input type="checkbox" name='showpass' onChange={toggleshowpassword} />Show Password</label>
                      <Link to="/signup1" id="link">Forget password?</Link> 
                     </div>
                     <button type='submit'>Login</button>

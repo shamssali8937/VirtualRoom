@@ -16,6 +16,7 @@ function Signup1()
         username:""
     });
 
+    const [showpassword, setshowpassword] = useState(false);
     const apiurl='https://localhost:7040/api/StudentPortal/Register';
     
     let navigate=useNavigate(); 
@@ -38,7 +39,7 @@ function Signup1()
             else
             {
                 alert("Congragulation You Just Signed up Now Please Login");
-                navigate("/login");
+                navigate("/login1");
             }
             
            }).catch((error)=>{
@@ -53,11 +54,16 @@ function Signup1()
             [name]: value
         }));
     };
+
+    const toggleshowpassword = () => {
+        setshowpassword(!showpassword);
+    };
+
     return (
         <>
         <div className="wraper">
             <form onSubmit={handlesubmit}>
-                <h1 className='head'>Login</h1>
+                <h1 className='head'>Sign Up</h1>
                 <div className="input-box">
                     <input type="text" placeholder='Name' name="name" value={data.name} onChange={handlechange} required/>
                     <FaUser className='icon'/>
@@ -71,13 +77,13 @@ function Signup1()
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
-                    <input type="password" placeholder='Password' name="password" value={data.password} onChange={handlechange} required/>
+                    <input type={showpassword ? "text" : "password"} placeholder='Password' name="password" value={data.password} onChange={handlechange} required/>
                     <RiLockPasswordFill className='icon'/>
                     </div> 
                     <div className="rember-forget">
-                    <label htmlFor=""><input type="checkbox" />Show Password</label>
+                    <label htmlFor="showpass"><input type="checkbox" name='showpass' onChange={toggleshowpassword} />Show Password</label>
                     </div>
-                    <button type='submit'>Login</button>
+                    <button type='submit'>Sign Up</button>
 
                     <div className="register-link">
                         <p>Already have an account? <Link to="/login1" id="link">Login?</Link> </p>

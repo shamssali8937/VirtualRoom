@@ -47,14 +47,14 @@ function Landpage()
      const token=localStorage.getItem('token');
      if(!token){
         console.log("Not authourized");
-        navigate('/login');  
+        navigate('/login1');  
      }
      else{
         
         if(tokenexpiry(token))
         {
             localStorage.removeItem('token');     
-            navigate('/login');
+            navigate('/login1');
             alert("please login again");
             return;
         }
