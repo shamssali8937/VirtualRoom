@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 // import Signup from './Pages/Signup.jsx';
 // import Login from './Pages/Login.jsx';
-import Landpage from './Pages/Landpage.jsx'
+// import Landpage from './Pages/Landpage.jsx'
 import Login1 from "./Pages/Login1.jsx";
 import Signup1 from "./Pages/Signup1.jsx";
 import Landpage1 from "./Pages/Landpage1.jsx";
@@ -12,7 +12,7 @@ function App() {
 
   const location = useLocation();
   useEffect(() => {
-    if (location.pathname !== '/landpage'&&location.pathname !== '/landpage1') {
+    if (location.pathname !== '/landpage1') {
       document.body.classList.add('background-image');
   } else {
       document.body.classList.remove('background-image');
