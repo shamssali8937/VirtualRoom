@@ -106,7 +106,7 @@
     background: skyblue;
 }
 
-.signout a{
+.signout #link{
     text-decoration: none;
     color: black;
     margin-top:0.5rem ;

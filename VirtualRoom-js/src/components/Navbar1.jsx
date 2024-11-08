@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaRegCircleUser } from "react-icons/fa6";
@@ -25,7 +26,7 @@ function Navbar1()
             <FaRegCircleUser className='icons profile'/>
             <label>Shams Ali Mehdi</label>
             <div className="signout">
-            <a href="#">Sign out</a>
+            <Link to="/login1" id="link">Sign Out</Link> 
             </div>
         </div>
         </>
