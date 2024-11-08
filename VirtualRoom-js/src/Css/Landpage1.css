@@ -63,8 +63,8 @@ nav ul li a:hover{
 .main-content{
     border: 2px solid black;
     margin-left: 12.5rem; 
-    margin-top: 3.7rem;
-    height: calc(100vh - 60px); 
+    margin-top: 3.99rem;
+    height: calc(100vh - 64px); 
     padding: 1rem;
     overflow-y: hidden; 
 
