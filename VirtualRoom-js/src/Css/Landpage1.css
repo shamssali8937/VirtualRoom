@@ -17,6 +17,7 @@ nav ul{
 
 nav ul li{
     margin: 0.8rem 0;
+    padding: 1rem;
 }
 
 nav ul li a{
@@ -25,7 +26,8 @@ nav ul li a{
     font-size: 1rem;
     display: flex;
     align-items: center;
-    transition: all 2s ease-in-out;
+
+
 }
 nav ul li a .side-icons{
    font-size: 1.1rem;
@@ -50,6 +52,7 @@ nav ul li a:hover{
     background: lightblue;
     transform: translateX(4px);
     border-radius: 10px;
+    transition: background 2s ease-in-out;
 }
 .underline{
     background: #000000;

@@ -3,27 +3,31 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaRegCircleUser } from "react-icons/fa6";
-function Navbar1()
+function Navbar1({userdata})
 {
-    let [click1,setclick1]=useState(false);
-    let handleclick1=()=>{
-        setclick1(!click1);
-        setclick2(false);
-        setclick3(false);
-   };
-   let [click2,setclick2]=useState(false);
-   let handleclick2=()=>{
-       setclick2(!click2);
-       setclick1(false);
-       setclick3(false);
-       
-  };
-  let [click3,setclick3]=useState(false);
-  let handleclick3=()=>{
-      setclick3(!click3);
-      setclick1(false);
-      setclick2(false);
- };
+       let [click1,setclick1]=useState(false);
+       let handleclick1=()=>{
+           setclick1(!click1);
+           setclick2(false);
+           setclick3(false);
+      };
+      let [click2,setclick2]=useState(false);
+      let handleclick2=()=>{
+          setclick2(!click2);
+          setclick1(false);
+          setclick3(false);
+          
+     };
+     let [click3,setclick3]=useState(false);
+     let handleclick3=()=>{
+         setclick3(!click3);
+         setclick1(false);
+         setclick2(false);
+    };
+    let handlesignout=()=>{
+    localStorage.removeItem('token');
+   }
+
     return(
         <>
         <div className="navbar">
@@ -37,11 +41,11 @@ function Navbar1()
             </div>
         </div>
         <div className={`user ${click1?'opacity1':'opacity0'}`}>
-            <label>Shams@gmail.com</label>
+            <label>{userdata.email}</label>
             <FaRegCircleUser className='icons profile'/>
-            <label>Shams Ali Mehdi</label>
+            <label>{userdata.name}</label>
             <div className="signout">
-            <Link to="/login1" id="link">Sign Out</Link> 
+            <Link to="/login1" id="link" onClick={handlesignout}>Sign Out</Link> 
             </div>
         </div>
         <div className={`joinclass ${click2?'opacity1':'opacity0'}`}>
