@@ -9,9 +9,9 @@ import "../Css/Landpage1.css";
 
 function Landpage1(){
 
-    let [click,setclick]=useState(false);
-    let handleclick=()=>{
-        setclick(!click);
+    let [click2,setclick2]=useState(false);
+    let handleclick2=()=>{
+        setclick2(!click2);
    };
    
     return(
@@ -41,25 +41,7 @@ function Landpage1(){
             </nav>
         </div>
         <div className="main-content">
-            <div className={`joinclass ${click?'opacity1':'opacity0'}`}>
-                <h3>Join Class</h3>
-                <div className="class">
-                    <h4>Class Name</h4>
-                    <p>Ask your teacher for the class name, then enter it here.</p>
-                    <input type="text" name="class" required />
-                </div>
-                <div className="instruction">
-                <p>To sign in with a class Name</p>
-                <ul>
-                    <li>Use an authorised account</li>
-                    <li>Use a class name with 5-7 letters or numbers, and no spaces or symbols</li>
-                </ul>
-                </div>
-                <div className="button">
-                   <button>Cancel</button>
-                   <button>Join</button>
-                </div>
-            </div>
+     
         </div>
         </>
          

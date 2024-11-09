@@ -167,6 +167,7 @@
 }
 .button button:hover{
     background-color: skyblue;
+    cursor: pointer;
     
 }
 
