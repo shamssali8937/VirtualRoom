@@ -8,11 +8,22 @@ function Navbar1()
     let [click1,setclick1]=useState(false);
     let handleclick1=()=>{
         setclick1(!click1);
+        setclick2(false);
+        setclick3(false);
    };
    let [click2,setclick2]=useState(false);
    let handleclick2=()=>{
        setclick2(!click2);
+       setclick1(false);
+       setclick3(false);
+       
   };
+  let [click3,setclick3]=useState(false);
+  let handleclick3=()=>{
+      setclick3(!click3);
+      setclick1(false);
+      setclick2(false);
+ };
     return(
         <>
         <div className="navbar">
@@ -21,7 +32,7 @@ function Navbar1()
             </div>
             <div className="right">
                 <button className="nav-btn" onClick={handleclick2}>Join Class</button>
-                <button className="nav-btn">Create Class</button>
+                <button className="nav-btn" onClick={handleclick3}>Create Class</button>
                 <FaRegCircleUser className='icons' onClick={handleclick1}/>
             </div>
         </div>
@@ -50,6 +61,17 @@ function Navbar1()
                 <div className="button">
                    <button>Cancel</button>
                    <button>Join</button>
+                </div>
+            </div>
+            <div className={`createclass ${click3?'opacity1':'opacity0'}`}>
+                <h3>Create Class</h3>
+                <div className="create">
+                    <input type="text" placeholder='Class Name' name="name" id="" required/>
+                    <input type="text" placeholder='Course Name' name="course" required />
+                </div>
+                <div className="createbtn">
+                   <button>Cancel</button>
+                   <button>create</button>
                 </div>
             </div>
         
