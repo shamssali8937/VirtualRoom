@@ -29,7 +29,7 @@ function Login1()
                 email:data.email,
                 password:data.password
             }
-            axios.post("https://localhost:7040/api/StudentPortal/Login",credentials)
+            axios.post("https://localhost:7124/api/VR/Login",credentials)
             .then((response)=>{
                 if(response.data.statuscode==200)
                 {
@@ -37,6 +37,7 @@ function Login1()
                     localStorage.setItem('token',token);
                     if(token)
                     {
+                        console.log(token);
                        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;
                        navigate("/landpage1");
                     }

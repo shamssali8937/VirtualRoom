@@ -55,7 +55,7 @@ function Landpage1(){
                 return;
             }
             axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
-            axios.get("https://localhost:7040/api/StudentPortal/Student").then((response)=>{
+            axios.get("https://localhost:7124/api/VR/Student").then((response)=>{
                 if(response.data.statuscode==200)
                 {
                     const user=response.data.user;
