@@ -133,7 +133,7 @@ ul li a:hover {
 .account-information:hover{
     /* background-color: #E6E6FA; */
     background: lightblue;
-    transform: translateY(-4px);
+    transform: translateY(-4px);     
 }
 
 .body-container .main-content{

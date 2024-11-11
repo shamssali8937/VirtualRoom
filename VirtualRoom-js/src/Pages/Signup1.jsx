@@ -17,7 +17,7 @@ function Signup1()
     });
 
     const [showpassword, setshowpassword] = useState(false);
-    const apiurl='https://localhost:7124/api/VR/Register';
+    const apiurl='https://localhost:7124/api/Virtual/Register';
     
     let navigate=useNavigate(); 
 

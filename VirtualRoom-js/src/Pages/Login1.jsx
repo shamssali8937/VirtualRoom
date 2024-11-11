@@ -29,7 +29,7 @@ function Login1()
                 email:data.email,
                 password:data.password
             }
-            axios.post("https://localhost:7124/api/VR/Login",credentials)
+            axios.post("https://localhost:7124/api/Virtual/Login",credentials)
             .then((response)=>{
                 if(response.data.statuscode==200)
                 {
