@@ -1,0 +1,74 @@
+.join-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+    background: transparent;
+    border: 2px solid rgba(255, 255, 255, .7);
+    color: aliceblue;
+    transition: all 0.3s ease-in-out;    
+}
+h2{
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.btn-grp{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 1rem;
+}
+
+.btn-grp button{
+    background-color: transparent;
+    border: 1px solid #fff;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: all 0.3s ease-in-out;
+}
+
+.btn-grp .active{
+    background-color: #fff;
+    color: #333;
+  }
+.form-box{
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border: 8px;
+    width: 300px;
+    text-align: center;
+}
+
+.form-box input{
+    width: 100%;
+    padding: 0.5rem;
+    margin: 0.5rem 0;
+    background-color: transparent;
+    width: 100%;
+    height: 90%;
+    border: 2px solid rgba(255, 255, 255, .7);
+    outline: none;
+    border-radius: 2.5rem;
+    font-size: 1rem;
+    color: #fff;
+}
+
+.form-box input::placeholder{
+   color: #fff;
+}
+
+.form-box button{
+    width: 100%;
+    padding: 0.5rem;
+    margin-top: 1rem;
+    border: none;
+    background-color: #fff;
+    color: #333;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 700;
+    border-radius: 10px;
+}

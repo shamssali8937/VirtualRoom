@@ -7,6 +7,7 @@ import { useLocation } from "react-router-dom";
 import Login1 from "./Pages/Login1.jsx";
 import Signup1 from "./Pages/Signup1.jsx";
 import Landpage1 from "./Pages/Landpage1.jsx";
+import Join from "./Pages/Join.jsx";
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
         <Route path='/login1' element={<Login1 />}/>
         {/* <Route path='/login' element={<Login />}/> */}
         <Route path='/landpage1' element={<Landpage1 />}/>
+        <Route path='/join' element={<Join />}/>
         {/* <Route path='/landpage' element={<Landpage />}/> */}
       </Routes>
     </>
