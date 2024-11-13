@@ -38,8 +38,8 @@ function Signup1()
             }
             else
             {
-                alert("Congragulation You Just Signed up Now Please Login");
-                navigate("/login1");
+                alert("Congragulation You Just Signed up");
+                navigate("/join");
             }
             
            }).catch((error)=>{

@@ -7,19 +7,19 @@ function Join()
 {
     let navigate=useNavigate();
     let [isteacher,setisteacher]=useState(true);
-    let [name, setname] = useState(" ");
+    let [name, setname] = useState("");
     let switchforms=()=>{
         setisteacher(!isteacher);
     }
     let [datas,setDatas]=useState({
         userid:0,
-        rollno:" ",
+        rollno:"",
         cgpa:0.0,
-        program:" "
+        program:""
     });
     let [datat,setDatat]=useState({
         userid:0,
-        Department:" "
+        Department:""
     });
 
     const handlechange=(e)=>{
@@ -40,7 +40,8 @@ function Join()
         }
     }
 
-    const handlejoin=()=>{
+    const handlejoin=(e)=>{
+        e.preventDefault();
         axios.post("https://localhost:7040/api/virtual/Getuserid",{name}).then(respone=>{
             if(respone.statuscode===200)
             {
@@ -98,7 +99,7 @@ function Join()
                <button className={isteacher?'active':''} onClick={switchforms}>Teacher</button>
             </div>
             <form className="form-box" onSubmit={handlejoin}>
-                <input type="text" placeholder='Name' name="name" value={name} onChange={handlechange}/>
+                <input type="text" placeholder='Name' name="name" value={name} onChange={(e) => setname(e.target.value)}/>
                 {!isteacher?(
                     <>
                     <input type="number" step="0.01" placeholder='CGPA' name="cgpa" value={datas.cgpa} onChange={handlechange} required/>
