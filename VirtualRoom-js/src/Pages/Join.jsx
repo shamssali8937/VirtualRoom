@@ -42,8 +42,9 @@ function Join()
 
     const handlejoin=(e)=>{
         e.preventDefault();
-        axios.post("https://localhost:7040/api/virtual/Getuserid",{name}).then(respone=>{
-            if(respone.statuscode===200)
+        console.log('Sending request with name:', name);
+        axios.post("https://localhost:7124/api/Virtual/Getuserid",{name}).then(respone=>{
+            if(respone.data.statuscode===200)
             {
                 const id=respone.data.user.userid;
                 if(!isteacher)
@@ -55,7 +56,7 @@ function Join()
                     program:datas.program
                    };   
                    axios.post("https://localhost:7124/api/Virtual/Addstudent",student).then(respone=>{
-                    if(respone.statuscode===200)
+                    if(respone.data.statuscode===200)
                     {
                         alert("joined");
                         navigate("/login1");
@@ -73,7 +74,7 @@ function Join()
                   };
 
                   axios.post("https://localhost:7124/api/Virtual/Addteacher",teacher).then(respone=>{
-                    if(respone.statuscode===200)
+                    if(respone.data.statuscode===200)
                     {
                           alert("joined as teacher");
                           navigate("/login1");
