@@ -104,7 +104,7 @@ function Join()
                 {!isteacher?(
                     <>
                     <input type="number" step="0.01" placeholder='CGPA' name="cgpa" value={datas.cgpa} onChange={handlechange} required/>
-                    <input type="text" placeholder='RollNO' name="Rollno" value={datas.rollno} onChange={handlechange} required/>
+                    <input type="text" placeholder='RollNO' name="Rollno" value={datas.rollno} onChange={handlechange} />
                     <input type="text" placeholder='Program' name="program" value={datas.program} onChange={handlechange} required/>
                     </>
                 ):(

@@ -34,22 +34,66 @@ function Navbar1({userdata})
     localStorage.removeItem('token');
    }
 
-   const handlejoin=()=>{
-      const studentresponse=axios.post("https://localhost:7124/api/Virtual/studentid",{name})
-      const stid=studentresponse.data.statusmessage;
-      const courseresponse=axios.post("https://localhost:7124/api/Virtual/courseid",{course})
-      const cid=courseresponse.data.statusmessage;
-      const classresponse=axios.post("https://localhost:7124/api/Virtual/classid",{cl})
-      const clid=classresponse.data.statusmessage;
-     
-      if(stid&&clid&&cid)
-      {
-        const enrollment={
-            courseid:cid,
-            classid:clid,
-            studentid:stid
+   const handlechange=(e)=>{
+    const {name,value}=e.target;
+    if(name==="class")
+    {
+        setcl(value);
+    }
+    else if(name==="course")
+    {
+        setcourse(value);
+    }
+    else
+    {
+        setstudent(value);
+    }
+   }
+
+   const handlenrollment=(e)=>{
+    e.preventDefault()
+    axios.post("https://localhost:7124/api/Virtual/studentid",{student}).then((response)=>{
+        if(response.data.statuscode===200)
+        {
+            const stid=response.data.statusmessage;    
+            return axios.post("https://localhost:7124/api/Virtual/courseid",{course}).then((response)=>{
+                if(response.data.statuscode===200)
+                    {
+                        const cid=response.data.statusmessage;
+                        return axios.post("https://localhost:7124/api/Virtual/classid",{cl}).then((response)=>{
+                            if(response.data.statuscode==200)
+                            {
+                                const clid=response.data.statusmessage;
+                                
+                                      const enrollment={
+                                          courseid:parseInt(cid),
+                                          classid: parseInt(clid),
+                                          studentid:parseInt(stid)
+                                      };
+                                    
+                                console.log(enrollment);
+                                return axios.post("https://localhost:7124/api/Virtual/join",enrollment);
+                            }
+                            else
+                            {
+                                console.log("no class found found");        
+                            }
+                           })
+            
+                    }
+                    else
+                    {
+                        console.log("no course found");
+                    }
+              })
+
         }
-        axios.post("https://localhost:7124/api/Virtual/join",enrollment).then(response=>{
+        else
+        {
+            console.log("no student exist");
+        }
+        
+      }).then((response)=>{
             if(response.data.statuscode===200)
             {
                 alert("joined");
@@ -61,10 +105,7 @@ function Navbar1({userdata})
             }
         })
       }
-
-    
-
-   };
+   
 
     return(
         <>
@@ -86,14 +127,14 @@ function Navbar1({userdata})
             <Link to="/login1" id="link" onClick={handlesignout}>Sign Out</Link> 
             </div>
         </div>
-        <form className={`joinclass ${click2?'opacity1':'opacity0'}`}>
+        <form onSubmit={handlenrollment} className={`joinclass ${click2?'opacity1':'opacity0'}`}>
                 <h3>Join Class</h3>
                 <div className="class">
                     <h4>Class Name</h4>
                     <p>Ask your teacher for the class name, then enter it here.</p>
-                    <input type="text" placeholder="Class Name" name="class" value={cl} required/>
-                    <input type="text" placeholder="Course Name" name="course" value={course} required/>
-                    <input type="text" placeholder="Student Name" name="student" value={student} required/>
+                    <input type="text" placeholder="Class Name" name="class" value={cl} onChange={handlechange} required/>
+                    <input type="text" placeholder="Course Name" name="course" value={course} onChange={handlechange} required/>
+                    <input type="text" placeholder="Student Name" name="student" value={student} onChange={handlechange} required/>
                 </div>
                 <div className="instruction">
                 <p>To sign in with a class Name</p>
