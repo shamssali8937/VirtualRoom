@@ -3,8 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
 import { SiGoogleclassroom } from "react-icons/si";
 import { FaRegCircleUser } from "react-icons/fa6";
+import axios from 'axios';
 function Navbar1({userdata})
 {
+    let [cl,setcl]=useState("");
+    let [course,setcourse]=useState("");
+    let [student,setstudent]=useState("");
+    
+
        let [click1,setclick1]=useState(false);
        let handleclick1=()=>{
            setclick1(!click1);
@@ -27,6 +33,38 @@ function Navbar1({userdata})
     let handlesignout=()=>{
     localStorage.removeItem('token');
    }
+
+   const handlejoin=()=>{
+      const studentresponse=axios.post("https://localhost:7124/api/Virtual/studentid",{name})
+      const stid=studentresponse.data.statusmessage;
+      const courseresponse=axios.post("https://localhost:7124/api/Virtual/courseid",{course})
+      const cid=courseresponse.data.statusmessage;
+      const classresponse=axios.post("https://localhost:7124/api/Virtual/classid",{cl})
+      const clid=classresponse.data.statusmessage;
+     
+      if(stid&&clid&&cid)
+      {
+        const enrollment={
+            courseid:cid,
+            classid:clid,
+            studentid:stid
+        }
+        axios.post("https://localhost:7124/api/Virtual/join",enrollment).then(response=>{
+            if(response.data.statuscode===200)
+            {
+                alert("joined");
+                setclick2(false);
+            }
+            else
+            {
+                alert("error");
+            }
+        })
+      }
+
+    
+
+   };
 
     return(
         <>
@@ -53,7 +91,9 @@ function Navbar1({userdata})
                 <div className="class">
                     <h4>Class Name</h4>
                     <p>Ask your teacher for the class name, then enter it here.</p>
-                    <input type="text" name="class"  required />
+                    <input type="text" placeholder="Class Name" name="class" value={cl} required/>
+                    <input type="text" placeholder="Course Name" name="course" value={course} required/>
+                    <input type="text" placeholder="Student Name" name="student" value={student} required/>
                 </div>
                 <div className="instruction">
                 <p>To sign in with a class Name</p>
@@ -63,7 +103,7 @@ function Navbar1({userdata})
                 </ul>
                 </div>
                 <div className="button">
-                   <button onClick={() => setclick2(false)}>Cancel</button>
+                   <button type="button" onClick={() => setclick2(false)}>Cancel</button>
                    <button type="submit">Join</button>
                 </div>
             </form>
@@ -74,7 +114,7 @@ function Navbar1({userdata})
                     <input type="text" placeholder='Course Name' name="course" required />
                 </div>
                 <div className="createbtn">
-                   <button onClick={() => setclick3(false)}>Cancel</button>
+                   <button type="button" onClick={() => setclick3(false)}>Cancel</button>
                    <button type="submit">create</button>
                 </div>
             </form>
