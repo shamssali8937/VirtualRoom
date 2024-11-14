@@ -48,12 +48,12 @@ function Navbar1({userdata})
             <Link to="/login1" id="link" onClick={handlesignout}>Sign Out</Link> 
             </div>
         </div>
-        <div className={`joinclass ${click2?'opacity1':'opacity0'}`}>
+        <form className={`joinclass ${click2?'opacity1':'opacity0'}`}>
                 <h3>Join Class</h3>
                 <div className="class">
                     <h4>Class Name</h4>
                     <p>Ask your teacher for the class name, then enter it here.</p>
-                    <input type="text" name="class" required />
+                    <input type="text" name="class"  required />
                 </div>
                 <div className="instruction">
                 <p>To sign in with a class Name</p>
@@ -63,21 +63,21 @@ function Navbar1({userdata})
                 </ul>
                 </div>
                 <div className="button">
-                   <button>Cancel</button>
-                   <button>Join</button>
+                   <button onClick={() => setclick2(false)}>Cancel</button>
+                   <button type="submit">Join</button>
                 </div>
-            </div>
-            <div className={`createclass ${click3?'opacity1':'opacity0'}`}>
+            </form>
+            <form className={`createclass ${click3?'opacity1':'opacity0'}`}>
                 <h3>Create Class</h3>
                 <div className="create">
-                    <input type="text" placeholder='Class Name' name="name" id="" required/>
+                    <input type="text" placeholder='Class Name' name="name" required/>
                     <input type="text" placeholder='Course Name' name="course" required />
                 </div>
                 <div className="createbtn">
-                   <button>Cancel</button>
-                   <button>create</button>
+                   <button onClick={() => setclick3(false)}>Cancel</button>
+                   <button type="submit">create</button>
                 </div>
-            </div>
+            </form>
         
         </>
     )
