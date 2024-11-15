@@ -13,6 +13,12 @@ import "../Css/Landpage1.css";
 function Landpage1(){
 
     let [click2,setclick2]=useState(false);
+    let [classes, setClasses] = useState([
+        { id: 1, className: "OOP BSIT SS1", teacherName: "Shams" },
+        { id: 2, className: "Data Structures", teacherName: "Ali" },
+        { id: 1, className: "OOP BSIT SS1", teacherName: "Shams" },
+        { id: 2, className: "Data Structures", teacherName: "Ali" }
+    ]);
     let handleclick2=()=>{
         setclick2(!click2);
    };
@@ -103,21 +109,28 @@ function Landpage1(){
             </nav>
         </div>
         <div className="main-content">
-     
-          <div className="class-box">
-            <div className="class-header">
-                <h3>OOP BSIT SS1</h3>
-                <p>shams</p>
-            </div>
-            <div className="class-body">
-
-            </div>
-            <div className="class-footer">
-            <FaTasks className="footer-icon" title="Assignments" />
-            <FaFolder className="footer-icon" title="Materials" />
-            </div>
-          </div>
-          
+     {
+               classes.map((item)=>{
+                return(
+                    <>
+                <div className="class-box">
+                <div className="class-header">
+                    <h3>{item.className}</h3>
+                    <p>{item.teacherName}</p>
+                </div>
+                <div className="class-body">
+    
+                </div>
+                <div className="class-footer">
+                <FaTasks className="footer-icon" title="Assignments" />
+                <FaFolder className="footer-icon" title="Materials" />
+                </div>
+              </div>
+                </>
+                );
+               })
+     }
+        
         </div>
         </>
          
