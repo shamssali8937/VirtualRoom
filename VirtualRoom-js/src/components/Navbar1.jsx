@@ -17,11 +17,21 @@ function Navbar1({userdata})
     })
 
     let clear=()=>{
-        setcreate({
-        courseid:"",
-        classname:"",
-        desc:""
-        })
+        if(click3===true)
+        {
+            setcreate({
+                courseid:"",
+                classname:"",
+                desc:""
+                })
+        }
+        else
+        {
+            setcl("");
+            setcourse("");
+            setstudent("");
+        }
+        
     }
     
 
@@ -36,13 +46,14 @@ function Navbar1({userdata})
           setclick2(!click2);
           setclick1(false);
           setclick3(false);
-          
+          clear();
      };
      let [click3,setclick3]=useState(false);
      let handleclick3=()=>{
          setclick3(!click3);
          setclick1(false);
          setclick2(false);
+         clear();
     };
     let handlesignout=()=>{
     localStorage.removeItem('token');

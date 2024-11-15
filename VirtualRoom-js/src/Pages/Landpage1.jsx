@@ -7,6 +7,7 @@ import Navbar1 from "../components/Navbar1";
 import { LuHome } from "react-icons/lu";
 import { PiStudentBold } from "react-icons/pi";
 import { IoDocumentTextOutline } from "react-icons/io5";
+import { FaTasks, FaFolder } from "react-icons/fa";
 import "../Css/Landpage1.css";
 
 function Landpage1(){
@@ -103,6 +104,20 @@ function Landpage1(){
         </div>
         <div className="main-content">
      
+          <div className="class-box">
+            <div className="class-header">
+                <h3>OOP BSIT SS1</h3>
+                <p>shams</p>
+            </div>
+            <div className="class-body">
+
+            </div>
+            <div className="class-footer">
+            <FaTasks className="footer-icon" title="Assignments" />
+            <FaFolder className="footer-icon" title="Materials" />
+            </div>
+          </div>
+          
         </div>
         </>
          
