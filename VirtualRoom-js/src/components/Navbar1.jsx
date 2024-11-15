@@ -9,6 +9,20 @@ function Navbar1({userdata})
     let [cl,setcl]=useState("");
     let [course,setcourse]=useState("");
     let [student,setstudent]=useState("");
+
+    let [create,setcreate]=useState({
+        courseid:"",
+        classname:"",
+        desc:""
+    })
+
+    let clear=()=>{
+        setcreate({
+        courseid:"",
+        classname:"",
+        desc:""
+        })
+    }
     
 
        let [click1,setclick1]=useState(false);
@@ -52,15 +66,20 @@ function Navbar1({userdata})
 
    const handlenrollment=(e)=>{
     e.preventDefault()
-    axios.post("https://localhost:7124/api/Virtual/studentid",{student}).then((response)=>{
+    console.log(student);
+    axios.post("https://localhost:7124/api/Virtual/studentid",{name:student}).then((response)=>{
         if(response.data.statuscode===200)
         {
             const stid=response.data.statusmessage;    
-            return axios.post("https://localhost:7124/api/Virtual/courseid",{course}).then((response)=>{
+            console.log(stid);
+            console.log(course);
+            return axios.post("https://localhost:7124/api/Virtual/courseid",{name:course}).then((response)=>{
                 if(response.data.statuscode===200)
                     {
                         const cid=response.data.statusmessage;
-                        return axios.post("https://localhost:7124/api/Virtual/classid",{cl}).then((response)=>{
+                        console.log(cid);
+                        console.log(cl);
+                        return axios.post("https://localhost:7124/api/Virtual/classid",{name:cl}).then((response)=>{
                             if(response.data.statuscode==200)
                             {
                                 const clid=response.data.statusmessage;
@@ -72,7 +91,18 @@ function Navbar1({userdata})
                                       };
                                     
                                 console.log(enrollment);
-                                return axios.post("https://localhost:7124/api/Virtual/join",enrollment);
+                                return axios.post("https://localhost:7124/api/Virtual/join",enrollment).then((response)=>{
+                                    if(response.data.statuscode===200)
+                                    {
+                                        alert("joined");
+                                        setclick2(false);
+                                    }
+                                    else
+                                    {
+                                        console.log(response.data.statuscode);
+                                        alert("error in enrolling" ,response.data.statusmessage);
+                                    }
+                                });
                             }
                             else
                             {
@@ -85,7 +115,7 @@ function Navbar1({userdata})
                     {
                         console.log("no course found");
                     }
-              })
+              });
 
         }
         else
@@ -93,18 +123,46 @@ function Navbar1({userdata})
             console.log("no student exist");
         }
         
-      }).then((response)=>{
-            if(response.data.statuscode===200)
-            {
-                alert("joined");
-                setclick2(false);
+      });
+};
+const handlecreate=(e)=>{
+    e.preventDefault();
+    return axios.post("https://localhost:7124/api/Virtual/courseid",{name:create.courseid}).then((response)=>{
+        if(response.data.statuscode===200){
+            const cid=response.data.statusmessage;
+            const classes={
+                courseid:parseInt(cid),
+                classname:create.classname,
+                description:create.desc
             }
-            else
-            {
-                alert("error");
-            }
-        })
-      }
+
+            return axios.post("https://localhost:7124/api/Virtual/Addclass",classes).then((response)=>{
+                if(response.data.statuscode===200)
+                {
+                    alert("class created");
+                    clear();
+                    setclick3(false);
+                    setclick2(true);
+                }
+                else
+                {
+                    alert("error occur");
+                }
+            });
+        }
+        else
+        {
+            alert("course not found");
+        }
+    });
+  }
+const handlecreatechange = (event) => {
+    const { name, value } = event.target;
+    setcreate(prevdata => ({
+        ...prevdata,
+        [name]: value
+    }));
+};
    
 
     return(
@@ -148,11 +206,12 @@ function Navbar1({userdata})
                    <button type="submit">Join</button>
                 </div>
             </form>
-            <form className={`createclass ${click3?'opacity1':'opacity0'}`}>
+            <form onSubmit={handlecreate} className={`createclass ${click3?'opacity1':'opacity0'}`}>
                 <h3>Create Class</h3>
                 <div className="create">
-                    <input type="text" placeholder='Class Name' name="name" required/>
-                    <input type="text" placeholder='Course Name' name="course" required />
+                    <input type="text" placeholder='Class Name' name="classname" value={create.classname} onChange={handlecreatechange} required/>
+                    <input type="text" placeholder='Course Name' name="courseid" value={create.courseid} onChange={handlecreatechange} required />
+                    <input type="text" placeholder='Description' name="desc" value={create.desc} onChange={handlecreatechange} required />
                 </div>
                 <div className="createbtn">
                    <button type="button" onClick={() => setclick3(false)}>Cancel</button>
