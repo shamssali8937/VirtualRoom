@@ -121,9 +121,7 @@ function Landpage1(){
         </div>
         </>
          
-    )
-    
-    
+    )   
 }
 
 export default Landpage1;

@@ -79,3 +79,41 @@ nav ul li a:hover{
     opacity: 0;
     transition: opacity 0.5s ease-in-out;
 }
+
+.class-box{
+    width: 15rem;
+    margin: 0.625rem;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 8px;
+    overflow: hidden;
+    display: inline-block;
+
+}
+
+.class-header{
+    padding: 1rem;
+}
+
+.class-body{
+    height: 9.375rem;
+    padding: 1rem;
+    background-color: #fff;
+}
+
+.class-footer{
+    display: flex;
+    justify-content: space-around;
+    padding: 0.625rem;
+    background-color: #f8f8f8;
+}
+
+.footer-icon{
+    font-size: 1.5rem;
+    color: #555;
+    cursor: pointer;
+}
+
+.footer-icon:hover{
+    font-size: 1.6rem;
+    transition: font-size 0.3s ease-in-out;
+}
