@@ -30,16 +30,16 @@
 
 .nav-btn{
     background-color: #4CAF50;
-    padding: 10px 15px;
-    margin-right: 10px;
+    padding: 0.625rem 0.9375rem;
+    margin-right: 0.625rem;
     border: none;
     border-radius: 4px;
     cursor: pointer;
 }
 
 .icons{
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     background-color: #673AB7; 
     color: white;
     border-radius: 50%;
@@ -52,8 +52,8 @@
 }
 
 .icon-main{
-    width: 40px;
-    height: 40px;
+    width: 2.5rem;
+    height: 2.5rem;
     background-color: #673AB7; 
     color: white;    
     display: flex;
@@ -246,4 +246,19 @@
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease-in-out;
+}
+
+@media only screen and (max-width:400px){
+
+    *{
+        font-size: 8px;
+    }
+
+}
+@media only screen and (max-width:310px){
+
+    *{
+        font-size: 6px;
+    }
+
 }

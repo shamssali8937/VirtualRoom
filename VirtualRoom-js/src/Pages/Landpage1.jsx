@@ -12,11 +12,9 @@ import "../Css/Landpage1.css";
 
 function Landpage1(){
 
-    let [click2,setclick2]=useState(false);
+
     let [classes, setClasses] = useState([]);
-    let handleclick2=()=>{
-        setclick2(!click2);
-   };
+
    let [data,setData]=useState({
     name:"",
     username:"",
@@ -73,7 +71,6 @@ function Landpage1(){
                     localStorage.removeItem('token');
                 }
             })
-
             axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
                 if(response.data.statuscode===200)
                 {
@@ -84,9 +81,12 @@ function Landpage1(){
                     console.log(response.statuscode);
                 }
             })
+            
          }
     
        },[navigate]);
+
+    
    
     return(
         <>
@@ -118,8 +118,7 @@ function Landpage1(){
      {
                classes.map((item)=>{
                 return(
-                    <>
-                <div className="class-box">
+                <div className="class-box" key={item.classid}>
                 <div className="class-header">
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
@@ -132,7 +131,6 @@ function Landpage1(){
                 <FaFolder className="footer-icon" title="Materials" />
                 </div>
               </div>
-                </>
                 );
                })
      }
