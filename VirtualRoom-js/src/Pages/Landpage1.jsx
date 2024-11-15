@@ -13,12 +13,7 @@ import "../Css/Landpage1.css";
 function Landpage1(){
 
     let [click2,setclick2]=useState(false);
-    let [classes, setClasses] = useState([
-        { id: 1, className: "OOP BSIT SS1", teacherName: "Shams" },
-        { id: 2, className: "Data Structures", teacherName: "Ali" },
-        { id: 1, className: "OOP BSIT SS1", teacherName: "Shams" },
-        { id: 2, className: "Data Structures", teacherName: "Ali" }
-    ]);
+    let [classes, setClasses] = useState([]);
     let handleclick2=()=>{
         setclick2(!click2);
    };
@@ -78,6 +73,17 @@ function Landpage1(){
                     localStorage.removeItem('token');
                 }
             })
+
+            axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
+                if(response.data.statuscode===200)
+                {
+                    setClasses(response.data.classes);
+                }
+                else
+                {
+                    console.log(response.statuscode);
+                }
+            })
          }
     
        },[navigate]);
@@ -115,8 +121,8 @@ function Landpage1(){
                     <>
                 <div className="class-box">
                 <div className="class-header">
-                    <h3>{item.className}</h3>
-                    <p>{item.teacherName}</p>
+                    <h3>{item.classname}</h3>
+                    <p>{item.classname}</p>
                 </div>
                 <div className="class-body">
     
