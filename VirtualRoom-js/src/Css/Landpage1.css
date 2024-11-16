@@ -106,6 +106,10 @@ nav ul li a:hover{
 
 .class-header{
     padding: 1rem;
+    background: url("../assets/Images/background class.webp");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .class-body{

@@ -109,7 +109,7 @@ function Join()
                     </>
                 ):(
                   <>
-                  <input type="text" placeholder='Department' name="department" value={datat.Department} onChange={handlechange} required/>
+                  <input type="text" placeholder='Department' name="Department" value={datat.Department} onChange={handlechange} required/>
                   </>  
                 )}
                 <button type="submit">Join</button>
