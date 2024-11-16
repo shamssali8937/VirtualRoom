@@ -15,6 +15,12 @@ function Landpage1(){
 
     let [classes, setClasses] = useState([]);
 
+    let [click,setclick]=useState(false);
+
+    const handleclick=()=>{
+        setclick(!click);
+    }
+
    let [data,setData]=useState({
     name:"",
     username:"",
@@ -100,8 +106,8 @@ function Landpage1(){
                 </div>
                 <div className="section">
                     <ul>
-                        <li><a href=""><PiStudentBold className="side-icons"/>Enrolled</a>
-                        <ul>
+                        <li><a href="" onClick={handleclick}><PiStudentBold className="side-icons"/>Enrolled</a>
+                        <ul className={`${click?"opacity1":"opacity1"}`}>
                             {
                                 classes.map((item)=>{
                                     return(
