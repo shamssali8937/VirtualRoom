@@ -119,6 +119,7 @@ function Navbar1({userdata})
                             else
                             {
                                 console.log("no class found found");        
+                                alert("no class found found");
                             }
                            })
             
@@ -126,6 +127,7 @@ function Navbar1({userdata})
                     else
                     {
                         console.log("no course found");
+                        alert("no course found");
                     }
               });
 
@@ -204,7 +206,7 @@ const handlecreatechange = (event) => {
                     <p>Ask your teacher for the class name, then enter it here.</p>
                     <input type="text" placeholder="Class Name" name="class" value={cl} onChange={handlechange} required/>
                     <input type="text" placeholder="Course Name" name="course" value={course} onChange={handlechange} required/>
-                    <input type="text" placeholder="Student Name" name="student" value={student} onChange={handlechange} required/>
+                    <input type="hidden" placeholder="Student Name" name="student" value={student=userdata.name} onChange={handlechange} readOnly/>
                 </div>
                 <div className="instruction">
                 <p>To sign in with a class Name</p>
