@@ -17,7 +17,7 @@ nav ul{
 
 nav ul li{
     margin: 0.8rem 0;
-    padding: 1rem;
+    padding: 0.625rem;
 }
 
 nav ul li a{
@@ -33,6 +33,19 @@ nav ul li a .side-icons{
    font-size: 1.1rem;
    margin-right: 0.8rem;
    margin-left: 0.8rem;
+}
+
+nav ul li .list{
+    cursor: pointer;
+    list-style: circle;
+    color: #000000;
+}
+
+nav ul li .list:hover{
+    background: lightblue;
+    transform: translateX(4px);
+    border-radius: 10px;
+    transition: background 2s ease-in-out;
 }
 
 #setting{

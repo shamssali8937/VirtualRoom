@@ -100,7 +100,18 @@ function Landpage1(){
                 </div>
                 <div className="section">
                     <ul>
-                        <li><a href=""><PiStudentBold className="side-icons"/>Enrolled</a></li>
+                        <li><a href=""><PiStudentBold className="side-icons"/>Enrolled</a>
+                        <ul>
+                            {
+                                classes.map((item)=>{
+                                    return(
+                                     <li className="list" key={item.classid}>{item.classname}</li>   
+                                    )
+                                })
+                            }
+                        </ul>
+                        </li>
+
                     </ul>
                 
                     <ul>
