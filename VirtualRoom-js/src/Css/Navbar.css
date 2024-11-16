@@ -248,14 +248,28 @@
     transition: opacity 0.5s ease-in-out;
 }
 
-@media only screen and (max-width:400px){
+@media (min-width: 400) and (max-width: 740px){
+
+    *{
+        font-size: 10px;
+    }
+
+    .user{
+        top: 8%;
+    }
+
+}
+@media only screen and (max-width: 400px){
 
     *{
         font-size: 8px;
     }
+    .user{
+        top: 6%;
+    }
 
 }
-@media only screen and (max-width:310px){
+@media only screen and (max-width: 310px){
 
     *{
         font-size: 6px;
