@@ -106,16 +106,21 @@ function Landpage1(){
                 </div>
                 <div className="section">
                     <ul>
-                        <li><a href="" onClick={handleclick}><PiStudentBold className="side-icons"/>Enrolled</a>
-                        <ul className={`${click?"opacity1":"opacity1"}`}>
-                            {
-                                classes.map((item)=>{
-                                    return(
-                                     <li className="list" key={item.classid}>{item.classname}</li>   
-                                    )
-                                })
-                            }
-                        </ul>
+                        <li><a className="btn"  onClick={(e)=>{ e.preventDefault(); handleclick();}}><PiStudentBold className="side-icons"/>Enrolled</a>
+                        {
+                            click&&(
+                                
+                                    <ul>
+                                    {
+                                          classes.map((item)=>{
+                                              return(
+                                               <li className="list" key={item.classid}>{item.classname}</li>   
+                                              )
+                                          })
+                                      }
+                                  </ul>   
+                        )}
+                        
                         </li>
 
                     </ul>
