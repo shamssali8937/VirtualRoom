@@ -107,6 +107,7 @@ function Navbar1({userdata})
                                     {
                                         alert("joined");
                                         setclick2(false);
+                                        window.location.reload();    
                                     }
                                     else
                                     {
