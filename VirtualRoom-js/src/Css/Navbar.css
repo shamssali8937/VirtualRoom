@@ -125,7 +125,7 @@
     box-shadow: 0 0 4px 4px  rgba(0, 0, 0, 0.3) ;
     box-sizing: border-box;
     padding: 1rem;
-    z-index: 1;
+    z-index: 150;
 }
 
 .joinclass h3{
@@ -189,7 +189,7 @@
     box-shadow: 0 0 4px 4px  rgba(0, 0, 0, 0.3) ;
     box-sizing: border-box;
     padding: 1rem;
-    z-index: 2;
+    z-index: 150;
 }
 .create{
     margin: 2rem 1rem;
