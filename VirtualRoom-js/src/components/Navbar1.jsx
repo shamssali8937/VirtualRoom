@@ -79,7 +79,7 @@ function Navbar1({userdata})
 
    const handlenrollment=(e)=>{
     e.preventDefault()
-    if(isteacher!==true)
+    if(!isteacher)
     {
         console.log(student);
         axios.post("https://localhost:7124/api/Virtual/studentid",{name:student}).then((response)=>{
@@ -258,7 +258,7 @@ const handlecreatechange = (event) => {
             <label>{userdata.name}</label>
             <div className="signout">
             <Link to="/login1" id="link" onClick={handlesignout}>Sign Out</Link> 
-            </div>
+            </div>   
         </div>
         <form onSubmit={handlenrollment} className={`joinclass ${click2?'opacity1':'opacity0'}`}>
                 <h3>Join Class</h3>
