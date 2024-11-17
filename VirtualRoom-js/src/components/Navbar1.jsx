@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import '../Css/Navbar.css';
 import { SiGoogleclassroom } from "react-icons/si";
@@ -9,6 +9,7 @@ function Navbar1({userdata})
     let [cl,setcl]=useState("");
     let [course,setcourse]=useState("");
     let [student,setstudent]=useState("");
+    let [isteacher,setisteacher]=useState();
 
     let [create,setcreate]=useState({
         courseid:"",
@@ -177,7 +178,22 @@ const handlecreatechange = (event) => {
         [name]: value
     }));
 };
-   
+   useEffect(()=>{
+    const token=localStorage.getItem('token');
+    axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+    axios.get("https://localhost:7124/api/Virtual/Isteacher").then((response)=>{
+        if(response.data.statuscode===200)
+        {
+            setisteacher(response.data.statusmessage);
+            console.log(isteacher);
+        }
+        else
+        {
+            console.log("no teacher exist");
+        }
+    })
+
+   });
 
     return(
         <>
