@@ -140,7 +140,8 @@ function Landpage1(){
                 </div>
                 <div className="section">
                     <ul>
-                        <li><a className="btn"  onClick={(e)=>{ e.preventDefault(); handleclick();}}><PiStudentBold className="side-icons"/>Enrolled</a>
+                        <li><a className="btn"  onClick={(e)=>{ e.preventDefault(); handleclick();}}><PiStudentBold className="side-icons"/>
+                        {isteacher?"Teaching":"Enrolled"}</a>
                         {
                             click&&(
                                 
@@ -158,10 +159,14 @@ function Landpage1(){
                         </li>
 
                     </ul>
-                
-                    <ul>
-                    <li><a href=""><IoDocumentTextOutline className="side-icons"/>To Do</a></li>
-                    </ul>
+                    {
+                        !isteacher&&(
+                            <ul>
+                            <li><a href=""><IoDocumentTextOutline className="side-icons"/>To Do</a></li>
+                            </ul>
+                        )     
+                    }
+                   
                 </div>
                 <div className="underline">
                 </div>
