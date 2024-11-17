@@ -9,6 +9,7 @@ function Navbar1({userdata})
     let [cl,setcl]=useState("");
     let [course,setcourse]=useState("");
     let [student,setstudent]=useState("");
+    let [teacher,setteacher]=useState("");
     let [isteacher,setisteacher]=useState();
 
     let [create,setcreate]=useState({
@@ -181,19 +182,20 @@ const handlecreatechange = (event) => {
    useEffect(()=>{
     const token=localStorage.getItem('token');
     axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+
     axios.get("https://localhost:7124/api/Virtual/Isteacher").then((response)=>{
         if(response.data.statuscode===200)
         {
-            setisteacher(response.data.statusmessage);
-            console.log(isteacher);
+            setisteacher(isteacher=response.data.statusmessage);
+            console.log("isteacher",isteacher.toLowerCase());         
         }
         else
         {
             console.log("no teacher exist");
         }
     })
-
-   });
+   
+   },[ ]);
 
     return(
         <>
@@ -221,8 +223,20 @@ const handlecreatechange = (event) => {
                     <h4>Class Name</h4>
                     <p>Ask your teacher for the class name, then enter it here.</p>
                     <input type="text" placeholder="Class Name" name="class" value={cl} onChange={handlechange} required/>
-                    <input type="text" placeholder="Course Name" name="course" value={course} onChange={handlechange} required/>
-                    <input type="hidden" placeholder="Student Name" name="student" value={student=userdata.name} onChange={handlechange} readOnly/>
+                    {
+                        isteacher?(
+                            <>
+                           <input type="text" placeholder="Teacher Name" name="teacher" value={teacher=userdata.name} onChange={handlechange} readOnly/>
+                            </>
+                        ):(
+                            <>
+                             <input type="text" placeholder="Course Name" name="course" value={course} onChange={handlechange} required/>
+                             <input type="text" placeholder="Student Name" name="student" value={student=userdata.name} onChange={handlechange} readOnly/>
+                            
+                            </>
+                        )
+                    }
+                    
                 </div>
                 <div className="instruction">
                 <p>To sign in with a class Name</p>

@@ -85,7 +85,7 @@ function Landpage1(){
                 }
                 else
                 {
-                    console.log(response.statuscode);
+                    console.log(response.data.statuscode);
                 }
             })
             
