@@ -182,11 +182,6 @@ function Landpage1(){
                 </ul>
             </nav>
         </div>
-
-
-
-
-
         
         <div className="main-content">
      {
