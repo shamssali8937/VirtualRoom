@@ -79,67 +79,110 @@ function Navbar1({userdata})
 
    const handlenrollment=(e)=>{
     e.preventDefault()
-    console.log(student);
-    axios.post("https://localhost:7124/api/Virtual/studentid",{name:student}).then((response)=>{
-        if(response.data.statuscode===200)
-        {
-            const stid=response.data.statusmessage;    
-            console.log(stid);
-            console.log(course);
-            return axios.post("https://localhost:7124/api/Virtual/courseid",{name:course}).then((response)=>{
-                if(response.data.statuscode===200)
+    if(!isteacher)
+    {
+        console.log(student);
+        axios.post("https://localhost:7124/api/Virtual/studentid",{name:student}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                const stid=response.data.statusmessage;    
+                console.log(stid);
+                console.log(course);
+                return axios.post("https://localhost:7124/api/Virtual/courseid",{name:course}).then((response)=>{
+                    if(response.data.statuscode===200)
+                        {
+                            const cid=response.data.statusmessage;
+                            console.log(cid);
+                            console.log(cl);
+                            return axios.post("https://localhost:7124/api/Virtual/classid",{name:cl}).then((response)=>{
+                                if(response.data.statuscode==200)
+                                {
+                                    const clid=response.data.statusmessage;
+                                    
+                                          const enrollment={
+                                              courseid:parseInt(cid),
+                                              classid: parseInt(clid),
+                                              studentid:parseInt(stid)
+                                          };
+                                        
+                                    console.log(enrollment);
+                                    return axios.post("https://localhost:7124/api/Virtual/join",enrollment).then((response)=>{
+                                        if(response.data.statuscode===200)
+                                        {
+                                            alert("joined");
+                                            setclick2(false);
+                                            window.location.reload();    
+                                        }
+                                        else
+                                        {
+                                            console.log(response.data.statuscode);
+                                            alert("error in enrolling" ,response.data.statusmessage);
+                                        }
+                                    });
+                                }
+                                else
+                                {
+                                    console.log("no class found found");        
+                                    alert("no class found found");
+                                }
+                               })
+                
+                        }
+                        else
+                        {
+                            console.log("no course found");
+                            alert("no course found");
+                        }
+                  });
+    
+            }
+            else
+            {
+                console.log("no student exist");
+            }
+            
+          });
+    }
+    else
+    {
+        console.log(teacher);
+        axios.post("https://localhost:7124/api/Virtual/Teacherid",{name:teacher}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                const tid=response.data.statusmessage;
+                return axios.post("https://localhost:7124/api/Virtual/classid",{name:cl}).then((response)=>{
+                    if(response.data.statuscode===200)
                     {
                         const cid=response.data.statusmessage;
-                        console.log(cid);
-                        console.log(cl);
-                        return axios.post("https://localhost:7124/api/Virtual/classid",{name:cl}).then((response)=>{
-                            if(response.data.statuscode==200)
-                            {
-                                const clid=response.data.statusmessage;
-                                
-                                      const enrollment={
-                                          courseid:parseInt(cid),
-                                          classid: parseInt(clid),
-                                          studentid:parseInt(stid)
-                                      };
-                                    
-                                console.log(enrollment);
-                                return axios.post("https://localhost:7124/api/Virtual/join",enrollment).then((response)=>{
-                                    if(response.data.statuscode===200)
-                                    {
-                                        alert("joined");
-                                        setclick2(false);
-                                        window.location.reload();    
-                                    }
-                                    else
-                                    {
-                                        console.log(response.data.statuscode);
-                                        alert("error in enrolling" ,response.data.statusmessage);
-                                    }
-                                });
-                            }
-                            else
-                            {
-                                console.log("no class found found");        
-                                alert("no class found found");
-                            }
-                           })
-            
+                        let credentials={
+                            classid:parseInt(cid),
+                            teacherid:parseInt(tid)
+                        }
+                        return axios.post("https://localhost:7124/api/Virtual/teacherjoin",credentials).then((response)=>{
+                             if(response.data.statuscode==200)                   
+                             {
+                                alert("class joined");
+                                window.location.reload();
+                             }
+                             else
+                             {
+                                alert("Error in joining class");
+                             }
+                        })
                     }
                     else
                     {
-                        console.log("no course found");
-                        alert("no course found");
+                        alert("no class exist ");
                     }
-              });
-
-        }
-        else
-        {
-            console.log("no student exist");
-        }
-        
-      });
+                })
+            }
+            else
+            {
+                alert("no teacher exists");
+            }
+        });
+    }
+    
 };
 const handlecreate=(e)=>{
     e.preventDefault();
@@ -215,7 +258,7 @@ const handlecreatechange = (event) => {
             <label>{userdata.name}</label>
             <div className="signout">
             <Link to="/login1" id="link" onClick={handlesignout}>Sign Out</Link> 
-            </div>
+            </div>   
         </div>
         <form onSubmit={handlenrollment} className={`joinclass ${click2?'opacity1':'opacity0'}`}>
                 <h3>Join Class</h3>
