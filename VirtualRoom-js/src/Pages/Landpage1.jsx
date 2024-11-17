@@ -185,6 +185,9 @@ function Landpage1(){
         
         <div className="main-content">
      {
+
+
+
                classes.map((item)=>{
                 return(
                 <div className="class-box" key={item.classid} >
