@@ -83,7 +83,9 @@ nav ul li a:hover{
     margin-top: 3.99rem;
     height: calc(100vh - 64px); 
     padding: 1rem;
+    position: relative;
     overflow-y: auto; 
+    z-index: 2;
 }
 .opacity1{
     opacity: 1;
@@ -136,3 +138,24 @@ nav ul li a:hover{
     font-size: 1.6rem;
     transition: font-size 0.3s ease-in-out;
 }
+
+.classdetail{
+    border: 2px solid black;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: calc(100vh - 64px); 
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: white; 
+    z-index: -1; 
+    display: none;
+    cursor: pointer;
+}
+
+.visible{
+    display: block;
+    z-index: 5;
+}
+

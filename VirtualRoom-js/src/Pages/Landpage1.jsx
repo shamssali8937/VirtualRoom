@@ -23,6 +23,13 @@ function Landpage1(){
         setclick(!click);
     }
 
+    let [open,setopen]=useState(false);
+
+    let handleopen=()=>{
+        setopen(!open);
+        console.log(open);
+    }
+
    let [data,setData]=useState({
     name:"",
     username:"",
@@ -184,8 +191,8 @@ function Landpage1(){
      {
                classes.map((item)=>{
                 return(
-                <div className="class-box" key={item.classid}>
-                <div className="class-header">
+                <div className="class-box" key={item.classid} >
+                <div className="class-header"  onClick={handleopen} >
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
                 </div>
@@ -200,6 +207,28 @@ function Landpage1(){
                 );
                })
      }
+           <div className={`classdetail ${open?"visible":""}`} onClick={handleopen}>
+            <div className="header">
+                <h3>OOP BSIT SS1</h3>
+            </div>
+            <div className="detailbody">
+                {
+                    isteacher?(
+                        <div className="upload">
+                            <input type="text" />
+                            <button className="assign" >Assign</button>
+                        </div>
+                    ):(
+                      <div className="assignment-list">
+                        <div className="item">
+                            <p>Fundamentals of OOP</p>
+                            <button className="submit">Submit</button>
+                        </div>
+                      </div>
+                    )
+                }
+            </div>
+           </div>
         
         </div>
         </>
