@@ -15,6 +15,7 @@ function Landpage1(){
 
 
     let [classes, setClasses] = useState([]);
+    let [isteacher,setisteacher]=useState();
 
     let [click,setclick]=useState(false);
 
@@ -78,20 +79,52 @@ function Landpage1(){
                     localStorage.removeItem('token');
                 }
             })
-            axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
+            axios.get("https://localhost:7124/api/Virtual/Isteacher").then((response)=>{
                 if(response.data.statuscode===200)
                 {
-                    setClasses(response.data.classes);
+                    setisteacher(isteacher=response.data.statusmessage);
+                    console.log("isteacher",isteacher.toLowerCase());         
                 }
                 else
                 {
-                    console.log(response.data.statuscode);
+                    console.log("no teacher exist");
                 }
-            })
-            
-         }
+         });
+         
+        }
+       
     
-       },[navigate]);
+},[navigate]);
+
+     useEffect(()=>{
+        if(!isteacher)
+            {
+               axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
+                   if(response.data.statuscode===200)
+                   {
+                       setClasses(response.data.classes);
+                   }
+                   else
+                   {
+                       console.log(response.data.statuscode);
+                   }
+               });
+               
+            }
+            else
+            {
+               axios.get("https://localhost:7124/api/Virtual/Teacherclasses").then((response)=>{
+                   if(response.data.statuscode===200)
+                   {
+                       setClasses(response.data.classes);
+                   }
+                   else
+                   {
+                       console.log(response.data.statuscode);
+                   }
+            });
+            }
+     },[isteacher])
 
     
    
