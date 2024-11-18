@@ -8,6 +8,7 @@ import { LuHome } from "react-icons/lu";
 import { PiStudentBold } from "react-icons/pi";
 import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaTasks, FaFolder } from "react-icons/fa";
+import { TbArrowBackUp } from "react-icons/tb";
 import "../Css/Landpage1.css";
   
 
@@ -16,8 +17,13 @@ function Landpage1(){
 
     let [classes, setClasses] = useState([]);
     let [isteacher,setisteacher]=useState();
-
+    let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(false);
+    let [view,setview]=useState(false);
+
+    const handleview=()=>{
+        setview(!view);
+    }
 
     const handleclick=()=>{
         setclick(!click);
@@ -25,7 +31,8 @@ function Landpage1(){
 
     let [open,setopen]=useState(false);
 
-    let handleopen=()=>{
+    let handleopen=(classname)=>{
+        setselectedclass(classname);
         setopen(!open);
         console.log(open);
     }
@@ -185,13 +192,10 @@ function Landpage1(){
         
         <div className="main-content">
      {
-
-
-
                classes.map((item)=>{
                 return(
                 <div className="class-box" key={item.classid} >
-                <div className="class-header"  onClick={handleopen} >
+                <div className="class-header"  onClick={()=>handleopen(item.classname)} >
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
                 </div>
@@ -206,17 +210,41 @@ function Landpage1(){
                 );
                })
      }
-           <div className={`classdetail ${open?"visible":""}`} onClick={handleopen}>
+           <div className={`classdetail ${open?"visible":""}`}>
             <div className="header">
-                <h3>OOP BSIT SS1</h3>
+            <TbArrowBackUp className="back"  onClick={()=>setopen(!open)}/><h3>{selectedclass}</h3>
             </div>
             <div className="detailbody">
                 {
                     isteacher?(
-                        <div className="upload">
-                            <input type="text" />
-                            <button className="assign" >Assign</button>
-                        </div>
+                        <div className="assignment-container">
+                            <div className="assignment-head">
+                              <h2>Assignment</h2> 
+                              <button onClick={handleview} className="submission">{view?"Back to Create":"View Submissions"}</button>
+                            </div>
+                            {
+                                !view?(
+                                    <>
+                                    <div className="assignment">
+                                        <input type="text" placeholder="Title" className="title-input" />
+                                        <textarea placeholder="Description" className="des-input"></textarea>
+                                    </div>
+                                    <div className="assignment-detail">
+                                       <label>Date: <input type="date" name="date" id="" /></label>
+                                       <label>Due : <input type="date" name="duedate" id="" /></label>
+                                       <label>Time: <input type="time" name="time" id="" /></label>
+                                    </div>
+                                    <button className="assign-btn">Assign</button>
+                                    </>
+                                ):(
+                                   <>
+                                   <div className="submission-list">
+                                    <h3>Submitted Assignments</h3>
+                                   </div>
+                                   </> 
+                                )
+                            }
+                        </div>   
                     ):(
                       <div className="assignment-list">
                         <div className="item">
