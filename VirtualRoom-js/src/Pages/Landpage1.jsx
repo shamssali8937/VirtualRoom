@@ -17,7 +17,7 @@ function Landpage1(){
 
     let [classes, setClasses] = useState([]);
     let [isteacher,setisteacher]=useState();
-
+    let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(false);
     let [view,setview]=useState(false);
 
@@ -31,7 +31,8 @@ function Landpage1(){
 
     let [open,setopen]=useState(false);
 
-    let handleopen=()=>{
+    let handleopen=(classname)=>{
+        setselectedclass(classname);
         setopen(!open);
         console.log(open);
     }
@@ -194,7 +195,7 @@ function Landpage1(){
                classes.map((item)=>{
                 return(
                 <div className="class-box" key={item.classid} >
-                <div className="class-header"  onClick={handleopen} >
+                <div className="class-header"  onClick={()=>handleopen(item.classname)} >
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
                 </div>
@@ -211,7 +212,7 @@ function Landpage1(){
      }
            <div className={`classdetail ${open?"visible":""}`}>
             <div className="header">
-            <TbArrowBackUp className="back"  onClick={handleopen}/><h3>OOP BSIT SS1</h3>
+            <TbArrowBackUp className="back"  onClick={()=>setopen(!open)}/><h3>{selectedclass}</h3>
             </div>
             <div className="detailbody">
                 {
