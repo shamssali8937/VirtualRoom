@@ -78,7 +78,7 @@ nav ul li a:hover{
 }
 
 .main-content{
-    border: 2px solid black;
+    
     margin-left: 12.5rem; 
     margin-top: 3.99rem;
     height: calc(100vh - 64px); 
@@ -140,17 +140,17 @@ nav ul li a:hover{
 }
 
 .classdetail{
-    border: 2px solid black;
+    
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: calc(100vh - 64px); 
     padding: 1rem;
-    overflow-y: auto;
     background-color: white; 
     z-index: -1; 
     display: none;
+    overflow-y: auto ;
     
 }
 
@@ -268,3 +268,67 @@ nav ul li a:hover{
     background-color: #0056b3;
 }
 
+.submission-container{
+    padding: 1rem;
+    margin: 0.625rem;
+}
+
+.submit-header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.submit-content{
+    margin: 1rem;
+}
+
+.submit-list{
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+}
+
+.submit-item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #fff;
+    padding: 0.625rem 0.9rem;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.submit-item:hover {
+    background-color: #f1f1f1;
+  }
+  
+.submit-student,.submit-title,.submit-status {
+    font-size: 0.8rem;
+    margin-right: 0.625rem;
+    color: #333;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.submit-btn{
+    border: none;
+    padding: 0.325rem 0.625rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+.grade{
+    background-color: #28a745;
+    color: white;
+  }
+  
+.grade:hover{
+    background-color: #218838;
+  }
+  
