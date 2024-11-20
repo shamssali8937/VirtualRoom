@@ -43,7 +43,7 @@ function Landpage1(){
 
     const handlechange = (event) => {
         const { name, value } = event.target;
-        setcreate(prevdata => ({
+        setaobject(prevdata => ({
             ...prevdata,
             [name]: value
         }));
@@ -64,8 +64,12 @@ function Landpage1(){
 
     let [open,setopen]=useState(false);
 
-    let handleopen=(classname)=>{
+    let handleopen=(classname,clid)=>{
         setselectedclass(classname);
+        setaobject(prevdata => ({
+            ...prevdata,
+            classid: clid,
+        }));
         setopen(!open);
         console.log(open);
     }
@@ -196,7 +200,7 @@ function Landpage1(){
                                     {
                                           classes.map((item)=>{
                                               return(
-                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname)} >{item.classname}</li>   
+                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)} >{item.classname}</li>   
                                               )
                                           })
                                       }
@@ -228,7 +232,7 @@ function Landpage1(){
                classes.map((item)=>{
                 return(
                 <div className="class-box" key={item.classid} >
-                <div className="class-header"  onClick={()=>handleopen(item.classname)} >
+                <div className="class-header"  onClick={()=>handleopen(item.classname,item.classid)} >
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
                 </div>
@@ -261,13 +265,13 @@ function Landpage1(){
                                     
                                     <form>
                                     <div className="assignment">
-                                        <input type="text" name="course" value={aobject.courseid} onChange={handlechange} required/>
+                                        <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
                                         <textarea placeholder="Description" className="des-input" name="des" value={aobject.des} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
                                        <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
-                                       <label>Due : <input type="date" name="duedate" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label>Due : <input type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
                                        <label>Time: <input type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
