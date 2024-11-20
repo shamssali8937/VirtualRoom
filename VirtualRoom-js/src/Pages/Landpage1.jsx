@@ -26,6 +26,7 @@ function Landpage1(){
         { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
       ]);
 
+      
     const handleview=()=>{
         setview(!view);
     }
