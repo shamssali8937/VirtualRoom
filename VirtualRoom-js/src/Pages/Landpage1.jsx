@@ -18,11 +18,13 @@ function Landpage1(){
     let [classes, setClasses] = useState([]);
     let [isteacher,setisteacher]=useState();
     let [selectedclass, setselectedclass] = useState(null);
-    let [click,setclick]=useState(false);
+    let [click,setclick]=useState(true);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [aobject,setaobject]=useState({
-        aname:""
+        classid:0,
+        aname:"",
+
     })
     const [assignments, setassignments] = useState([
         { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
@@ -34,6 +36,14 @@ function Landpage1(){
                setaobject({aname:assignment.title});
                setsubmissionview(!submissionview);
     }
+
+    const handlechange = (event) => {
+        const { name, value } = event.target;
+        setcreate(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
       
     const handleview=()=>{
         setview(!view);
@@ -239,16 +249,19 @@ function Landpage1(){
                             {
                                 !view?(
                                     <>
+                                    
+                                    <form>
                                     <div className="assignment">
                                         <input type="text" placeholder="Title" className="title-input" />
                                         <textarea placeholder="Description" className="des-input"></textarea>
                                     </div>
                                     <div className="assignment-detail">
-                                       <label>Date: <input type="date" name="date" id="" /></label>
-                                       <label>Due : <input type="date" name="duedate" id="" /></label>
-                                       <label>Time: <input type="time" name="time" id="" /></label>
+                                       <label>Date: <input type="date" name="date" /></label>
+                                       <label>Due : <input type="date" name="duedate"  /></label>
+                                       <label>Time: <input type="time" name="time" /></label>
                                     </div>
-                                    <button className="assign-btn">Assign</button>
+                                    <button className="assign-btn" type="submit">Assign</button>
+                                    </form>
                                     </>
                                 ):(
                                    <>
