@@ -253,7 +253,7 @@ function Landpage1(){
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item">
+                                                        <div className="submit-item" key={item.id}>
                                                         <span className="submit-student"><strong>{item.studentName}</strong></span>
                                                         <span className="submit-title"><strong>{item.title}</strong></span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
@@ -263,6 +263,11 @@ function Landpage1(){
                                                     
                                                 })
                                             }
+                                        </div>
+                                        <div className="grade-container">
+                                            <h4>Grade</h4>
+                                            <label>ASSIGNMENT#1</label>
+                                            
                                         </div>
                                     </div>
                                    </div>

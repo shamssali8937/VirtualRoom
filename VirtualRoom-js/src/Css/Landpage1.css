@@ -292,6 +292,7 @@ nav ul li a:hover{
     display: flex;
     flex-direction: column;
     gap: 0.625rem;
+    position: relative;
 }
 
 .submit-item{
@@ -333,3 +334,12 @@ nav ul li a:hover{
     background-color: #218838;
   }
   
+
+.grade-container{
+    border:2px solid red;
+    width: 20rem;
+    height: 20rem;
+    position: absolute;
+    top: 20%;
+    left: 30%;
+}
