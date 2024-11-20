@@ -28,8 +28,20 @@ function Landpage1(){
         date:"",
         due:"",
         time:"",
-        des:""
-    })
+        description:""
+    });
+
+    const clear=()=>{
+        setaobject({
+        courseid:0,
+        classid:0,
+        aname:"",
+        date:"",
+        due:"",
+        time:"",
+        description:""
+        })
+    }
     const [assignments, setassignments] = useState([
         { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
         { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
@@ -51,7 +63,34 @@ function Landpage1(){
 
     const Addassignment=(e)=>{
           e.preventDefault();
-          axios.post("https://localhost:7124/api/Virtual/Addassignment");
+          axios.post("https://localhost:7124/api/Virtual/Getcourse",{classid:aobject.classid}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                let cid=parseInt(response.data.statusmessage);
+                let updatedobject = {
+                    ...aobject,
+                    time:aobject.time + ':00',
+                    courseid: cid
+                };
+                console.log(cid);
+                console.log(updatedobject);
+                return axios.post("https://localhost:7124/api/Virtual/Addassignment",updatedobject).then((response)=>{
+                    if(response.data.statuscode===200)
+                    {
+                        alert("Assigned...");
+                        clear();
+                    }
+                    else
+                    {
+                        alert("error in assigning");
+                    }
+                })
+            }
+            else
+            {
+                alert("class does not exist");
+            }
+          });
     }
       
     const handleview=()=>{
@@ -263,11 +302,11 @@ function Landpage1(){
                                 !view?(
                                     <>
                                     
-                                    <form>
+                                    <form onSubmit={Addassignment}>
                                     <div className="assignment">
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
-                                        <textarea placeholder="Description" className="des-input" name="des" value={aobject.des} onChange={handlechange}></textarea>
+                                        <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
                                        <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
