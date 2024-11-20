@@ -22,9 +22,13 @@ function Landpage1(){
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [aobject,setaobject]=useState({
+        courseid:0,
         classid:0,
         aname:"",
-
+        date:"",
+        due:"",
+        time:"",
+        des:""
     })
     const [assignments, setassignments] = useState([
         { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
@@ -44,6 +48,11 @@ function Landpage1(){
             [name]: value
         }));
     };
+
+    const Addassignment=(e)=>{
+          e.preventDefault();
+          axios.post("https://localhost:7124/api/Virtual/Addassignment");
+    }
       
     const handleview=()=>{
         setview(!view);
@@ -252,13 +261,14 @@ function Landpage1(){
                                     
                                     <form>
                                     <div className="assignment">
-                                        <input type="text" placeholder="Title" className="title-input" />
-                                        <textarea placeholder="Description" className="des-input"></textarea>
+                                        <input type="text" name="course" value={aobject.courseid} onChange={handlechange} required/>
+                                        <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
+                                        <textarea placeholder="Description" className="des-input" name="des" value={aobject.des} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
-                                       <label>Date: <input type="date" name="date" /></label>
-                                       <label>Due : <input type="date" name="duedate"  /></label>
-                                       <label>Time: <input type="time" name="time" /></label>
+                                       <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
+                                       <label>Due : <input type="date" name="duedate" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label>Time: <input type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
                                     </form>
