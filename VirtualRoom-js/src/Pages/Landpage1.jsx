@@ -20,7 +20,13 @@ function Landpage1(){
     let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(false);
     let [view,setview]=useState(false);
+    const [assignments, setassignments] = useState([
+        { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
+        { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
+        { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
+      ]);
 
+      
     const handleview=()=>{
         setview(!view);
     }
@@ -163,7 +169,7 @@ function Landpage1(){
                                     {
                                           classes.map((item)=>{
                                               return(
-                                               <li className="list" key={item.classid}>{item.classname}</li>   
+                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname)} >{item.classname}</li>   
                                               )
                                           })
                                       }
@@ -238,8 +244,27 @@ function Landpage1(){
                                     </>
                                 ):(
                                    <>
-                                   <div className="submission-list">
-                                    <h3>Submitted Assignments</h3>
+                                   <div className="submission-container">
+                                    <div className="submit-header">
+                                    <h3>Submissions</h3>
+                                    </div>
+                                    <div className="submit-content">
+                                        <div className="submit-list">
+                                            {
+                                                assignments.map((item)=>{
+                                                    return(
+                                                        <div className="submit-item">
+                                                        <span className="submit-student"><strong>{item.studentName}</strong></span>
+                                                        <span className="submit-title"><strong>{item.title}</strong></span>
+                                                        <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
+                                                        <button className="submit-btn grade">Grade</button>
+                                                    </div>
+                                                    )
+                                                    
+                                                })
+                                            }
+                                        </div>
+                                    </div>
                                    </div>
                                    </> 
                                 )
