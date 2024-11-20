@@ -20,12 +20,20 @@ function Landpage1(){
     let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(false);
     let [view,setview]=useState(false);
+    let [submissionview,setsubmissionview]=useState(false);
+    let [aobject,setaobject]=useState({
+        aname:""
+    })
     const [assignments, setassignments] = useState([
         { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
         { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
         { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
       ]);
 
+    const handlesubmissionlist=(assignment)=>{
+               setaobject({aname:assignment.title});
+               setsubmissionview(!submissionview);
+    }
       
     const handleview=()=>{
         setview(!view);
@@ -257,18 +265,19 @@ function Landpage1(){
                                                         <span className="submit-student"><strong>{item.studentName}</strong></span>
                                                         <span className="submit-title"><strong>{item.title}</strong></span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
-                                                        <button className="submit-btn grade">Grade</button>
+                                                        <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
                                                     </div>
                                                     )
                                                     
                                                 })
                                             }
                                         </div>
-                                        <div className="grade-container">
+                                        <div className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
-                                            <label>ASSIGNMENT#1</label>
-                                            <input type="number" placeholder="Grades" name="grades" />
-                                            <input type="text" placeholder="Comments" name="coment" />
+                                            <label>{aobject.aname}</label>
+                                            <input type="number" placeholder="Grades" name="Grades" />
+                                            <input type="text" placeholder="Comments" name="Comments" />
+                                            <button className="grade-btn" onClick={()=>setsubmissionview(!submissionview)}>Cancel</button>
                                             <button className="grade-btn">Grade</button>
                                         </div>
                                     </div>
