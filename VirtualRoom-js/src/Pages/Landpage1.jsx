@@ -267,7 +267,9 @@ function Landpage1(){
                                         <div className="grade-container">
                                             <h4>Grade</h4>
                                             <label>ASSIGNMENT#1</label>
-                                            
+                                            <input type="number" placeholder="Grades" name="grades" />
+                                            <input type="text" placeholder="Comments" name="coment" />
+                                            <button className="grade-btn">Grade</button>
                                         </div>
                                     </div>
                                    </div>
