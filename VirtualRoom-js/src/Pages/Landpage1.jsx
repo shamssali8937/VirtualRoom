@@ -18,14 +18,80 @@ function Landpage1(){
     let [classes, setClasses] = useState([]);
     let [isteacher,setisteacher]=useState();
     let [selectedclass, setselectedclass] = useState(null);
-    let [click,setclick]=useState(false);
+    let [click,setclick]=useState(true);
     let [view,setview]=useState(false);
+    let [submissionview,setsubmissionview]=useState(false);
+    let [aobject,setaobject]=useState({
+        courseid:0,
+        classid:0,
+        aname:"",
+        date:"",
+        due:"",
+        time:"",
+        description:""
+    });
+
+    const clear=()=>{
+        setaobject({
+        courseid:0,
+        classid:0,
+        aname:"",
+        date:"",
+        due:"",
+        time:"",
+        description:""
+        })
+    }
     const [assignments, setassignments] = useState([
         { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
         { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
         { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
       ]);
 
+    const handlesubmissionlist=(assignment)=>{
+               setaobject({aname:assignment.title});
+               setsubmissionview(!submissionview);
+    }
+
+    const handlechange = (event) => {
+        const { name, value } = event.target;
+        setaobject(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
+
+    const Addassignment=(e)=>{
+          e.preventDefault();
+          axios.post("https://localhost:7124/api/Virtual/Getcourse",{classid:aobject.classid}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                let cid=parseInt(response.data.statusmessage);
+                let updatedobject = {
+                    ...aobject,
+                    time:aobject.time + ':00',
+                    courseid: cid
+                };
+                console.log(cid);
+                console.log(updatedobject);
+                return axios.post("https://localhost:7124/api/Virtual/Addassignment",updatedobject).then((response)=>{
+                    if(response.data.statuscode===200)
+                    {
+                        alert("Assigned...");
+                        clear();
+                    }
+                    else
+                    {
+                        alert("error in assigning");
+                    }
+                })
+            }
+            else
+            {
+                alert("class does not exist");
+            }
+          });
+    }
       
     const handleview=()=>{
         setview(!view);
@@ -37,8 +103,12 @@ function Landpage1(){
 
     let [open,setopen]=useState(false);
 
-    let handleopen=(classname)=>{
+    let handleopen=(classname,clid)=>{
         setselectedclass(classname);
+        setaobject(prevdata => ({
+            ...prevdata,
+            classid: clid,
+        }));
         setopen(!open);
         console.log(open);
     }
@@ -169,7 +239,7 @@ function Landpage1(){
                                     {
                                           classes.map((item)=>{
                                               return(
-                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname)} >{item.classname}</li>   
+                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)} >{item.classname}</li>   
                                               )
                                           })
                                       }
@@ -201,7 +271,7 @@ function Landpage1(){
                classes.map((item)=>{
                 return(
                 <div className="class-box" key={item.classid} >
-                <div className="class-header"  onClick={()=>handleopen(item.classname)} >
+                <div className="class-header"  onClick={()=>handleopen(item.classname,item.classid)} >
                     <h3>{item.classname}</h3>
                     <p>{item.classname}</p>
                 </div>
@@ -231,16 +301,20 @@ function Landpage1(){
                             {
                                 !view?(
                                     <>
+                                    
+                                    <form onSubmit={Addassignment}>
                                     <div className="assignment">
-                                        <input type="text" placeholder="Title" className="title-input" />
-                                        <textarea placeholder="Description" className="des-input"></textarea>
+                                        <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
+                                        <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
+                                        <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
-                                       <label>Date: <input type="date" name="date" id="" /></label>
-                                       <label>Due : <input type="date" name="duedate" id="" /></label>
-                                       <label>Time: <input type="time" name="time" id="" /></label>
+                                       <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
+                                       <label>Due : <input type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label>Time: <input type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
-                                    <button className="assign-btn">Assign</button>
+                                    <button className="assign-btn" type="submit">Assign</button>
+                                    </form>
                                     </>
                                 ):(
                                    <>
@@ -253,16 +327,24 @@ function Landpage1(){
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item">
+                                                        <div className="submit-item" key={item.id}>
                                                         <span className="submit-student"><strong>{item.studentName}</strong></span>
                                                         <span className="submit-title"><strong>{item.title}</strong></span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
-                                                        <button className="submit-btn grade">Grade</button>
+                                                        <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
                                                     </div>
                                                     )
                                                     
                                                 })
                                             }
+                                        </div>
+                                        <div className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
+                                            <h4>Grade</h4>
+                                            <label>{aobject.aname}</label>
+                                            <input type="number" placeholder="Grades" name="Grades" />
+                                            <input type="text" placeholder="Comments" name="Comments" />
+                                            <button className="grade-btn" onClick={()=>setsubmissionview(!submissionview)}>Cancel</button>
+                                            <button className="grade-btn">Grade</button>
                                         </div>
                                     </div>
                                    </div>
