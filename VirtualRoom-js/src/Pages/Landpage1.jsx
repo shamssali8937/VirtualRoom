@@ -58,7 +58,17 @@ function Landpage1(){
 
       const handlegrade=(e)=>{
         e.preventDefault();
-        
+        console.log(submission);
+        // axios.post("https://localhost:7124/api/Virtual/Grade",submission).then((response)=>{
+        //     if(response.data.statuscode===200)
+        //     {
+        //         alert("Graded");
+        //     }
+        //     else
+        //     {
+        //         alert("error in grading");
+        //     }
+        // })
     }
 
     const handlesubmissionlist=(assignment)=>{
