@@ -19,9 +19,10 @@ function Landpage1(){
     let [isteacher,setisteacher]=useState();
     let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(true);
+    let [click1,setclick1]=useState(true);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
-    let [sid,setsid]=useState();
+    let [viewassignments,setviewassignments]=useState(true);
     let [aobject,setaobject]=useState({
         courseid:0,
         classid:0,
@@ -130,10 +131,12 @@ function Landpage1(){
       
     const handleview=()=>{
         setview(!view);
+        setviewassignments(!viewassignments);
     }
 
     const handleclick=()=>{
         setclick(!click);
+        setclick1(!click1);
     }
 
     let [open,setopen]=useState(false);
@@ -287,7 +290,21 @@ function Landpage1(){
                     {
                         !isteacher&&(
                             <ul>
-                            <li><a href=""><IoDocumentTextOutline className="side-icons"/>To Do</a></li>
+                            <li><a href="#" onClick={(e)=>{ e.preventDefault(); handleclick();}}><IoDocumentTextOutline className="side-icons"/>To Do</a>
+                            {
+                            click1&&(
+                                
+                                    <ul>
+                                    {
+                                          assignments.map((item)=>{
+                                              return(
+                                               <li className="list" key={item.id}>{item.title}</li>   
+                                              )
+                                          })
+                                      }
+                                  </ul>   
+                        )}   
+                            </li>
                             </ul>
                         )     
                     }
@@ -389,12 +406,39 @@ function Landpage1(){
                             }
                         </div>   
                     ):(
-                      <div className="assignment-list">
-                        <div className="item">
-                            <p>Fundamentals of OOP</p>
-                            <button className="submit">Submit</button>
+                        <div className="submission-container">
+                        <div className="submit-header">
+                        <h3>Submissions</h3>
+                        <button onClick={handleview} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
-                      </div>
+                        {
+                            viewassignments?(
+                                <div className="submit-content">
+                            <div className="submit-list">
+                                {
+                                    assignments.map((item)=>{
+                                        return(
+                                            <div className="submit-item" key={item.id} >
+                                            <span className="submit-student">{item.studentName}</span>
+                                            <span className="submit-title">{item.title}</span>
+                                            <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
+                                            <button className="submit-btn grade" onClick={handleview}>Submit</button>
+                                        </div>
+                                        )
+                                        
+                                    })
+                                }
+                            </div>
+                    </div>
+                            ):
+                            (
+                                <div>
+                                    <p>shams</p>
+                                </div>
+                            )    
+                        }
+                        
+                    </div>
                     )
                 }
             </div>
