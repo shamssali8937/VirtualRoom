@@ -21,6 +21,7 @@ function Landpage1(){
     let [click,setclick]=useState(true);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
+    let [sid,setsid]=useState();
     let [aobject,setaobject]=useState({
         courseid:0,
         classid:0,
@@ -36,10 +37,7 @@ function Landpage1(){
         comments:""
     })
 
-    const handlegrade=(e)=>{
-        e.preventDefault();
-
-    }
+    
 
     const clear=()=>{
         setaobject({
@@ -58,14 +56,31 @@ function Landpage1(){
         { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
       ]);
 
+      const handlegrade=(e)=>{
+        e.preventDefault();
+        
+    }
+
     const handlesubmissionlist=(assignment)=>{
                setaobject({aname:assignment.title});
+               setsubmission({
+                ...submission,
+                submissionid:assignment.id
+               })
                setsubmissionview(!submissionview);
     }
 
     const handlechange = (event) => {
         const { name, value } = event.target;
         setaobject(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
+    
+    const changeofinput = (event) => {
+        const { name, value } = event.target;
+        setsubmission(prevdata => ({
             ...prevdata,
             [name]: value
         }));
@@ -337,7 +352,7 @@ function Landpage1(){
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item" key={item.id}>
+                                                        <div className="submit-item" key={item.id} >
                                                         <span className="submit-student">{item.studentName}</span>
                                                         <span className="submit-title">{item.title}</span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
@@ -351,9 +366,9 @@ function Landpage1(){
                                         <form onSubmit={handlegrade} className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
                                             <label>{aobject.aname}</label>
-                                            <input type="number" name="submissionid" value={submission.submissionid} readOnly/>
-                                            <input type="number" placeholder="Grades" name="Grades" value={submission.grades} />
-                                            <input type="text" placeholder="Comments" name="Comments" value={submission.comments} />
+                                            <input type="hidden" name="submissionid" value={submission.submissionid} onChange={changeofinput} readOnly/>
+                                            <input type="number" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
+                                            <input type="text" placeholder="Comments" name="comments" value={submission.comments} onChange={changeofinput} required/>
                                             <button className="grade-btn" onClick={(e)=>{e.preventDefault(); setsubmissionview(!submissionview)}}>Cancel</button>
                                             <button className="grade-btn" type="submit">Grade</button>
                                         </form>
