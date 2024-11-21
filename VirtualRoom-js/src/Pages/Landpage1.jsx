@@ -30,6 +30,16 @@ function Landpage1(){
         time:"",
         description:""
     });
+    let [submission,setsubmission]=useState({
+        submissionid:0,
+        grades:"",
+        comments:""
+    })
+
+    const handlegrade=(e)=>{
+        e.preventDefault();
+
+    }
 
     const clear=()=>{
         setaobject({
@@ -328,8 +338,8 @@ function Landpage1(){
                                                 assignments.map((item)=>{
                                                     return(
                                                         <div className="submit-item" key={item.id}>
-                                                        <span className="submit-student"><strong>{item.studentName}</strong></span>
-                                                        <span className="submit-title"><strong>{item.title}</strong></span>
+                                                        <span className="submit-student">{item.studentName}</span>
+                                                        <span className="submit-title">{item.title}</span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
                                                         <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
                                                     </div>
@@ -338,14 +348,15 @@ function Landpage1(){
                                                 })
                                             }
                                         </div>
-                                        <div className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
+                                        <form onSubmit={handlegrade} className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
                                             <label>{aobject.aname}</label>
-                                            <input type="number" placeholder="Grades" name="Grades" />
-                                            <input type="text" placeholder="Comments" name="Comments" />
-                                            <button className="grade-btn" onClick={()=>setsubmissionview(!submissionview)}>Cancel</button>
-                                            <button className="grade-btn">Grade</button>
-                                        </div>
+                                            <input type="number" name="submissionid" value={submission.submissionid} readOnly/>
+                                            <input type="number" placeholder="Grades" name="Grades" value={submission.grades} />
+                                            <input type="text" placeholder="Comments" name="Comments" value={submission.comments} />
+                                            <button className="grade-btn" onClick={(e)=>{e.preventDefault(); setsubmissionview(!submissionview)}}>Cancel</button>
+                                            <button className="grade-btn" type="submit">Grade</button>
+                                        </form>
                                     </div>
                                    </div>
                                    </> 
