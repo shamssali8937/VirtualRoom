@@ -22,7 +22,7 @@ function Landpage1(){
     let [click1,setclick1]=useState(true);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
-    let [viewassignments,setviewassignments]=useState(true);
+    let [viewassignments,setviewassignments]=useState(false);
     let [aobject,setaobject]=useState({
         courseid:0,
         classid:0,
@@ -51,11 +51,7 @@ function Landpage1(){
         description:""
         })
     }
-    const [assignments, setassignments] = useState([
-        { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
-        { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
-        { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
-      ]);
+    const [assignments, setassignments] = useState([]);
 
       const handlegrade=(e)=>{
         e.preventDefault();
@@ -149,6 +145,20 @@ function Landpage1(){
         }));
         setopen(!open);
         console.log(open);
+        console.log(classname);
+        axios.post("https://localhost:7124/api/Virtual/GetAssignment",{name:classname}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                setassignments(response.data.assignment);
+                console.log(assignments);
+            }
+            else
+            {
+                console.log("error in fecting assignment");
+            }
+        })
+
+
     }
 
    let [data,setData]=useState({
@@ -253,6 +263,10 @@ function Landpage1(){
             });
             }
      },[isteacher])
+
+          useEffect(()=>{
+                         
+          })
 
     
    
@@ -379,7 +393,7 @@ function Landpage1(){
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item" key={item.id} >
+                                                        <div className="submit-item" key={item.aid} >
                                                         <span className="submit-student">{item.studentName}</span>
                                                         <span className="submit-title">{item.title}</span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
@@ -407,21 +421,22 @@ function Landpage1(){
                         </div>   
                     ):(
                         <div className="submission-container">
+                         <h3>{classes.classname}</h3>   
                         <div className="submit-header">
-                        <h3>Submissions</h3>
+                        <h3>Assignments</h3>
                         <button onClick={handleview} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
                         {
-                            viewassignments?(
-                                <div className="submit-content">
+                            !viewassignments?(
+                            <div className="submit-content">
                             <div className="submit-list">
                                 {
                                     assignments.map((item)=>{
                                         return(
-                                            <div className="submit-item" key={item.id} >
-                                            <span className="submit-student">{item.studentName}</span>
-                                            <span className="submit-title">{item.title}</span>
-                                            <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
+                                            <div className="submit-item" key={item.aid} >
+                                            {/* <span className="submit-student">{item.studentName}</span> */}
+                                            <span className="submit-title">{item.aname}</span>
+                                            <span className="submit-title">{item.description}</span>
                                             <button className="submit-btn grade" onClick={handleview}>Submit</button>
                                         </div>
                                         )
