@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode'
 import Navbar1 from "../components/Navbar1";
 import { LuHome } from "react-icons/lu";
 import { PiStudentBold } from "react-icons/pi";
-import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaTasks, FaFolder } from "react-icons/fa";
 import { TbArrowBackUp } from "react-icons/tb";
 import "../Css/Landpage1.css";
@@ -19,10 +18,18 @@ function Landpage1(){
     let [isteacher,setisteacher]=useState();
     let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(true);
-    let [click1,setclick1]=useState(true);
+    let [click1,setclick1]=useState(false);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
-    let [viewassignments,setviewassignments]=useState(true);
+    let [viewassignments,setviewassignments]=useState(false);
+    let [issubmitted, setissubmitted] = useState(false);
+    let [submissionlist,setsubmissionlist]=useState([]);
+    let [uploadassignment,setuploadassignment]=useState({
+        aid:0,
+        student:"",
+        description:"",
+        file:""
+    });
     let [aobject,setaobject]=useState({
         courseid:0,
         classid:0,
@@ -37,9 +44,6 @@ function Landpage1(){
         grades:"",
         comments:""
     })
-
-    
-
     const clear=()=>{
         setaobject({
         courseid:0,
@@ -51,11 +55,7 @@ function Landpage1(){
         description:""
         })
     }
-    const [assignments, setassignments] = useState([
-        { id: 1, studentName: 'John Doe', title: 'Math Homework', submitted: true },
-        { id: 2, studentName: 'Jane Smith', title: 'Science Project', submitted: true },
-        { id: 3, studentName: 'Emily Brown', title: 'History Essay', submitted: false },
-      ]);
+    const [assignments, setassignments] = useState([]);
 
       const handlegrade=(e)=>{
         e.preventDefault();
@@ -73,13 +73,22 @@ function Landpage1(){
     }
 
     const handlesubmissionlist=(assignment)=>{
-               setaobject({aname:assignment.title});
+               setaobject({aname:assignment.aname});
                setsubmission({
                 ...submission,
-                submissionid:assignment.id
+                submissionid:assignment.aid
                })
+               console.log(assignment.aid);
                setsubmissionview(!submissionview);
     }
+
+    const changeofsubmission = (event) => {
+        const { name, value } = event.target;
+        setuploadassignment(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
 
     const handlechange = (event) => {
         const { name, value } = event.target;
@@ -96,6 +105,39 @@ function Landpage1(){
             [name]: value
         }));
     };
+    
+    const submitassignment=(e)=>{
+        e.preventDefault();
+        axios.post("https://localhost:7124/api/Virtual/studentid",{name:uploadassignment.student}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                     let sid=response.data.statusmessage;
+                     let credentials={
+                        aid:aobject.aid,
+                        studentid:sid,
+                        description:uploadassignment.description,
+                        file:uploadassignment.file
+                     }
+                     console.log(credentials);
+                     return axios.post("https://localhost:7124/api/Virtual/submit",credentials).then((response)=>{
+                        if(response.data.statuscode===200)
+                        {
+                            alert("Submitted");
+                            setclick1(!click1);
+                            setissubmitted(true);
+                        }
+                        else
+                        {
+                            alert("Data Is Not Submitted");
+                        }
+                     });
+            }
+            else
+            {
+                alert("student not exist");
+            }
+        })
+    }
 
     const Addassignment=(e)=>{
           e.preventDefault();
@@ -133,10 +175,13 @@ function Landpage1(){
         setview(!view);
         setviewassignments(!viewassignments);
     }
-
+    const handleclick1=(assignment)=>{
+        setaobject(assignment);
+        console.log(assignment);
+        setclick1(!click1);
+    }
     const handleclick=()=>{
         setclick(!click);
-        setclick1(!click1);
     }
 
     let [open,setopen]=useState(false);
@@ -149,6 +194,21 @@ function Landpage1(){
         }));
         setopen(!open);
         console.log(open);
+        console.log(classname);
+        axios.post("https://localhost:7124/api/Virtual/GetAssignment",{name:classname}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                const list=response.data.assignment;
+                setassignments(list);
+                console.log(assignments);
+            }
+            else
+            {
+                console.log("error in fecting assignment");
+            }
+        });
+
+
     }
 
    let [data,setData]=useState({
@@ -230,7 +290,8 @@ function Landpage1(){
                axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
                    if(response.data.statuscode===200)
                    {
-                       setClasses(response.data.classes);
+                      setClasses(response.data.classes);
+                       console.log(classes);
                    }
                    else
                    {
@@ -245,6 +306,7 @@ function Landpage1(){
                    if(response.data.statuscode===200)
                    {
                        setClasses(response.data.classes);
+                       console.log(classes);
                    }
                    else
                    {
@@ -253,6 +315,8 @@ function Landpage1(){
             });
             }
      },[isteacher])
+
+          
 
     
    
@@ -277,7 +341,7 @@ function Landpage1(){
                                     {
                                           classes.map((item)=>{
                                               return(
-                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)} >{item.classname}</li>   
+                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)}>{item.classname}</li>   
                                               )
                                           })
                                       }
@@ -287,28 +351,6 @@ function Landpage1(){
                         </li>
 
                     </ul>
-                    {
-                        !isteacher&&(
-                            <ul>
-                            <li><a href="#" onClick={(e)=>{ e.preventDefault(); handleclick();}}><IoDocumentTextOutline className="side-icons"/>To Do</a>
-                            {
-                            click1&&(
-                                
-                                    <ul>
-                                    {
-                                          assignments.map((item)=>{
-                                              return(
-                                               <li className="list" key={item.id}>{item.title}</li>   
-                                              )
-                                          })
-                                      }
-                                  </ul>   
-                        )}   
-                            </li>
-                            </ul>
-                        )     
-                    }
-                   
                 </div>
                 <div className="underline">
                 </div>
@@ -331,7 +373,7 @@ function Landpage1(){
     
                 </div>
                 <div className="class-footer">
-                <FaTasks className="footer-icon" title="Assignments" />
+                <FaTasks className="footer-icon" title="Assignments" onClick={()=>handleopen(item.classname,item.classid)} />
                 <FaFolder className="footer-icon" title="Materials" />
                 </div>
               </div>
@@ -361,9 +403,9 @@ function Landpage1(){
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
-                                       <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
-                                       <label>Due : <input type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
-                                       <label>Time: <input type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label htmlFor="time">Time: <input id="time" type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
                                     </form>
@@ -379,9 +421,9 @@ function Landpage1(){
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item" key={item.id} >
-                                                        <span className="submit-student">{item.studentName}</span>
-                                                        <span className="submit-title">{item.title}</span>
+                                                        <div className="submit-item" key={item.aid} >
+                                                        {/* <span className="submit-student">{item.studentName}</span> */}
+                                                        <span className="submit-title">{item.aname}</span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
                                                         <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
                                                     </div>
@@ -407,29 +449,39 @@ function Landpage1(){
                         </div>   
                     ):(
                         <div className="submission-container">
+                         <h3>{classes.classname}</h3>   
                         <div className="submit-header">
-                        <h3>Submissions</h3>
+                        <h3>Assignments</h3>
                         <button onClick={handleview} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
                         {
-                            viewassignments?(
-                                <div className="submit-content">
+                            !viewassignments?(
+                            <div className="submit-content">
                             <div className="submit-list">
                                 {
                                     assignments.map((item)=>{
                                         return(
-                                            <div className="submit-item" key={item.id} >
-                                            <span className="submit-student">{item.studentName}</span>
-                                            <span className="submit-title">{item.title}</span>
-                                            <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
-                                            <button className="submit-btn grade" onClick={handleview}>Submit</button>
-                                        </div>
+                                            <div className="submit-item" key={item.aid} >
+                                            <span className="submit-title">{item.aname}</span>
+                                            <span className="submit-title">{item.description}</span>
+                                            <button className="submit-btn grade"  onClick={()=>handleclick1(item)}>Submit</button>
+                                            </div>
                                         )
                                         
                                     })
                                 }
                             </div>
-                    </div>
+                            <form onSubmit={submitassignment} className={`submit-container ${click1?"opacity1":"opacity0"}`}>
+                                <h4>Submit</h4>
+                                <label>{aobject.aname}</label>
+                                <input type="number" name="assignmentid" value={aobject.aid}  readOnly/>
+                                <input type="text" name="student" value={uploadassignment.student} onChange={changeofsubmission} required/>
+                                <input type="file" placeholder="file" name="file" onChange={changeofsubmission} />
+                                <input type="text" placeholder="Description" name="description" value={uploadassignment.description} onChange={changeofsubmission} required/>
+                                <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
+                                <button className="submitbtn" type="submit">Submit</button>
+                            </form>
+                           </div>
                             ):
                             (
                                 <div>
