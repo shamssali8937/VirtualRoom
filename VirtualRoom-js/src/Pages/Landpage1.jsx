@@ -19,10 +19,16 @@ function Landpage1(){
     let [isteacher,setisteacher]=useState();
     let [selectedclass, setselectedclass] = useState(null);
     let [click,setclick]=useState(true);
-    let [click1,setclick1]=useState(true);
+    let [click1,setclick1]=useState(false);
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
+    let [uploadassignment,setuploadassignment]=useState({
+        aid:0,
+        studentid:0,
+        description:"",
+        file:""
+    });
     let [aobject,setaobject]=useState({
         courseid:0,
         classid:0,
@@ -37,9 +43,6 @@ function Landpage1(){
         grades:"",
         comments:""
     })
-
-    
-
     const clear=()=>{
         setaobject({
         courseid:0,
@@ -69,11 +72,12 @@ function Landpage1(){
     }
 
     const handlesubmissionlist=(assignment)=>{
-               setaobject({aname:assignment.title});
+               setaobject({aname:assignment.aname});
                setsubmission({
                 ...submission,
-                submissionid:assignment.id
+                submissionid:assignment.aid
                })
+               console.log(assignment.aid);
                setsubmissionview(!submissionview);
     }
 
@@ -129,10 +133,13 @@ function Landpage1(){
         setview(!view);
         setviewassignments(!viewassignments);
     }
-
+    const handleclick1=(assignment)=>{
+        setaobject(assignment);
+        console.log(assignment);
+        setclick1(!click1);
+    }
     const handleclick=()=>{
         setclick(!click);
-        setclick1(!click1);
     }
 
     let [open,setopen]=useState(false);
@@ -149,14 +156,15 @@ function Landpage1(){
         axios.post("https://localhost:7124/api/Virtual/GetAssignment",{name:classname}).then((response)=>{
             if(response.data.statuscode===200)
             {
-                setassignments(response.data.assignment);
+                const list=response.data.assignment;
+                setassignments(list);
                 console.log(assignments);
             }
             else
             {
                 console.log("error in fecting assignment");
             }
-        })
+        });
 
 
     }
@@ -264,9 +272,7 @@ function Landpage1(){
             }
      },[isteacher])
 
-          useEffect(()=>{
-                         
-          })
+          
 
     
    
@@ -291,7 +297,7 @@ function Landpage1(){
                                     {
                                           classes.map((item)=>{
                                               return(
-                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)} >{item.classname}</li>   
+                                               <li className="list" key={item.classid} onClick={()=>handleopen(item.classname,item.classid)}>{item.classname}</li>   
                                               )
                                           })
                                       }
@@ -353,9 +359,9 @@ function Landpage1(){
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
                                     </div>
                                     <div className="assignment-detail">
-                                       <label>Date: <input type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
-                                       <label>Due : <input type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
-                                       <label>Time: <input type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label htmlFor="time">Time: <input id="time" type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
                                     </form>
@@ -414,7 +420,7 @@ function Landpage1(){
                                             <div className="submit-item" key={item.aid} >
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
-                                            <button className="submit-btn grade" onClick={handleview}>Submit</button>
+                                            <button className="submit-btn grade" onClick={()=>handleclick1(item)}>Submit</button>
                                             </div>
                                         )
                                         
@@ -424,12 +430,12 @@ function Landpage1(){
                             <form  className={`submit-container ${click1?"opacity1":"opacity0"}`}>
                                 <h4>Submit</h4>
                                 <label>{aobject.aname}</label>
-                                <input type="number" name="assignmentid" readOnly/>
-                                <input type="number" name="studentid" readOnly/>
-                                <input type="file" placeholder="file" name="file" required/>
-                                <input type="text" placeholder="Description" name="description" required/>
-                                <button className="grade-btn">Cancel</button>
-                                <button className="grade-btn" type="submit">Grade</button>
+                                <input type="number" name="assignmentid" value={aobject.aid} readOnly/>
+                                <input type="number" name="studentid" value={uploadassignment.studentid} readOnly/>
+                                <input type="file" placeholder="file" name="file" value={uploadassignment.file}/>
+                                <input type="text" placeholder="Description" name="description" value={uploadassignment.description} required/>
+                                <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
+                                <button className="submitbtn" type="submit">Submit</button>
                             </form>
                            </div>
                             ):
