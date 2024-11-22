@@ -6,7 +6,6 @@ import { jwtDecode } from 'jwt-decode'
 import Navbar1 from "../components/Navbar1";
 import { LuHome } from "react-icons/lu";
 import { PiStudentBold } from "react-icons/pi";
-import { IoDocumentTextOutline } from "react-icons/io5";
 import { FaTasks, FaFolder } from "react-icons/fa";
 import { TbArrowBackUp } from "react-icons/tb";
 import "../Css/Landpage1.css";
@@ -25,7 +24,7 @@ function Landpage1(){
     let [viewassignments,setviewassignments]=useState(false);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
-        studentid:0,
+        student:"",
         description:"",
         file:""
     });
@@ -104,6 +103,38 @@ function Landpage1(){
             [name]: value
         }));
     };
+    
+    const submitassignment=(e)=>{
+        e.preventDefault();
+        axios.post("https://localhost:7124/api/Virtual/studentid",{name:uploadassignment.student}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                     let sid=response.data.statusmessage;
+                     let credentials={
+                        aid:aobject.aid,
+                        studentid:sid,
+                        description:uploadassignment.description,
+                        file:uploadassignment.file
+                     }
+                     console.log(credentials);
+                     return axios.post("https://localhost:7124/api/Virtual/submit",credentials).then((response)=>{
+                        if(response.data.statuscode===200)
+                        {
+                            alert("Submitted");
+                            setclick1(!click1);
+                        }
+                        else
+                        {
+                            alert("Data Is Not Submitted");
+                        }
+                     });
+            }
+            else
+            {
+                alert("student not exist");
+            }
+        })
+    }
 
     const Addassignment=(e)=>{
           e.preventDefault();
@@ -439,12 +470,12 @@ function Landpage1(){
                                     })
                                 }
                             </div>
-                            <form  className={`submit-container ${click1?"opacity1":"opacity0"}`}>
+                            <form onSubmit={submitassignment} className={`submit-container ${click1?"opacity1":"opacity0"}`}>
                                 <h4>Submit</h4>
                                 <label>{aobject.aname}</label>
-                                <input type="number" name="assignmentid" value={aobject.aid} onChange={changeofsubmission} readOnly/>
-                                <input type="number" name="studentid" value={uploadassignment.studentid} onChange={changeofsubmission} readOnly/>
-                                <input type="file" placeholder="file" name="file" value={uploadassignment.file} onChange={changeofsubmission} />
+                                <input type="number" name="assignmentid" value={aobject.aid}  readOnly/>
+                                <input type="text" name="student" value={uploadassignment.student} onChange={changeofsubmission} required/>
+                                <input type="file" placeholder="file" name="file" onChange={changeofsubmission} />
                                 <input type="text" placeholder="Description" name="description" value={uploadassignment.description} onChange={changeofsubmission} required/>
                                 <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
                                 <button className="submitbtn" type="submit">Submit</button>
