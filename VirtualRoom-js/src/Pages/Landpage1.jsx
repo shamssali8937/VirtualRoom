@@ -81,6 +81,14 @@ function Landpage1(){
                setsubmissionview(!submissionview);
     }
 
+    const changeofsubmission = (event) => {
+        const { name, value } = event.target;
+        setuploadassignment(prevdata => ({
+            ...prevdata,
+            [name]: value
+        }));
+    };
+
     const handlechange = (event) => {
         const { name, value } = event.target;
         setaobject(prevdata => ({
@@ -248,11 +256,13 @@ function Landpage1(){
                axios.get("https://localhost:7124/api/Virtual/Classlit").then((response)=>{
                    if(response.data.statuscode===200)
                    {
-                       setClasses(response.data.classes);
+                      setClasses(response.data.classes);
+                       console.log(classes);
                    }
                    else
                    {
                        console.log(response.data.statuscode);
+                       setClasses([]);
                    }
                });
                
@@ -263,10 +273,12 @@ function Landpage1(){
                    if(response.data.statuscode===200)
                    {
                        setClasses(response.data.classes);
+                       console.log(classes);
                    }
                    else
                    {
                        console.log(response.data.statuscode);
+                       setClasses([]);
                    }
             });
             }
@@ -430,10 +442,10 @@ function Landpage1(){
                             <form  className={`submit-container ${click1?"opacity1":"opacity0"}`}>
                                 <h4>Submit</h4>
                                 <label>{aobject.aname}</label>
-                                <input type="number" name="assignmentid" value={aobject.aid} readOnly/>
-                                <input type="number" name="studentid" value={uploadassignment.studentid} readOnly/>
-                                <input type="file" placeholder="file" name="file" value={uploadassignment.file}/>
-                                <input type="text" placeholder="Description" name="description" value={uploadassignment.description} required/>
+                                <input type="number" name="assignmentid" value={aobject.aid} onChange={changeofsubmission} readOnly/>
+                                <input type="number" name="studentid" value={uploadassignment.studentid} onChange={changeofsubmission} readOnly/>
+                                <input type="file" placeholder="file" name="file" value={uploadassignment.file} onChange={changeofsubmission} />
+                                <input type="text" placeholder="Description" name="description" value={uploadassignment.description} onChange={changeofsubmission} required/>
                                 <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
                                 <button className="submitbtn" type="submit">Submit</button>
                             </form>
