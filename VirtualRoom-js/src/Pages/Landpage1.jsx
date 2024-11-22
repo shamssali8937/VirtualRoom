@@ -390,7 +390,7 @@ function Landpage1(){
                         <div className="assignment-container">
                             <div className="assignment-head">
                               <h2>Assignment</h2> 
-                              <button onClick={()=>{handleview}} className="submission">{view?"Back to Create":"View Submissions"}</button>
+                              <button onClick={handleview} className="submission">{view?"Back to Create":"View Submissions"}</button>
                             </div>
                             {
                                 !view?(
