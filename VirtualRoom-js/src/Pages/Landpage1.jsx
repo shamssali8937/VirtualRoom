@@ -22,6 +22,8 @@ function Landpage1(){
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
+    let [issubmitted, setissubmitted] = useState(false);
+    let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
         student:"",
@@ -122,6 +124,7 @@ function Landpage1(){
                         {
                             alert("Submitted");
                             setclick1(!click1);
+                            setissubmitted(true);
                         }
                         else
                         {
@@ -293,7 +296,6 @@ function Landpage1(){
                    else
                    {
                        console.log(response.data.statuscode);
-                       setClasses([]);
                    }
                });
                
@@ -309,7 +311,6 @@ function Landpage1(){
                    else
                    {
                        console.log(response.data.statuscode);
-                       setClasses([]);
                    }
             });
             }
@@ -389,7 +390,7 @@ function Landpage1(){
                         <div className="assignment-container">
                             <div className="assignment-head">
                               <h2>Assignment</h2> 
-                              <button onClick={handleview} className="submission">{view?"Back to Create":"View Submissions"}</button>
+                              <button onClick={()=>{handleview}} className="submission">{view?"Back to Create":"View Submissions"}</button>
                             </div>
                             {
                                 !view?(
@@ -463,7 +464,7 @@ function Landpage1(){
                                             <div className="submit-item" key={item.aid} >
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
-                                            <button className="submit-btn grade" onClick={()=>handleclick1(item)}>Submit</button>
+                                            <button className="submit-btn grade"  onClick={()=>handleclick1(item)}>Submit</button>
                                             </div>
                                         )
                                         
