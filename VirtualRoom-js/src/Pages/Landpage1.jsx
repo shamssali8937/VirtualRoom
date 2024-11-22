@@ -301,28 +301,6 @@ function Landpage1(){
                         </li>
 
                     </ul>
-                    {
-                        !isteacher&&(
-                            <ul>
-                            <li><a href="#" onClick={(e)=>{ e.preventDefault(); handleclick();}}><IoDocumentTextOutline className="side-icons"/>To Do</a>
-                            {
-                            click1&&(
-                                
-                                    <ul>
-                                    {
-                                          assignments.map((item)=>{
-                                              return(
-                                               <li className="list" key={item.id}>{item.title}</li>   
-                                              )
-                                          })
-                                      }
-                                  </ul>   
-                        )}   
-                            </li>
-                            </ul>
-                        )     
-                    }
-                   
                 </div>
                 <div className="underline">
                 </div>
@@ -345,7 +323,7 @@ function Landpage1(){
     
                 </div>
                 <div className="class-footer">
-                <FaTasks className="footer-icon" title="Assignments" />
+                <FaTasks className="footer-icon" title="Assignments" onClick={()=>handleopen(item.classname,item.classid)} />
                 <FaFolder className="footer-icon" title="Materials" />
                 </div>
               </div>
@@ -394,8 +372,8 @@ function Landpage1(){
                                                 assignments.map((item)=>{
                                                     return(
                                                         <div className="submit-item" key={item.aid} >
-                                                        <span className="submit-student">{item.studentName}</span>
-                                                        <span className="submit-title">{item.title}</span>
+                                                        {/* <span className="submit-student">{item.studentName}</span> */}
+                                                        <span className="submit-title">{item.aname}</span>
                                                         <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
                                                         <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
                                                     </div>
@@ -434,17 +412,26 @@ function Landpage1(){
                                     assignments.map((item)=>{
                                         return(
                                             <div className="submit-item" key={item.aid} >
-                                            {/* <span className="submit-student">{item.studentName}</span> */}
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
                                             <button className="submit-btn grade" onClick={handleview}>Submit</button>
-                                        </div>
+                                            </div>
                                         )
                                         
                                     })
                                 }
                             </div>
-                    </div>
+                            <form  className={`submit-container ${click1?"opacity1":"opacity0"}`}>
+                                <h4>Submit</h4>
+                                <label>{aobject.aname}</label>
+                                <input type="number" name="assignmentid" readOnly/>
+                                <input type="number" name="studentid" readOnly/>
+                                <input type="file" placeholder="file" name="file" required/>
+                                <input type="text" placeholder="Description" name="description" required/>
+                                <button className="grade-btn">Cancel</button>
+                                <button className="grade-btn" type="submit">Grade</button>
+                            </form>
+                           </div>
                             ):
                             (
                                 <div>
