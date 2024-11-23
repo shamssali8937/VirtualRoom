@@ -43,7 +43,7 @@ function Landpage1(){
 
     });
     let [submission,setsubmission]=useState({
-        submissionid:0,
+        sid:"",
         grades:"",
         comments:""
     })
@@ -60,11 +60,30 @@ function Landpage1(){
         });
     }
 
-    const switchviewlist = (id) => {
+    const switchviewlist = (aid) => {
         setviewlist((prev) => ({
           ...prev,
-          [id]: !prev[id],
+          [aid]: !prev[aid],
         }));
+       axios.post("https://localhost:7124/api/Virtual/SubmissionList",{id:aid}).then((response)=>{
+        if(response.data.statuscode===200)
+        {
+            console.log(response.data.submission);
+            setsubmissionlist(submissionlist=response.data.submission);
+            console.log("submissionlist",submissionlist);
+        }
+        else if(response.data.statuscode===400){
+            alert("no submission for the assignment");
+            setsubmissionlist([]);
+        }
+        else
+        {
+            alert("no submission for the assignment");
+            setsubmissionlist([]);
+            console.log("submissionlist",submissionlist);
+        }
+       });
+
       };
 
     const [assignments, setassignments] = useState([]);
@@ -72,25 +91,26 @@ function Landpage1(){
       const handlegrade=(e)=>{
         e.preventDefault();
         console.log(submission);
-        // axios.post("https://localhost:7124/api/Virtual/Grade",submission).then((response)=>{
-        //     if(response.data.statuscode===200)
-        //     {
-        //         alert("Graded");
-        //     }
-        //     else
-        //     {
-        //         alert("error in grading");
-        //     }
-        // })
+        axios.post("https://localhost:7124/api/Virtual/Grade",submission).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                alert("Graded");
+            }
+            else
+            {
+                alert("error in grading");
+            }
+        });
     }
 
     const handlesubmissionlist=(assignment)=>{
                setaobject({aname:assignment.aname});
                setsubmission({
-                ...submission,
-                submissionid:assignment.aid
+                grades: "",
+                comments: "",
+                sid:assignment.submissionid
                })
-               console.log(assignment.aid);
+               console.log("sid",assignment.submissionid);
                setsubmissionview(!submissionview);
     }
 
@@ -444,14 +464,22 @@ function Landpage1(){
                                                         <li className="asubmit-item" key={item.aid} >
                                                         <span className="item-content">{item.aname}</span>
                                                         <span className="item-content">{item.description}</span>
-                                                        {/* <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>view</button> */}
-                                                        <button className="item-content submit-btn grade" onClick={()=>{switchviewlist(item.aid)}}>view</button>
+                                                        <button className="item-content submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
                                                         {viewlist[item.aid]&& (
                                                             <ul className="asub-list">
-                                                                <li className="asub-item">
-                                                                    <span className="asub-title">{item.aname}</span>
-                                                                    <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
-                                                                </li>
+                                                                {
+                                                                    submissionlist.map((item)=>{
+                                                                         return(
+                                                                            <li className="asub-item" key={item.submissionid}>
+                                                                            <span className="asub-title">{item.student}</span>
+                                                                            <span className="asub-title">{item.description}</span>
+                                                                            <span className="asub-title">{item.file}</span>
+                                                                            <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
+                                                                            </li>
+                                                                         );
+                                                                    })
+                                                                }
+                                                               
                                                             </ul>
                                                         )}
                                                         </li>
@@ -463,8 +491,8 @@ function Landpage1(){
                                         <form onSubmit={handlegrade} className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
                                             <label>{aobject.aname}</label>
-                                            <input type="hidden" name="submissionid" value={submission.submissionid} onChange={changeofinput} readOnly/>
-                                            <input type="number" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
+                                            <input type="hidden" name="submissionid" value={submission.sid} onChange={changeofinput} readOnly/>
+                                            <input type="text" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
                                             <input type="text" placeholder="Comments" name="comments" value={submission.comments} onChange={changeofinput} required/>
                                             <button className="grade-btn" onClick={(e)=>{e.preventDefault(); setsubmissionview(!submissionview)}}>Cancel</button>
                                             <button className="grade-btn" type="submit">Grade</button>
