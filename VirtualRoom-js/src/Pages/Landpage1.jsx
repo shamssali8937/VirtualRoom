@@ -37,7 +37,9 @@ function Landpage1(){
         date:"",
         due:"",
         time:"",
-        description:""
+        description:"",
+        file:""
+
     });
     let [submission,setsubmission]=useState({
         submissionid:0,
@@ -52,8 +54,9 @@ function Landpage1(){
         date:"",
         due:"",
         time:"",
-        description:""
-        })
+        description:"",
+        file:""
+        });
     }
     const [assignments, setassignments] = useState([]);
 
@@ -116,7 +119,8 @@ function Landpage1(){
                         aid:aobject.aid,
                         studentid:sid,
                         description:uploadassignment.description,
-                        file:uploadassignment.file
+                        file:uploadassignment.file,
+                        issubmit:true
                      }
                      console.log(credentials);
                      return axios.post("https://localhost:7124/api/Virtual/submit",credentials).then((response)=>{
@@ -401,6 +405,7 @@ function Landpage1(){
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
+                                        <input type="file" name="file"  />
                                     </div>
                                     <div className="assignment-detail">
                                        <label htmlFor="date">Date: <input id="date" type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
