@@ -34,8 +34,8 @@ function Landpage1(){
         courseid:0,
         classid:0,
         aname:"",
-        date:"",
-        due:"",
+        dated:"",
+        duedate:"",
         time:"",
         description:"",
         file:""
@@ -51,8 +51,8 @@ function Landpage1(){
         courseid:0,
         classid:0,
         aname:"",
-        date:"",
-        due:"",
+        dated:"",
+        duedate:"",
         time:"",
         description:"",
         file:""
@@ -152,7 +152,8 @@ function Landpage1(){
                 let updatedobject = {
                     ...aobject,
                     time:aobject.time + ':00',
-                    courseid: cid
+                    courseid: cid,
+                    file:aobject.file
                 };
                 console.log(cid);
                 console.log(updatedobject);
@@ -405,11 +406,11 @@ function Landpage1(){
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
-                                        <input type="file" name="file"  />
+                                        <input type="file" name="file" value={aobject.file} onChange={handlechange}  />
                                     </div>
                                     <div className="assignment-detail">
-                                       <label htmlFor="date">Date: <input id="date" type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
-                                       <label htmlFor="due">Due : <input id="due" type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={aobject.dated} onChange={handlechange} required/></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={aobject.duedate} onChange={handlechange} required /></label>
                                        <label htmlFor="time">Time: <input id="time" type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
