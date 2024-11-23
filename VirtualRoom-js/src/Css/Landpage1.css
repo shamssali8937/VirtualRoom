@@ -444,3 +444,71 @@ nav ul li a:hover{
     cursor: pointer;
     transition: background-color 0.3s ease-in-out;
 }
+
+.asubmission-container{
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    background-color: #f9f9f9;
+    padding: 1.1rem;
+    border-radius: 8px;
+    box-sizing: border-box;
+}
+
+.asubmit-header h3{
+    font-size: 1.2rem;
+    margin-bottom: 0.625rem;
+    color: #333;
+    text-align: center;
+}
+
+.asubmit-content{
+    margin-top: 0.625rem;
+}
+.item-content {
+    font-size: 1rem;
+    margin: 0.2rem 1rem ;
+  }
+.asubmit-list{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.asubmit-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background: #fff;
+    border-radius: 6px;
+    padding: 1.1rem;
+    margin-bottom: 0.625rem;
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    transition: box-shadow 0.3s;
+}
+.asub-list{
+    list-style: none;
+    padding: 0.625rem;
+    margin-top: 0.625rem;
+    width: 100%;
+    border-radius: 6px;
+    display: block;
+    box-sizing: border-box;
+}
+
+.asub-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.625rem;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin-bottom: 0.345rem;
+}
+
+
+

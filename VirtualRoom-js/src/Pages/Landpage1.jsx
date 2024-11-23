@@ -22,7 +22,7 @@ function Landpage1(){
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
-    let [viewlist,setviewlist]=useState(false);
+    let [viewlist,setviewlist]=useState({});
     let [issubmitted, setissubmitted] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
@@ -59,6 +59,14 @@ function Landpage1(){
         file:""
         });
     }
+
+    const switchviewlist = (id) => {
+        setviewlist((prev) => ({
+          ...prev,
+          [id]: !prev[id],
+        }));
+      };
+
     const [assignments, setassignments] = useState([]);
 
       const handlegrade=(e)=>{
@@ -130,6 +138,11 @@ function Landpage1(){
                             alert("Submitted");
                             setclick1(!click1);
                             setissubmitted(true);
+                        }
+                        else if(response.data.statuscode===100)
+                        {
+                            alert("already Submited");
+                            setclick1(!click1);
                         }
                         else
                         {
@@ -432,8 +445,8 @@ function Landpage1(){
                                                         <span className="item-content">{item.aname}</span>
                                                         <span className="item-content">{item.description}</span>
                                                         {/* <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>view</button> */}
-                                                        <button className="submit-btn grade" onClick={()=>{setviewlist(!viewlist)}}>view</button>
-                                                        {viewlist && (
+                                                        <button className="item-content submit-btn grade" onClick={()=>{switchviewlist(item.aid)}}>view</button>
+                                                        {viewlist[item.aid]&& (
                                                             <ul className="asub-list">
                                                                 <li className="asub-item">
                                                                     <span className="asub-title">{item.aname}</span>
