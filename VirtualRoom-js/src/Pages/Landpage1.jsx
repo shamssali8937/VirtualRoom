@@ -22,6 +22,7 @@ function Landpage1(){
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
+    let [viewlist,setviewlist]=useState({});
     let [issubmitted, setissubmitted] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
@@ -34,13 +35,15 @@ function Landpage1(){
         courseid:0,
         classid:0,
         aname:"",
-        date:"",
-        due:"",
+        dated:"",
+        duedate:"",
         time:"",
-        description:""
+        description:"",
+        file:""
+
     });
     let [submission,setsubmission]=useState({
-        submissionid:0,
+        sid:"",
         grades:"",
         comments:""
     })
@@ -49,36 +52,65 @@ function Landpage1(){
         courseid:0,
         classid:0,
         aname:"",
-        date:"",
-        due:"",
+        dated:"",
+        duedate:"",
         time:"",
-        description:""
-        })
+        description:"",
+        file:""
+        });
     }
+
+    const switchviewlist = (aid) => {
+        setviewlist((prev) => ({
+          ...prev,
+          [aid]: !prev[aid],
+        }));
+       axios.post("https://localhost:7124/api/Virtual/SubmissionList",{id:aid}).then((response)=>{
+        if(response.data.statuscode===200)
+        {
+            console.log(response.data.submission);
+            setsubmissionlist(submissionlist=response.data.submission);
+            console.log("submissionlist",submissionlist);
+        }
+        else if(response.data.statuscode===400){
+            alert("no submission for the assignment");
+            setsubmissionlist([]);
+        }
+        else
+        {
+            alert("no submission for the assignment");
+            setsubmissionlist([]);
+            console.log("submissionlist",submissionlist);
+        }
+       });
+
+      };
+
     const [assignments, setassignments] = useState([]);
 
       const handlegrade=(e)=>{
         e.preventDefault();
         console.log(submission);
-        // axios.post("https://localhost:7124/api/Virtual/Grade",submission).then((response)=>{
-        //     if(response.data.statuscode===200)
-        //     {
-        //         alert("Graded");
-        //     }
-        //     else
-        //     {
-        //         alert("error in grading");
-        //     }
-        // })
+        axios.post("https://localhost:7124/api/Virtual/Grade",submission).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                alert("Graded");
+            }
+            else
+            {
+                alert("error in grading");
+            }
+        });
     }
 
     const handlesubmissionlist=(assignment)=>{
                setaobject({aname:assignment.aname});
                setsubmission({
-                ...submission,
-                submissionid:assignment.aid
+                grades: "",
+                comments: "",
+                sid:assignment.submissionid
                })
-               console.log(assignment.aid);
+               console.log("sid",assignment.submissionid);
                setsubmissionview(!submissionview);
     }
 
@@ -116,7 +148,8 @@ function Landpage1(){
                         aid:aobject.aid,
                         studentid:sid,
                         description:uploadassignment.description,
-                        file:uploadassignment.file
+                        file:uploadassignment.file,
+                        issubmit:true
                      }
                      console.log(credentials);
                      return axios.post("https://localhost:7124/api/Virtual/submit",credentials).then((response)=>{
@@ -125,6 +158,11 @@ function Landpage1(){
                             alert("Submitted");
                             setclick1(!click1);
                             setissubmitted(true);
+                        }
+                        else if(response.data.statuscode===100)
+                        {
+                            alert("already Submited");
+                            setclick1(!click1);
                         }
                         else
                         {
@@ -148,7 +186,8 @@ function Landpage1(){
                 let updatedobject = {
                     ...aobject,
                     time:aobject.time + ':00',
-                    courseid: cid
+                    courseid: cid,
+                    file:aobject.file
                 };
                 console.log(cid);
                 console.log(updatedobject);
@@ -401,10 +440,11 @@ function Landpage1(){
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
+                                        <input type="file" name="file" value={aobject.file} onChange={handlechange}  />
                                     </div>
                                     <div className="assignment-detail">
-                                       <label htmlFor="date">Date: <input id="date" type="date" name="date" value={aobject.date} onChange={handlechange} required/></label>
-                                       <label htmlFor="due">Due : <input id="due" type="date" name="due" value={aobject.due} onChange={handlechange} required /></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={aobject.dated} onChange={handlechange} required/></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={aobject.duedate} onChange={handlechange} required /></label>
                                        <label htmlFor="time">Time: <input id="time" type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     <button className="assign-btn" type="submit">Assign</button>
@@ -412,31 +452,47 @@ function Landpage1(){
                                     </>
                                 ):(
                                    <>
-                                   <div className="submission-container">
-                                    <div className="submit-header">
+                                   <div className="asubmission-container">
+                                    <div className="asubmit-header">
                                     <h3>Submissions</h3>
                                     </div>
-                                    <div className="submit-content">
-                                        <div className="submit-list">
+                                    <div className="asubmit-content">
+                                        <ul className="asubmit-list">
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item" key={item.aid} >
-                                                        {/* <span className="submit-student">{item.studentName}</span> */}
-                                                        <span className="submit-title">{item.aname}</span>
-                                                        <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
-                                                        <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
-                                                    </div>
+                                                        <li className="asubmit-item" key={item.aid} >
+                                                        <span className="item-content">{item.aname}</span>
+                                                        <span className="item-content">{item.description}</span>
+                                                        <button className="item-content submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
+                                                        {viewlist[item.aid]&& (
+                                                            <ul className="asub-list">
+                                                                {
+                                                                    submissionlist.map((item)=>{
+                                                                         return(
+                                                                            <li className="asub-item" key={item.submissionid}>
+                                                                            <span className="asub-title">{item.student}</span>
+                                                                            <span className="asub-title">{item.description}</span>
+                                                                            <span className="asub-title">{item.file}</span>
+                                                                            <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
+                                                                            </li>
+                                                                         );
+                                                                    })
+                                                                }
+                                                               
+                                                            </ul>
+                                                        )}
+                                                        </li>
                                                     )
                                                     
                                                 })
                                             }
-                                        </div>
+                                        </ul>
                                         <form onSubmit={handlegrade} className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
                                             <label>{aobject.aname}</label>
-                                            <input type="hidden" name="submissionid" value={submission.submissionid} onChange={changeofinput} readOnly/>
-                                            <input type="number" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
+                                            <input type="hidden" name="submissionid" value={submission.sid} onChange={changeofinput} readOnly/>
+                                            <input type="text" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
                                             <input type="text" placeholder="Comments" name="comments" value={submission.comments} onChange={changeofinput} required/>
                                             <button className="grade-btn" onClick={(e)=>{e.preventDefault(); setsubmissionview(!submissionview)}}>Cancel</button>
                                             <button className="grade-btn" type="submit">Grade</button>
