@@ -22,6 +22,7 @@ function Landpage1(){
     let [view,setview]=useState(false);
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
+    let [viewlist,setviewlist]=useState(false);
     let [issubmitted, setissubmitted] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
@@ -418,26 +419,34 @@ function Landpage1(){
                                     </>
                                 ):(
                                    <>
-                                   <div className="submission-container">
-                                    <div className="submit-header">
+                                   <div className="asubmission-container">
+                                    <div className="asubmit-header">
                                     <h3>Submissions</h3>
                                     </div>
-                                    <div className="submit-content">
-                                        <div className="submit-list">
+                                    <div className="asubmit-content">
+                                        <ul className="asubmit-list">
                                             {
                                                 assignments.map((item)=>{
                                                     return(
-                                                        <div className="submit-item" key={item.aid} >
-                                                        {/* <span className="submit-student">{item.studentName}</span> */}
-                                                        <span className="submit-title">{item.aname}</span>
-                                                        <span className="submit-status">{item.submitted?"Submitted":"Not Submitted"}</span>
-                                                        <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>Grade</button>
-                                                    </div>
+                                                        <li className="asubmit-item" key={item.aid} >
+                                                        <span className="item-content">{item.aname}</span>
+                                                        <span className="item-content">{item.description}</span>
+                                                        {/* <button className="submit-btn grade" onClick={()=>handlesubmissionlist(item)}>view</button> */}
+                                                        <button className="submit-btn grade" onClick={()=>{setviewlist(!viewlist)}}>view</button>
+                                                        {viewlist && (
+                                                            <ul className="asub-list">
+                                                                <li className="asub-item">
+                                                                    <span className="asub-title">{item.aname}</span>
+                                                                    <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
+                                                                </li>
+                                                            </ul>
+                                                        )}
+                                                        </li>
                                                     )
                                                     
                                                 })
                                             }
-                                        </div>
+                                        </ul>
                                         <form onSubmit={handlegrade} className={`grade-container ${submissionview?"opacity1":"opacity0"}`}>
                                             <h4>Grade</h4>
                                             <label>{aobject.aname}</label>

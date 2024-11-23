@@ -293,6 +293,8 @@ nav ul li a:hover{
     flex-direction: column;
     gap: 0.625rem;
     position: relative;
+    list-style-type: none;
+    padding: 0;
 }
 
 .submit-item{
