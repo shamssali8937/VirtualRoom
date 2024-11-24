@@ -65,10 +65,12 @@ function Landpage1(){
     }
 
     const switchviewlist = (aid) => {
+        console.log("viewlist1",viewlist);
         setviewlist((prev) => ({
           ...prev,
           [aid]: !prev[aid],
         }));
+        console.log("viewlist2",viewlist);
         setsubmissionlist([]); 
        axios.post("https://localhost:7124/api/Virtual/SubmissionList",{id:aid}).then((response)=>{
         if(response.data.statuscode===200)
@@ -77,10 +79,6 @@ function Landpage1(){
             setsubmissionlist(submissionlist=response.data.submission);
             console.log("submissionlist",submissionlist);
         }
-        else if(response.data.statuscode===400){
-            alert("no submission for the assignment");
-            setsubmissionlist([]);
-        }
         else
         {
             alert("no submission for the assignment");
@@ -88,7 +86,6 @@ function Landpage1(){
             console.log("submissionlist",submissionlist);
         }
        });
-
       };
 
     const [assignments, setassignments] = useState([]);
@@ -213,10 +210,14 @@ function Landpage1(){
             }
           });
     }
-      
-    const handleview=(clname)=>{
+    const handleview=()=>{
         setview(!view);
         setviewassignments(!viewassignments);
+    }  
+    const handleviewstudent=(clname)=>{
+        setview(!view);
+        setviewassignments(!viewassignments);
+        console.log("teacher",isteacher);
         if(viewassignments===false){
             console.log("class",clname);
             const token=localStorage.getItem('token');
@@ -527,10 +528,10 @@ function Landpage1(){
                         </div>   
                     ):(
                         <div className="submission-container">
-                         {/* <h3>{selectedclass}</h3>    */}
+                         {/* <h3>{isteacher}</h3>    */}
                         <div className="submit-header">
                         <h3>Assignments</h3>
-                        <button onClick={()=>handleview(selectedclass)} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
+                        <button onClick={()=>handleviewstudent(selectedclass)} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
                         {
                             !viewassignments?(
@@ -568,7 +569,8 @@ function Landpage1(){
                                     {
                                         checkgrade.map((item)=>{
                                          return(
-                                           <div className="submit-item" key={item.gid}>
+                                           <div className="submit-item" key={item.id}>
+                                            <span className="submit-title">{item.id}</span>
                                            <span className="submit-title">{item.aname}</span>
                                            <span className="submit-title">{item.comments}</span>
                                            <span className="submit-title">{item.grade}/100</span>
