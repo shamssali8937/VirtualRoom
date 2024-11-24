@@ -23,7 +23,11 @@ function Landpage1(){
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
     let [viewlist,setviewlist]=useState({});
-    let [issubmitted, setissubmitted] = useState(false);
+    let [checkgrade,setcheckgrade]=useState([]);
+    let [issubmitted, setissubmitted] = useState({
+        grade:false,
+        submit:false
+    });
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
@@ -65,6 +69,7 @@ function Landpage1(){
           ...prev,
           [aid]: !prev[aid],
         }));
+        setsubmissionlist([]); 
        axios.post("https://localhost:7124/api/Virtual/SubmissionList",{id:aid}).then((response)=>{
         if(response.data.statuscode===200)
         {
@@ -157,7 +162,6 @@ function Landpage1(){
                         {
                             alert("Submitted");
                             setclick1(!click1);
-                            setissubmitted(true);
                         }
                         else if(response.data.statuscode===100)
                         {
@@ -210,9 +214,27 @@ function Landpage1(){
           });
     }
       
-    const handleview=()=>{
+    const handleview=(clname)=>{
         setview(!view);
         setviewassignments(!viewassignments);
+        if(viewassignments===false){
+            console.log("class",clname);
+            const token=localStorage.getItem('token');
+            axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+            axios.post("https://localhost:7124/api/Virtual/checkgrades",{name:clname}).then((response)=>{
+                if(response.data.statuscode===200)
+                {
+                    setcheckgrade(response.data.grades);
+                    console.log("check",checkgrade);
+                }
+                else
+                {
+                    alert("No Assignment is graded yet");
+                    console.log("No Assignment is graded yet");
+                }
+            });
+        }
+        
     }
     const handleclick1=(assignment)=>{
         setaobject(assignment);
@@ -471,10 +493,10 @@ function Landpage1(){
                                                                     submissionlist.map((item)=>{
                                                                          return(
                                                                             <li className="asub-item" key={item.submissionid}>
-                                                                            <span className="asub-title">{item.student}</span>
-                                                                            <span className="asub-title">{item.description}</span>
-                                                                            <span className="asub-title">{item.file}</span>
-                                                                            <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
+                                                                            <p className="asub-title">{item.student}</p>
+                                                                            <p className="asub-title">{item.description}</p>
+                                                                            <p className="asub-title">{item.file}</p>        
+                                                                            <button className="asub-title submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
                                                                             </li>
                                                                          );
                                                                     })
@@ -505,10 +527,10 @@ function Landpage1(){
                         </div>   
                     ):(
                         <div className="submission-container">
-                         <h3>{classes.classname}</h3>   
+                         {/* <h3>{selectedclass}</h3>    */}
                         <div className="submit-header">
                         <h3>Assignments</h3>
-                        <button onClick={handleview} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
+                        <button onClick={()=>handleview(selectedclass)} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
                         {
                             !viewassignments?(
@@ -541,7 +563,21 @@ function Landpage1(){
                             ):
                             (
                                 <div>
-                                    <p>shams</p>
+                                  <div className="submit-content">
+                                  <div className="submit-list">
+                                    {
+                                        checkgrade.map((item)=>{
+                                         return(
+                                           <div className="submit-item" key={item.gid}>
+                                           <span className="submit-title">{item.aname}</span>
+                                           <span className="submit-title">{item.comments}</span>
+                                           <span className="submit-title">{item.grade}/100</span>
+                                           </div>
+                                         );
+                                        })
+                                    } 
+                                    </div>
+                                  </div>
                                 </div>
                             )    
                         }
