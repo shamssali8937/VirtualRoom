@@ -23,7 +23,11 @@ function Landpage1(){
     let [submissionview,setsubmissionview]=useState(false);
     let [viewassignments,setviewassignments]=useState(false);
     let [viewlist,setviewlist]=useState({});
-    let [issubmitted, setissubmitted] = useState(false);
+    let [checkgrade,setcheckgrade]=useState([]);
+    let [issubmitted, setissubmitted] = useState({
+        grade:false,
+        submit:false
+    });
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
@@ -61,20 +65,19 @@ function Landpage1(){
     }
 
     const switchviewlist = (aid) => {
+        console.log("viewlist1",viewlist);
         setviewlist((prev) => ({
           ...prev,
           [aid]: !prev[aid],
         }));
+        console.log("viewlist2",viewlist);
+        setsubmissionlist([]); 
        axios.post("https://localhost:7124/api/Virtual/SubmissionList",{id:aid}).then((response)=>{
         if(response.data.statuscode===200)
         {
             console.log(response.data.submission);
             setsubmissionlist(submissionlist=response.data.submission);
             console.log("submissionlist",submissionlist);
-        }
-        else if(response.data.statuscode===400){
-            alert("no submission for the assignment");
-            setsubmissionlist([]);
         }
         else
         {
@@ -83,7 +86,6 @@ function Landpage1(){
             console.log("submissionlist",submissionlist);
         }
        });
-
       };
 
     const [assignments, setassignments] = useState([]);
@@ -157,7 +159,6 @@ function Landpage1(){
                         {
                             alert("Submitted");
                             setclick1(!click1);
-                            setissubmitted(true);
                         }
                         else if(response.data.statuscode===100)
                         {
@@ -209,10 +210,32 @@ function Landpage1(){
             }
           });
     }
-      
     const handleview=()=>{
         setview(!view);
         setviewassignments(!viewassignments);
+    }  
+    const handleviewstudent=(clname)=>{
+        setview(!view);
+        setviewassignments(!viewassignments);
+        console.log("teacher",isteacher);
+        if(viewassignments===false){
+            console.log("class",clname);
+            const token=localStorage.getItem('token');
+            axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+            axios.post("https://localhost:7124/api/Virtual/checkgrades",{name:clname}).then((response)=>{
+                if(response.data.statuscode===200)
+                {
+                    setcheckgrade(response.data.grades);
+                    console.log("check",checkgrade);
+                }
+                else
+                {
+                    alert("No Assignment is graded yet");
+                    console.log("No Assignment is graded yet");
+                }
+            });
+        }
+        
     }
     const handleclick1=(assignment)=>{
         setaobject(assignment);
@@ -471,10 +494,10 @@ function Landpage1(){
                                                                     submissionlist.map((item)=>{
                                                                          return(
                                                                             <li className="asub-item" key={item.submissionid}>
-                                                                            <span className="asub-title">{item.student}</span>
-                                                                            <span className="asub-title">{item.description}</span>
-                                                                            <span className="asub-title">{item.file}</span>
-                                                                            <button className="submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
+                                                                            <p className="asub-title">{item.student}</p>
+                                                                            <p className="asub-title">{item.description}</p>
+                                                                            <p className="asub-title">{item.file}</p>        
+                                                                            <button className="asub-title submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
                                                                             </li>
                                                                          );
                                                                     })
@@ -505,10 +528,10 @@ function Landpage1(){
                         </div>   
                     ):(
                         <div className="submission-container">
-                         <h3>{classes.classname}</h3>   
+                         {/* <h3>{isteacher}</h3>    */}
                         <div className="submit-header">
                         <h3>Assignments</h3>
-                        <button onClick={handleview} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
+                        <button onClick={()=>handleviewstudent(selectedclass)} className="submission">{viewassignments?"Back to Assignments":"View Grades"}</button>
                         </div>
                         {
                             !viewassignments?(
@@ -541,7 +564,22 @@ function Landpage1(){
                             ):
                             (
                                 <div>
-                                    <p>shams</p>
+                                  <div className="submit-content">
+                                  <div className="submit-list">
+                                    {
+                                        checkgrade.map((item)=>{
+                                         return(
+                                           <div className="submit-item" key={item.id}>
+                                            <span className="submit-title">{item.id}</span>
+                                           <span className="submit-title">{item.aname}</span>
+                                           <span className="submit-title">{item.comments}</span>
+                                           <span className="submit-title">{item.grade}/100</span>
+                                           </div>
+                                         );
+                                        })
+                                    } 
+                                    </div>
+                                  </div>
                                 </div>
                             )    
                         }

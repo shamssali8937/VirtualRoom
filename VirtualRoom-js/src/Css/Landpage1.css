@@ -502,12 +502,21 @@ nav ul li a:hover{
 .asub-item{
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
     padding: 0.625rem;
     background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 4px;
     margin-bottom: 0.345rem;
+    white-space: pre-wrap;
+   text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+.asub-title{
+    align-items: center;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+    text-overflow: ellipsis;
 }
 
 
