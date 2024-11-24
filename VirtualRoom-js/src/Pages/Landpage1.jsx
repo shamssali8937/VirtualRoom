@@ -214,6 +214,8 @@ function Landpage1(){
         setview(!view);
         setviewassignments(!viewassignments);
     }  
+
+    
     const handleviewstudent=(clname)=>{
         setview(!view);
         setviewassignments(!viewassignments);
