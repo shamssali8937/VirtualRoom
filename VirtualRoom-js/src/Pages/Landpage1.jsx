@@ -24,10 +24,7 @@ function Landpage1(){
     let [viewassignments,setviewassignments]=useState(false);
     let [viewlist,setviewlist]=useState({});
     let [checkgrade,setcheckgrade]=useState([]);
-    let [issubmitted, setissubmitted] = useState({
-        grade:false,
-        submit:false
-    });
+    let [issubmitted, setissubmitted] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
@@ -215,7 +212,32 @@ function Landpage1(){
         setviewassignments(!viewassignments);
     }  
 
-    
+    const checkissubmited=(id)=>{
+        console.log("aid",id);        
+        axios.post("https://localhost:7124/api/Virtual/issubmited",{name:`${id}`}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                console.log("response",response.data.statusmessage.toLowerCase())
+                if(response.data.statusmessage.toLowerCase()=="true")
+                {
+                    setissubmitted(true);
+                    console.log("issubmitted",issubmitted);
+                }
+                else
+                {
+                    setissubmitted(false);
+                    console.log("issubmitted",issubmitted);
+                }
+                
+            }
+            else
+            {
+                console.log("error in checking submission");
+            }
+        })
+
+    }    
+
     const handleviewstudent=(clname)=>{
         setview(!view);
         setviewassignments(!viewassignments);
@@ -380,8 +402,6 @@ function Landpage1(){
             }
      },[isteacher])
 
-          
-
     
    
     return(
@@ -540,12 +560,12 @@ function Landpage1(){
                             <div className="submit-content">
                             <div className="submit-list">
                                 {
-                                    assignments.map((item)=>{
+                                    assignments.map((item)=>{   
                                         return(
-                                            <div className="submit-item" key={item.aid} >
+                                            <div className="submit-item" key={item.aid}>
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
-                                            <button className="submit-btn grade"  onClick={()=>handleclick1(item)}>Submit</button>
+                                            <button className="submit-btn grade" disabled={issubmitted}  onClick={()=>handleclick1(item)}>{issubmitted ? "Already Submitted" : "Submit"}</button>
                                             </div>
                                         )
                                         
