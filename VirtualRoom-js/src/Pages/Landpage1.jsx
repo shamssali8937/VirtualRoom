@@ -241,7 +241,6 @@ function Landpage1(){
     const handleviewstudent=(clname)=>{
         setview(!view);
         setviewassignments(!viewassignments);
-        console.log("teacher",isteacher);
         if(viewassignments===false){
             console.log("class",clname);
             const token=localStorage.getItem('token');
