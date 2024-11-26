@@ -65,15 +65,15 @@ function Signup1()
             <form onSubmit={handlesubmit}>
                 <h1 className='head'>Sign Up</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='Name' name="name" value={data.name} onChange={handlechange} required/>
+                    <input type="text" placeholder='Name' name="name"id='name' value={data.name} onChange={handlechange} required/>
                     <FaUser className='icon'/>
                     </div> 
                 <div className="input-box">
-                    <input type="text" placeholder='Username'  name="username" value={data.username} onChange={handlechange} required/>
+                    <input type="text" placeholder='Username'  name="username" id='username' value={data.username} onChange={handlechange} required/>
                     <FaUser className='icon'/>
                     </div> 
                     <div className="input-box">
-                    <input type="text" placeholder='Email' name="email" value={data.email} onChange={handlechange} required/>
+                    <input type="text" placeholder='Email' name="email" id='email' value={data.email} onChange={handlechange} required/>
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
@@ -81,7 +81,7 @@ function Signup1()
                     <RiLockPasswordFill className='icon'/>
                     </div> 
                     <div className="rember-forget">
-                    <label htmlFor="showpass"><input type="checkbox" name='showpass' onChange={toggleshowpassword} />Show Password</label>
+                    <label htmlFor="showpass"><input type="checkbox" name='showpass' id='showpass' onChange={toggleshowpassword} />Show Password</label>
                     </div>
                     <button type='submit'>Sign Up</button>
 
