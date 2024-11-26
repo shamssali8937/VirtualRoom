@@ -114,19 +114,39 @@ function Landpage1(){
     }
 
     const changeofsubmission = (event) => {
-        const { name, value } = event.target;
-        setuploadassignment(prevdata => ({
+        const { name, value, files } = event.target;
+        if(name==="file")
+        {
+            setuploadassignment(prevdata => ({
             ...prevdata,
-            [name]: value
+            file: files[0], 
         }));
+        }
+        else
+        {
+            setuploadassignment(prevdata => ({
+                ...prevdata,
+                [name]: value
+            }));
+        }
     };
 
     const handlechange = (event) => {
-        const { name, value } = event.target;
-        setaobject(prevdata => ({
-            ...prevdata,
-            [name]: value
-        }));
+        const { name, value, files } = event.target;
+        if (name === "file") 
+        {
+            setaobject(prevdata => ({
+                ...prevdata,
+                file: files[0], 
+            }));
+        } 
+        else 
+        {
+            setaobject(prevdata => ({
+                ...prevdata,
+                [name]: value,
+            }));
+        }
     };
     
     const changeofinput = (event) => {
@@ -139,19 +159,27 @@ function Landpage1(){
     
     const submitassignment=(e)=>{
         e.preventDefault();
+
+        let formdata = new FormData();
+        formdata.append('description', uploadassignment.description);
+        formdata.append('file', uploadassignment.file);
+
         axios.post("https://localhost:7124/api/Virtual/studentid",{name:uploadassignment.student}).then((response)=>{
             if(response.data.statuscode===200)
             {
                      let sid=response.data.statusmessage;
-                     let credentials={
-                        aid:aobject.aid,
-                        studentid:sid,
-                        description:uploadassignment.description,
-                        file:uploadassignment.file,
-                        issubmit:true
-                     }
-                     console.log(credentials);
-                     return axios.post("https://localhost:7124/api/Virtual/submit",credentials).then((response)=>{
+                    //  let credentials={
+                    //     aid:aobject.aid,
+                    //     studentid:sid,
+                    //     description:uploadassignment.description,
+                    //     file:uploadassignment.file,
+                    //     issubmit:true
+                    //  }
+                    formdata.append('aid',aobject.aid);
+                    formdata.append('studentid', sid);
+                    formdata.append('issubmit', true);
+                     console.log(formdata);
+                     return axios.post("https://localhost:7124/api/Virtual/submit",formdata).then((response)=>{
                         if(response.data.statuscode===200)
                         {
                             alert("Submitted");
@@ -177,19 +205,44 @@ function Landpage1(){
 
     const Addassignment=(e)=>{
           e.preventDefault();
+
+          let formdata = new FormData();
+          formdata.append('classid', aobject.classid);
+          formdata.append('aname', aobject.aname);
+          formdata.append('description', aobject.description);
+          formdata.append('dated', aobject.dated);
+          formdata.append('duedate', aobject.duedate);
+          formdata.append('time', aobject.time);
+
+          if(aobject.file)
+            {
+            formdata.append('file', aobject.file);
+          }
+          else
+          {
+            alert("please Upload file");
+          }
+          
+
+
           axios.post("https://localhost:7124/api/Virtual/Getcourse",{classid:aobject.classid}).then((response)=>{
             if(response.data.statuscode===200)
             {
                 let cid=parseInt(response.data.statusmessage);
-                let updatedobject = {
-                    ...aobject,
-                    time:aobject.time + ':00',
-                    courseid: cid,
-                    file:aobject.file
-                };
+                // let updatedobject = {
+                //     ...aobject,
+                //     time:aobject.time + ':00',
+                //     courseid: cid,
+                //     file:aobject.file
+                // };
+                formdata.append('courseid', cid);
                 console.log(cid);
-                console.log(updatedobject);
-                return axios.post("https://localhost:7124/api/Virtual/Addassignment",updatedobject).then((response)=>{
+                console.log(formdata);
+                return axios.post("https://localhost:7124/api/Virtual/Addassignment",formdata,{
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }).then((response)=>{
                     if(response.data.statuscode===200)
                     {
                         alert("Assigned...");
@@ -484,7 +537,7 @@ function Landpage1(){
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
                                         <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
-                                        <input type="file" name="file" value={aobject.file} onChange={handlechange}  />
+                                        <input type="file" name="file" onChange={handlechange}  />
                                     </div>
                                     <div className="assignment-detail">
                                        <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={aobject.dated} onChange={handlechange} required/></label>
@@ -517,7 +570,12 @@ function Landpage1(){
                                                                             <li className="asub-item" key={item.submissionid}>
                                                                             <p className="asub-title">{item.student}</p>
                                                                             <p className="asub-title">{item.description}</p>
-                                                                            <p className="asub-title">{item.file}</p>        
+                                                                            {/* <p className="asub-title">{item.file}</p>         */}
+                                                                            {item.file && (
+                                                                               <a href={item.file} target="_blank" rel="noopener noreferrer" className="submit-file-link">
+                                                                                   Download File
+                                                                               </a>
+                                                                             )}
                                                                             <button className="asub-title submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
                                                                             </li>
                                                                          );
@@ -564,7 +622,7 @@ function Landpage1(){
                                             <div className="submit-item" key={item.aid}>
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
-                                            <button className="submit-btn grade" disabled={issubmitted}  onClick={()=>handleclick1(item)}>{issubmitted ? "Already Submitted" : "Submit"}</button>
+                                            <button className="submit-btn grade" onClick={()=>handleclick1(item)}>Submit</button>
                                             </div>
                                         )
                                         
