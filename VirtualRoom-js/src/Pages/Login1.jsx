@@ -81,15 +81,15 @@ function Login1()
             <form onSubmit={handlesubmit}>
                 <h1 className='head'>Login</h1>
                 <div className="input-box">
-                    <input type="text" placeholder='Email' name='email' value={data.email} onChange={handlechange} required/>
+                    <input type="text" placeholder='Email' name='email' id='email' value={data.email} onChange={handlechange} required/>
                     <MdEmail className='icon'/>
                     </div> 
                     <div className="input-box">
-                    <input type={showpassword ? "text" : "password"} placeholder='Password' name="password" value={data.password} onChange={handlechange} required/>
+                    <input type={showpassword ? "text" : "password"} placeholder='Password' id='password' name="password" value={data.password} onChange={handlechange} required/>
                     <RiLockPasswordFill className='icon'/>
                     </div> 
                     <div className="rember-forget">
-                    <label htmlFor='showpass'><input type="checkbox" name='showpass' onChange={toggleshowpassword} />Show Password</label>
+                    <label htmlFor='showpass'><input type="checkbox" name='showpass' id='showpass' onChange={toggleshowpassword} />Show Password</label>
                      <Link to="/signup1" id="link">Forget password?</Link> 
                     </div>
                     <button type='submit'>Login</button>
