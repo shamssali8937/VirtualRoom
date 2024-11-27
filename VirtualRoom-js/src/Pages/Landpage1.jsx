@@ -573,7 +573,7 @@ function Landpage1(){
                                                                             {/* <p className="asub-title">{item.file}</p>         */}
                                                                             {item.file && (
                                                                                <a href={item.file} target="_blank" rel="noopener noreferrer" className="submit-file-link">
-                                                                                   Download File
+                                                                               File
                                                                                </a>
                                                                              )}
                                                                             <button className="asub-title submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
