@@ -571,9 +571,9 @@ function Landpage1(){
                                                                             <p className="asub-title">{item.student}</p>
                                                                             <p className="asub-title">{item.description}</p>
                                                                             {/* <p className="asub-title">{item.file}</p>         */}
-                                                                            {item.file && (
-                                                                               <a href={item.file} target="_blank" rel="noopener noreferrer" className="submit-file-link">
-                                                                                   Download File
+                                                                                    {item.file && (
+                                                                               <a href={`https://localhost:7124/${item.file}`} target="_blank" rel="noopener noreferrer" className="asub-title submit-file-link">
+                                                                               File
                                                                                </a>
                                                                              )}
                                                                             <button className="asub-title submit-btn grade" onClick={() => handlesubmissionlist(item)}>Grade</button>
@@ -622,6 +622,11 @@ function Landpage1(){
                                             <div className="submit-item" key={item.aid}>
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
+                                            {item.file && (
+                                              <a href={`https://localhost:7124/${item.file}`} target="_blank" rel="noopener noreferrer" className="submit-file-link">
+                                              File
+                                              </a>
+                                            )}
                                             <button className="submit-btn grade" onClick={()=>handleclick1(item)}>Submit</button>
                                             </div>
                                         )
