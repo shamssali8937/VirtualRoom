@@ -8,6 +8,7 @@ import { LuHome } from "react-icons/lu";
 import { PiStudentBold } from "react-icons/pi";
 import { FaTasks, FaFolder } from "react-icons/fa";
 import { TbArrowBackUp } from "react-icons/tb";
+import { MdDelete } from "react-icons/md";
 import "../Css/Landpage1.css";
   
 
@@ -26,6 +27,7 @@ function Landpage1(){
     let [checkgrade,setcheckgrade]=useState([]);
     let [issubmitted, setissubmitted] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
+    let [studentname,setstudentname]=useState("");
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
         student:"",
@@ -168,13 +170,6 @@ function Landpage1(){
             if(response.data.statuscode===200)
             {
                      let sid=response.data.statusmessage;
-                    //  let credentials={
-                    //     aid:aobject.aid,
-                    //     studentid:sid,
-                    //     description:uploadassignment.description,
-                    //     file:uploadassignment.file,
-                    //     issubmit:true
-                    //  }
                     formdata.append('aid',aobject.aid);
                     formdata.append('studentid', sid);
                     formdata.append('issubmit', true);
@@ -192,7 +187,7 @@ function Landpage1(){
                         }
                         else
                         {
-                            alert("Data Is Not Submitted");
+                            alert("Data Is Not Submitted or please upload only pdf file");
                         }
                      });
             }
@@ -229,12 +224,6 @@ function Landpage1(){
             if(response.data.statuscode===200)
             {
                 let cid=parseInt(response.data.statusmessage);
-                // let updatedobject = {
-                //     ...aobject,
-                //     time:aobject.time + ':00',
-                //     courseid: cid,
-                //     file:aobject.file
-                // };
                 formdata.append('courseid', cid);
                 console.log(cid);
                 console.log(formdata);
@@ -247,6 +236,10 @@ function Landpage1(){
                     {
                         alert("Assigned...");
                         clear();
+                    }
+                    else if(response.data.statuscode===101)
+                    {
+                        alert("please upload only pdf file");
                     }
                     else
                     {
@@ -354,6 +347,26 @@ function Landpage1(){
     username:"",
     email:""
 });
+
+    const handleexit=(classname)=>{
+      
+        console.log("class",classname);
+        alert("Are You to leave the class if no then reload the page");     
+        const token=localStorage.getItem("token");
+        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+        axios.post("https://localhost:7124/api/Virtual/Exitclass",{name:classname}).then((response)=>{
+           if(response.data.statuscode==200)
+           {
+               window.location.reload();
+           }
+           else
+           {
+               console.log("error in removing");
+           }
+        });
+
+    }     
+
     let navigate=useNavigate();
     const tokenexpiry=(token)=>{
         if(!token)
@@ -398,6 +411,8 @@ function Landpage1(){
                         username:user.username,
                         email:user.email
                     });
+                    setstudentname(studentname=user.name);
+                    console.log("user",studentname);
                 }
                 else
                 {
@@ -430,10 +445,11 @@ function Landpage1(){
                    {
                       setClasses(response.data.classes);
                        console.log(classes);
+
                    }
                    else
                    {
-                       console.log(response.data.statuscode);
+                       console.log("not a teacher",response.data.statuscode);
                    }
                });
                
@@ -510,7 +526,8 @@ function Landpage1(){
                 </div>
                 <div className="class-footer">
                 <FaTasks className="footer-icon" title="Assignments" onClick={()=>handleopen(item.classname,item.classid)} />
-                <FaFolder className="footer-icon" title="Materials" />
+                {/* <FaFolder className="footer-icon" title="Materials" onClick={()=>handleexit(item.classname)} /> */}
+                <MdDelete className="footer-icon" title="Materials" onClick={()=>handleexit(item.classname)}/>
                 </div>
               </div>
                 );
@@ -570,8 +587,7 @@ function Landpage1(){
                                                                             <li className="asub-item" key={item.submissionid}>
                                                                             <p className="asub-title">{item.student}</p>
                                                                             <p className="asub-title">{item.description}</p>
-                                                                            {/* <p className="asub-title">{item.file}</p>         */}
-                                                                                    {item.file && (
+                                                                            {item.file && (
                                                                                <a href={`https://localhost:7124/${item.file}`} target="_blank" rel="noopener noreferrer" className="asub-title submit-file-link">
                                                                                File
                                                                                </a>
@@ -637,9 +653,9 @@ function Landpage1(){
                             <form onSubmit={submitassignment} className={`submit-container ${click1?"opacity1":"opacity0"}`}>
                                 <h4>Submit</h4>
                                 <label>{aobject.aname}</label>
-                                <input type="number" name="assignmentid" value={aobject.aid}  readOnly/>
-                                <input type="text" name="student" value={uploadassignment.student} onChange={changeofsubmission} required/>
-                                <input type="file" placeholder="file" name="file" onChange={changeofsubmission} />
+                                <input type="hidden" name="assignmentid" value={aobject.aid}  readOnly/>
+                                <input type="hidden" name="student" value={uploadassignment.student=studentname} onChange={changeofsubmission} required/>
+                                <input type="file" placeholder="file" name="file" onChange={changeofsubmission} title="Only Pdf Files" />
                                 <input type="text" placeholder="Description" name="description" value={uploadassignment.description} onChange={changeofsubmission} required/>
                                 <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
                                 <button className="submitbtn" type="submit">Submit</button>
