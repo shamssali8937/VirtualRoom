@@ -26,6 +26,7 @@ function Landpage1(){
     let [viewlist,setviewlist]=useState({});
     let [checkgrade,setcheckgrade]=useState([]);
     let [issubmitted, setissubmitted] = useState(false);
+    let [isgraded, setisgraded] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [studentname,setstudentname]=useState("");
     let [uploadassignment,setuploadassignment]=useState({
@@ -104,6 +105,39 @@ function Landpage1(){
         });
     }
 
+      const checkisgraded=(id)=>{
+        console.log("sid",id);        
+        // const token=localStorage.getItem("token");
+        // axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
+        axios.post("https://localhost:7124/api/Virtual/isgraded",{name:`${id}`}).then((response)=>{
+            if(response.data.statuscode===200)
+            {
+                console.log("response",response.data.statusmessage.toLowerCase())
+                if(response.data.statusmessage.toLowerCase()=="true")
+                {
+                    setisgraded(true);
+                    console.log("issubmitted",issubmitted);
+                }
+                else
+                {
+                    setisgraded(false);
+                    console.log("issubmitted",issubmitted);
+                }
+                
+            }
+            else if(response.data.statuscode===100)
+            {
+                setisgraded(false);
+                console.log("issubmitted",issubmitted);
+            }
+            else
+            {
+                console.log("error in checking submission");
+            }
+        })
+
+    }    
+
     const handlesubmissionlist=(assignment)=>{
                setaobject({aname:assignment.aname});
                setsubmission({
@@ -113,10 +147,11 @@ function Landpage1(){
                })
                console.log("sid",assignment.submissionid);
                setsubmissionview(!submissionview);
+               checkisgraded(assignment.submissionid);
     }
 
     const changeofsubmission = (event) => {
-        const { name, value, files } = event.target;
+         const { name, value, files } = event.target;
         if(name==="file")
         {
             setuploadassignment(prevdata => ({
@@ -260,6 +295,8 @@ function Landpage1(){
 
     const checkissubmited=(id)=>{
         console.log("aid",id);        
+        const token=localStorage.getItem("token");
+        axios.defaults.headers.common['Authorization']=`Bearer ${token}`;    
         axios.post("https://localhost:7124/api/Virtual/issubmited",{name:`${id}`}).then((response)=>{
             if(response.data.statuscode===200)
             {
@@ -276,6 +313,11 @@ function Landpage1(){
                 }
                 
             }
+            else if(response.data.statuscode===100)
+            {
+                setissubmitted(false);
+                console.log("issubmitted",issubmitted);
+            }
             else
             {
                 console.log("error in checking submission");
@@ -283,6 +325,7 @@ function Landpage1(){
         })
 
     }    
+
 
     const handleviewstudent=(clname)=>{
         setview(!view);
@@ -310,6 +353,7 @@ function Landpage1(){
         setaobject(assignment);
         console.log(assignment);
         setclick1(!click1);
+        checkissubmited(assignment.aid);
     }
     const handleclick=()=>{
         setclick(!click);
@@ -578,7 +622,10 @@ function Landpage1(){
                                                         <li className="asubmit-item" key={item.aid} >
                                                         <span className="item-content">{item.aname}</span>
                                                         <span className="item-content">{item.description}</span>
-                                                        <button className="item-content submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
+                                                        <div className="item-content btn-div">
+                                                        <button className="submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
+                                                        {/* <button className="submit-btn grade">Edit</button> */}
+                                                     </div>   
                                                         {viewlist[item.aid]&& (
                                                             <ul className="asub-list">
                                                                 {
@@ -613,7 +660,14 @@ function Landpage1(){
                                             <input type="text" placeholder="Grades" name="grades" value={submission.grades} onChange={changeofinput} required/>
                                             <input type="text" placeholder="Comments" name="comments" value={submission.comments} onChange={changeofinput} required/>
                                             <button className="grade-btn" onClick={(e)=>{e.preventDefault(); setsubmissionview(!submissionview)}}>Cancel</button>
-                                            <button className="grade-btn" type="submit">Grade</button>
+                                            {
+                                               !isgraded?(
+                                                   <button className="grade-btn" type="submit">Grade</button>
+                                               ):(
+                                               <button className="grade-btn disabledg" type="submit">Graded</button>
+                                               )
+                                            }
+                                            
                                         </form>
                                     </div>
                                    </div>
@@ -633,7 +687,11 @@ function Landpage1(){
                             <div className="submit-content">
                             <div className="submit-list">
                                 {
-                                    assignments.map((item)=>{   
+                                    assignments.map((item)=>{
+                                        const date=new Date(`${item.duedate}T${item.time}`) ;
+                                        const  due= new Date()>date;
+                                        // console.log("due",due);
+                                        // console.log("date",date);
                                         return(
                                             <div className="submit-item" key={item.aid}>
                                             <span className="submit-title">{item.aname}</span>
@@ -643,7 +701,7 @@ function Landpage1(){
                                               File
                                               </a>
                                             )}
-                                            <button className="submit-btn grade" onClick={()=>handleclick1(item)}>Submit</button>
+                                            <button className={`submit-btn grade ${due?"disabled":""}`} onClick={()=>handleclick1(item)}>{due?"Due":"Submit"}</button>
                                             </div>
                                         )
                                         
@@ -658,7 +716,14 @@ function Landpage1(){
                                 <input type="file" placeholder="file" name="file" onChange={changeofsubmission} title="Only Pdf Files" />
                                 <input type="text" placeholder="Description" name="description" value={uploadassignment.description} onChange={changeofsubmission} required/>
                                 <button className="submitbtn" onClick={(e)=>{e.preventDefault(); setclick1(!click1)}}>Cancel</button>
-                                <button className="submitbtn" type="submit">Submit</button>
+                                {
+                                   !issubmitted?(
+                                     <button className="submitbtn" type="submit">Submit</button>
+                                   ):(
+                                    <button className="submitbtn disabledg" type="submit">Submited</button>
+                                   )
+                                }
+                                
                             </form>
                            </div>
                             ):
