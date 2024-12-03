@@ -351,7 +351,7 @@ function Landpage1(){
     }
     const handleclick1=(assignment)=>{
         setaobject(assignment);
-        console.log(assignment);
+        console.log(assignment); 
         setclick1(!click1);
         checkissubmited(assignment.aid);
     }
@@ -686,6 +686,16 @@ function Landpage1(){
                             !viewassignments?(
                             <div className="submit-content">
                             <div className="submit-list">
+                            
+                            <h3 className="heading">IF ASSIGNMENT IS SUBMITTED THEN LOOK FOR SUBMISSION</h3>
+                            
+                                            <div className="submit-item">
+                                            <span className="submit-title bold">Assignment Name</span>
+                                            <span className="submit-title bold">Description</span>
+                                            <span className="submit-title bold">Due-Date</span>
+                                            <span className="submit-title bold">Data</span>
+                                            <span className="submit-title bold">Status</span>
+                                            </div>
                                 {
                                     assignments.map((item)=>{
                                         const date=new Date(`${item.duedate}T${item.time}`) ;
@@ -696,12 +706,13 @@ function Landpage1(){
                                             <div className="submit-item" key={item.aid}>
                                             <span className="submit-title">{item.aname}</span>
                                             <span className="submit-title">{item.description}</span>
+                                            <span className="submit-title">{item.duedate}</span>
                                             {item.file && (
                                               <a href={`https://localhost:7124/${item.file}`} target="_blank" rel="noopener noreferrer" className="submit-file-link">
                                               File
                                               </a>
                                             )}
-                                            <button className={`submit-btn grade ${due?"disabled":""}`} onClick={()=>handleclick1(item)}>{due?"Due":"Submit"}</button>
+                                            <button className={`submit-btn grade ${due?"disabled":""}`} onClick={()=>handleclick1(item)} title="if submited Then check for grades">{due?"Closed":"Submit"}</button>
                                             </div>
                                         )
                                         

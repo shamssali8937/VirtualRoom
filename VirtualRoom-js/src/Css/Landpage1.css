@@ -297,10 +297,14 @@ nav ul li a:hover{
     padding: 0;
 }
 
+.bold{
+    font-weight: 700;
+    font-size: larger;
+}
 .submit-item{
     display: grid;
     align-items: center;
-    grid-template-columns: 1.5fr 2fr 1fr 0.8fr;
+    grid-template-columns: 1.5fr 2fr 1fr 0.8fr 0.8fr;
     background: #fff;
     padding: 0.625rem 0.9rem;
     border-radius: 5px;
@@ -555,4 +559,7 @@ nav ul li a:hover{
 .btn-div{
     display: flex;
     gap: 0.3rem;
+}
+.heading{
+    text-align: center;
 }
