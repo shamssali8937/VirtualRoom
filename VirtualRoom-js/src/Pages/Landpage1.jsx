@@ -430,7 +430,7 @@ function Landpage1(){
         }
        };
     
-       useEffect(()=>{
+    useEffect(()=>{ 
          const token=localStorage.getItem('token');
          if(!token){
             console.log("Not authourized");
@@ -624,6 +624,7 @@ function Landpage1(){
                                                         <span className="item-content">{item.description}</span>
                                                         <div className="item-content btn-div">
                                                         <button className="submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
+                                                        <button className="submit-btn grade" onClick={handleview}>Edit</button>
                                                         {/* <button className="submit-btn grade">Edit</button> */}
                                                      </div>   
                                                         {viewlist[item.aid]&& (
