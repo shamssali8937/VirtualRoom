@@ -29,6 +29,8 @@ function Landpage1(){
     let [isgraded, setisgraded] = useState(false);
     let [submissionlist,setsubmissionlist]=useState([]);
     let [studentname,setstudentname]=useState("");
+    let [editmode,seteditmode]=useState(false);
+    let [editid,seteditid]=useState(null);
     let [uploadassignment,setuploadassignment]=useState({
         aid:0,
         student:"",
@@ -36,6 +38,17 @@ function Landpage1(){
         file:""
     });
     let [aobject,setaobject]=useState({
+        courseid:0,
+        classid:0,
+        aname:"",
+        dated:"",
+        duedate:"",
+        time:"",
+        description:"",
+        file:""
+
+    });
+     let [assignmentobject,setassignmentobject]=useState({
         courseid:0,
         classid:0,
         aname:"",
@@ -291,7 +304,7 @@ function Landpage1(){
     const handleview=()=>{
         setview(!view);
         setviewassignments(!viewassignments);
-    }  
+           }  
 
     const checkissubmited=(id)=>{
         console.log("aid",id);        
@@ -430,6 +443,41 @@ function Landpage1(){
         }
        };
     
+    
+    const fetchassignmentbyid=(Id)=>{
+
+        axios.post("https://localhost:7124/api/Virtual/getassignmentbyid",{id:Id}).then((response)=>{
+            if(response.data.statuscode===200){
+                const assign=response.data.assignment[0];
+                setassignmentobject(assign);
+                seteditid(assign.aid);
+                seteditmode(true);
+                setview(!view);
+            }
+        })
+
+    }
+
+    const handlecancel=()=>{
+          seteditmode(false);
+          seteditid(null);
+          setassignmentobject({
+            courseid: 0,
+            classid: 0,
+            aname: "",
+            dated: "",
+            duedate: "",
+            time: "",
+            description: "",
+            file: ""
+          });
+    }
+
+    const editassigment=()=>{
+
+    }
+
+
     useEffect(()=>{ 
          const token=localStorage.getItem('token');
          if(!token){
@@ -593,19 +641,27 @@ function Landpage1(){
                                 !view?(
                                     <>
                                     
-                                    <form onSubmit={Addassignment}>
+                                    <form onSubmit={editid?Addassignment:editassigment}>
                                     <div className="assignment">
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
-                                        <input type="text" placeholder="Title" className="title-input" name="aname" value={aobject.aname} onChange={handlechange} required/>
-                                        <textarea placeholder="Description" className="des-input" name="description" value={aobject.description} onChange={handlechange}></textarea>
+                                        <input type="text" placeholder="Title" className="title-input" name="aname" value={editmode?assignmentobject.aname:aobject.aname} onChange={handlechange} required/>
+                                        <textarea placeholder="Description" className="des-input" name="description" value={editmode?assignmentobject.description:aobject.description} onChange={handlechange}></textarea>
                                         <input type="file" name="file" onChange={handlechange}  />
                                     </div>
                                     <div className="assignment-detail">
-                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={aobject.dated} onChange={handlechange} required/></label>
-                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={aobject.duedate} onChange={handlechange} required /></label>
-                                       <label htmlFor="time">Time: <input id="time" type="time" name="time" value={aobject.time} onChange={handlechange} required/></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={editmode?assignmentobject.dated:aobject.dated} onChange={handlechange} required/></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={editmode?assignmentobject.duedate:aobject.duedate} onChange={handlechange} required /></label>
+                                       <label htmlFor="time">Time: <input id="time" type="time" name="time" value={editmode?assignmentobject.time:aobject.time} onChange={handlechange} required/></label>
                                     </div>
-                                    <button className="assign-btn" type="submit">Assign</button>
+                                    {editmode?(<>
+                                        <button className="submit-btn grade" >Update</button>
+                                        <button className="submit-btn grade" >Delete</button>
+                                        <button className="submit-btn grade" onClick={handlecancel} >Cancel</button>
+                                        </>):
+                                        (
+                                         <button className="assign-btn" type="submit">Assign</button>   
+                                        )
+                                    }
                                     </form>
                                     </>
                                 ):(
@@ -624,7 +680,7 @@ function Landpage1(){
                                                         <span className="item-content">{item.description}</span>
                                                         <div className="item-content btn-div">
                                                         <button className="submit-btn grade" onClick={()=>{switchviewlist(item.aid)}} title={item.aid}>view</button>
-                                                        <button className="submit-btn grade" onClick={handleview}>Edit</button>
+                                                        <button className="submit-btn grade" onClick={()=>fetchassignmentbyid(item.aid)}>Edit</button>
                                                         {/* <button className="submit-btn grade">Edit</button> */}
                                                      </div>   
                                                         {viewlist[item.aid]&& (
