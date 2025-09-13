@@ -641,7 +641,7 @@ function Landpage1(){
                                 !view?(
                                     <>
                                     
-                                    <form onSubmit={editid?Addassignment:editassigment}>
+                                    <form onSubmit={editid?editassigment:Addassignment}>
                                     <div className="assignment">
                                         <input type="text" name="classid" value={aobject.classid} onChange={handlechange} readOnly/>
                                         <input type="text" placeholder="Title" className="title-input" name="aname" value={editmode?assignmentobject.aname:aobject.aname} onChange={handlechange} required/>
