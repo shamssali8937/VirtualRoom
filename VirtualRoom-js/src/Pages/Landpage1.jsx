@@ -649,14 +649,16 @@ function Landpage1(){
                                         <input type="file" name="file" onChange={handlechange}  />
                                     </div>
                                     <div className="assignment-detail">
-                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={editmode?assignmentobject.dated:aobject.dated} onChange={handlechange} required/></label>
-                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={editmode?assignmentobject.duedate:aobject.duedate} onChange={handlechange} required /></label>
+                                       <label htmlFor="date">Date: <input id="date" type="date" name="dated" value={editmode?assignmentobject.dated? new Date(assignmentobject.dated).toISOString().split("T")[0] 
+                                         : "" :aobject.dated} onChange={handlechange} required/*={editmode} readOnly={!editmode}*/ /></label>
+                                       <label htmlFor="due">Due : <input id="due" type="date" name="duedate" value={editmode?assignmentobject.duedate?new Date(assignmentobject.duedate).toISOString().split("T")[0] 
+                                         : "" :aobject.duedate} onChange={handlechange} required /></label>
                                        <label htmlFor="time">Time: <input id="time" type="time" name="time" value={editmode?assignmentobject.time:aobject.time} onChange={handlechange} required/></label>
                                     </div>
                                     {editmode?(<>
                                         <button className="submit-btn grade" >Update</button>
-                                        <button className="submit-btn grade" >Delete</button>
-                                        <button className="submit-btn grade" onClick={handlecancel} >Cancel</button>
+                                        <button className="submit-btn delete" >Delete</button>
+                                        <button className="submit-btn delete" onClick={handlecancel} >Cancel</button>
                                         </>):
                                         (
                                          <button className="assign-btn" type="submit">Assign</button>   

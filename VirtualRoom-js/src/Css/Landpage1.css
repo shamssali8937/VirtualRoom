@@ -328,8 +328,13 @@ nav ul li a:hover{
     border: none;
     padding: 0.325rem 0.625rem;
     border-radius: 5px;
+    margin-left: 2px;
     cursor: pointer;
   }
+
+.delete{
+    background-color:red;
+}  
   
 .grade{
     background-color: #28a745;
